@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:742494299064:android:b8e4c392697f62c741654d",
+        "mobilesdk_app_id": "1:742494299064:android:731d5c5af4b6623241654d",
         "android_client_info": {
-          "package_name": "com.example.flutter_sportshive"
+          "package_name": "com.example.sportshive"
         }
       },
       "oauth_client": [

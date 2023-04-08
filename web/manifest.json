@@ -1,6 +1,6 @@
 {
-    "name": "flutter_sportshive",
-    "short_name": "flutter_sportshive",
+    "name": "sportshive",
+    "short_name": "sportshive",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

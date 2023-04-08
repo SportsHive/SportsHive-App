@@ -1,4 +1,4 @@
-# flutter_sportshive
+# sportshive
 
 A new Flutter project.
 
