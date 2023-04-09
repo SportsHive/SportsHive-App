@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sportshive/componnets/background.dart';
+import 'package:sportshive/componnets/rounded_button.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
+import 'welcome_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen ({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  _SignUpState createState() => _SignUpState();
-
+  SignUpScreenState createState() => SignUpScreenState();
 }
 
-class _SignUpState extends State<SignUpScreen> {
+class SignUpScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
@@ -19,7 +21,6 @@ class _SignUpState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-
     super.dispose();
     _emailController.dispose();
     _passController.dispose();
@@ -28,105 +29,122 @@ class _SignUpState extends State<SignUpScreen> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Background(
         child: Container(
-          padding : const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-         
-              Flexible(child: Container(), flex: 2,),
-                   //svg image
+              Flexible(
+                child: Container(),
+                flex: 2,
+              ),
+              //svg image
               SvgPicture.asset(
-                'assets/login_logo.svg', 
-               height: 140,
-               ),
-               const SizedBox(height: 25),
+                'assets/login_logo_emptybackg.svg',
+                height: 140,
+              ),
+              const SizedBox(height: 50),
+
               //textfield for username
-                  TextFieldInput(
-                textEditingController:  _userController, 
+              TextFieldInput(
+                textEditingController: _userController,
                 hintText: 'Create a username',
-                 textInputType: TextInputType.text
-                 ),
-                 const SizedBox(
-                height: 24
-                ),
+                textInputType: TextInputType.text,
+                prefixIcon: Icons.person,
+                borderColor: Color.fromARGB(255, 0, 0, 0),
+                borderRadius: 15,
+                borderWidth: 2.0,
+              ),
+              const SizedBox(height: 24),
               //textfield for email
               TextFieldInput(
-                textEditingController:  _emailController, 
+                textEditingController: _emailController,
                 hintText: 'Enter your email',
-                 textInputType: TextInputType.emailAddress
-                 ),
-              //textfeild for password
-              const SizedBox(
-                height: 24
-                ),
-                 TextFieldInput(
-                textEditingController:  _passController, 
+                textInputType: TextInputType.emailAddress,
+                prefixIcon: Icons.email,
+                borderColor: Color.fromARGB(255, 0, 0, 0),
+                borderRadius: 15,
+                borderWidth: 2.0,
+              ),
+              const SizedBox(height: 24),
+              //textfield for password
+              TextFieldInput(
+                textEditingController: _passController,
                 hintText: 'Enter your password',
-                 textInputType: TextInputType.text,
-                 isPass: true,
-                 ),
-              //button for login
-              const SizedBox(
-                height: 24
-                ),
+                textInputType: TextInputType.text,
+                isPass: true,
+                prefixIcon: Icons.lock,
+                borderColor: Colors.red,
+                borderRadius: 15,
+                borderWidth: 2.0,
+              ),
+
+              //button for Register
+              const SizedBox(height: 24),
               InkWell(
-                child: Container(
-                  child: const Text('Log in'),
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration: const ShapeDecoration(shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4),
-                      
-                      ),
-                    ),
-                    
-                    color: orange
-                  ),
+                child: RoundedButton(
+                  text: 'Register Now!',
+                  press: () {
+                    // Do something when the button is pressed
+                  },
+
+                  //bdeirs old code:
+                  // child: const Text('Register Now!'),
+                  // width: double.infinity,
+                  // alignment: Alignment.center,
+                  // padding: const EdgeInsets.symmetric(vertical: 12),
+                  // decoration: const ShapeDecoration(
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.all(
+                  //         Radius.circular(4),
+                  //       ),
+                  //     ),
+                  //     color: orange),
                 ),
               ),
-              
-              const SizedBox(
-                height: 12
-                ),
-              Flexible(child: Container(), flex: 2,),
+
+              const SizedBox(height: 1),
+              Flexible(
+                child: Container(),
+                flex: 1,
+              ),
               //Transition to sign up
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Text("Dont Have an Account?"),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      child: const Text(
-                        "Sign Up!",
-                       style: TextStyle(
-                       fontWeight: FontWeight.bold)),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
+              SizedBox(
+                height: 150,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Handle the "Login with Google" button press
+                        },
+                        child: const Text('Login with Google'),
                       ),
                     ),
-                  ),
-
-                ],
-              )
-            
+                    const SizedBox(
+                        width: 16), // Add some spacing between the buttons
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Handle the "Login with Apple" button press
+                        },
+                        child: const Text('Login with Apple'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
-
           ),
-          ),
+        ),
       ),
     );
   }
-
 }
