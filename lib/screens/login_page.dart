@@ -4,11 +4,10 @@ import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen ({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
-
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -17,71 +16,67 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-
     super.dispose();
     _emailController.dispose();
     _passController.dispose();
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding : const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-         
-              Flexible(child: Container(), flex: 2,),
-                   //svg image
+              Flexible(
+                child: Container(),
+                flex: 2,
+              ),
+              //svg image
               SvgPicture.asset(
-                'assets/login_logo.svg', 
-               height: 140,
-               ),
-               const SizedBox(height: 25),
+                'assets/login_logo.svg',
+                height: 140,
+              ),
+              const SizedBox(height: 25),
               //textfield for email
               TextFieldInput(
-                textEditingController:  _emailController, 
-                hintText: 'Enter your email',
-                 textInputType: TextInputType.emailAddress
-                 ),
+                  textEditingController: _emailController,
+                  hintText: 'Enter your email',
+                  textInputType: TextInputType.emailAddress),
               //textfeild for password
-              const SizedBox(
-                height: 24
-                ),
-                 TextFieldInput(
-                textEditingController:  _passController, 
+              const SizedBox(height: 24),
+              TextFieldInput(
+                textEditingController: _passController,
                 hintText: 'Enter your password',
-                 textInputType: TextInputType.text,
-                 isPass: true,
-                 ),
+                textInputType: TextInputType.text,
+                isPass: true,
+              ),
               //button for login
-              const SizedBox(
-                height: 24
-                ),
+              const SizedBox(height: 29),
               InkWell(
                 child: Container(
                   child: const Text('Log in'),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration: const ShapeDecoration(shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4),
-                      
+                  decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4),
+                        ),
                       ),
-                    ),
-                    
-                    color: orange
-                  ),
+                      color: orange),
                 ),
               ),
-              
-              const SizedBox(
-                height: 12
-                ),
-              Flexible(child: Container(), flex: 2,),
+
+              const SizedBox(height: 12),
+              Flexible(
+                child: Container(),
+                flex: 2,
+              ),
               //Transition to sign up
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -95,25 +90,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   GestureDetector(
                     onTap: () {},
                     child: Container(
-                      child: const Text(
-                        "Sign Up!",
-                       style: TextStyle(
-                       fontWeight: FontWeight.bold)),
+                      child: const Text("Sign Up!",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,
                       ),
                     ),
                   ),
-
                 ],
               )
-            
             ],
-
           ),
-          ),
+        ),
       ),
     );
   }
-
 }
