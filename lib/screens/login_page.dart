@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding : const EdgeInsets.symmetric(horizontal: 10),
+          padding : const EdgeInsets.symmetric(horizontal: 30),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,9 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
                    //svg image
               SvgPicture.asset(
                 'assets/login_logo.svg', 
-               height: 108,
+               height: 140,
                ),
-               const SizedBox(height: 64),
+               const SizedBox(height: 25),
               //textfield for email
               TextFieldInput(
                 textEditingController:  _emailController, 
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     
-                    color: Colors.orange
+                    color: orange
                   ),
                 ),
               ),
