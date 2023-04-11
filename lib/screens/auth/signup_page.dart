@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/componnets/background.dart';
@@ -25,6 +26,13 @@ class SignUpScreenState extends State<SignupScreen> {
     _bioController.dispose();
     _userController.dispose();
   }
+
+//function to sign Up users
+Future signUp() async {
+  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: _emailController.text.trim(),
+    password: _passController.text.trim());
+}
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +94,7 @@ class SignUpScreenState extends State<SignupScreen> {
               InkWell(
                 child: RoundedButton(
                   text: 'Register Now!',
-                  press: () {
-                    // Do something when the button is pressed
-                  },
+                  press: signUp,
 
                   //bdeirs old code:
                   // child: const Text('Register Now!'),
