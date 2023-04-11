@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
-import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
-import 'welcome_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -39,8 +37,8 @@ class SignUpScreenState extends State<SignupScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
-                child: Container(),
                 flex: 2,
+                child: Container(),
               ),
               //svg image
               SvgPicture.asset(
@@ -55,7 +53,7 @@ class SignUpScreenState extends State<SignupScreen> {
                 hintText: 'Create a username',
                 textInputType: TextInputType.text,
                 prefixIcon: Icons.person,
-                borderColor: Color.fromARGB(255, 0, 0, 0),
+                borderColor: const Color.fromARGB(255, 0, 0, 0),
                 borderRadius: 15,
                 borderWidth: 2.0,
               ),
@@ -66,7 +64,7 @@ class SignUpScreenState extends State<SignupScreen> {
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 prefixIcon: Icons.email,
-                borderColor: Color.fromARGB(255, 0, 0, 0),
+                borderColor: const Color.fromARGB(255, 0, 0, 0),
                 borderRadius: 15,
                 borderWidth: 2.0,
               ),
@@ -109,8 +107,8 @@ class SignUpScreenState extends State<SignupScreen> {
 
               const SizedBox(height: 1),
               Flexible(
-                child: Container(),
                 flex: 1,
+                child: Container(),
               ),
               //Transition to sign up
               SizedBox(

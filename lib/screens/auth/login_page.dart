@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
-import 'package:sportshive/utils/colors.dart';
+import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
-import 'welcome_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passController.dispose();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +37,8 @@ class LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
-                child: Container(),
                 flex: 2,
+                child: Container(),
               ),
               //svg image
               SvgPicture.asset(
@@ -50,7 +52,7 @@ class LoginScreenState extends State<LoginScreen> {
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 prefixIcon: Icons.email,
-                borderColor: Color.fromARGB(255, 0, 0, 0),
+                borderColor: const Color.fromARGB(255, 0, 0, 0),
                 borderWidth: 2.0,
                 borderRadius: 15.0,
               ),
@@ -71,9 +73,17 @@ class LoginScreenState extends State<LoginScreen> {
 
               InkWell(
                 child: RoundedButton(
-                  text: 'Log in',
-                  press: () {
-                    // Do something when the button is pressed
+                  text: 'Log In',
+                  press: () async {
+                    User? user = await loginWithEmail(
+                      email: _emailController.text.trim(),
+                      password: _passController.text.trim(),
+                      context: context);
+                    print(user);
+                    if (user != null){
+                      //Instead of WelcomeScreen, We can put any page we want after login in
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => WelcomeScreen()));
+                    }
                   },
 
                   //bdeirs old button:
@@ -93,27 +103,27 @@ class LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 12),
               Flexible(
-                child: Container(),
                 flex: 2,
+                child: Container(),
               ),
               //Transition to sign up
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: Text("Dont Have an Account?"),
                     padding: const EdgeInsets.symmetric(
                       vertical: 1,
                     ),
+                    child: const Text("Dont Have an Account?"),
                   ),
                   GestureDetector(
                     onTap: () {},
                     child: Container(
-                      child: const Text(" Sign Up !",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,
                       ),
+                      child: const Text(" Sign Up !",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ],
@@ -123,5 +133,27 @@ class LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+
+
   }
+  
+  static Future<User?> loginWithEmail({required String email, required String password, required BuildContext context}) async
+  {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential usercred = await auth.signInWithEmailAndPassword(
+        email: email, password: password);
+        user = usercred.user;
+    }
+    on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found"){
+        print("No User Registered");
+      }
+    }
+    return user;
+  }
+  
+  
 }
+
