@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
+import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class SignupScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+  final TextEditingController _checkController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _userController = TextEditingController();
 
@@ -23,15 +25,18 @@ class SignUpScreenState extends State<SignupScreen> {
     super.dispose();
     _emailController.dispose();
     _passController.dispose();
+    _checkController.dispose();
     _bioController.dispose();
     _userController.dispose();
   }
 
 //function to sign Up users
 Future signUp() async {
-  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  if (_checkController.text.trim() == _passController.text.trim()) {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
     email: _emailController.text.trim(),
     password: _passController.text.trim());
+  }
 }
 
   @override
@@ -76,11 +81,25 @@ Future signUp() async {
                 borderRadius: 15,
                 borderWidth: 2.0,
               ),
+
               const SizedBox(height: 24),
               //textfield for password
               TextFieldInput(
                 textEditingController: _passController,
                 hintText: 'Enter your password',
+                textInputType: TextInputType.text,
+                isPass: true,
+                prefixIcon: Icons.lock,
+                borderColor: Colors.red,
+                borderRadius: 15,
+                borderWidth: 2.0,
+              ),
+
+              const SizedBox(height: 24),
+              //textfield for confirmation password
+              TextFieldInput(
+                textEditingController: _checkController,
+                hintText: 'Confirm your password',
                 textInputType: TextInputType.text,
                 isPass: true,
                 prefixIcon: Icons.lock,
@@ -110,6 +129,15 @@ Future signUp() async {
                   //     color: orange),
                 ),
               ),
+
+              const SizedBox(height: 24),
+              InkWell(
+                child: RoundedButton(
+                  text: 'Back to Homepage',
+                  press: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));},
+                ),
+              ),
+
 
               const SizedBox(height: 1),
               Flexible(

@@ -101,6 +101,14 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
+              const SizedBox(height: 10),
+              InkWell(
+                child: RoundedButton(
+                  text: 'Back to Homepage',
+                  press: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));},
+                ),
+              ),
+
               const SizedBox(height: 12),
               Flexible(
                 flex: 2,
