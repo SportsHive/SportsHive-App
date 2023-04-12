@@ -1,10 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
-import 'package:sportshive/utils/colors.dart';
+import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
-import 'welcome_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class SignupScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+  final TextEditingController _checkController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _userController = TextEditingController();
 
@@ -24,9 +25,19 @@ class SignUpScreenState extends State<SignupScreen> {
     super.dispose();
     _emailController.dispose();
     _passController.dispose();
+    _checkController.dispose();
     _bioController.dispose();
     _userController.dispose();
   }
+
+//function to sign Up users
+Future signUp() async {
+  if (_checkController.text.trim() == _passController.text.trim()) {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: _emailController.text.trim(),
+    password: _passController.text.trim());
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +50,8 @@ class SignUpScreenState extends State<SignupScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
-                child: Container(),
                 flex: 2,
+                child: Container(),
               ),
               //svg image
               SvgPicture.asset(
@@ -55,7 +66,7 @@ class SignUpScreenState extends State<SignupScreen> {
                 hintText: 'Create a username',
                 textInputType: TextInputType.text,
                 prefixIcon: Icons.person,
-                borderColor: Color.fromARGB(255, 0, 0, 0),
+                borderColor: const Color.fromARGB(255, 0, 0, 0),
                 borderRadius: 15,
                 borderWidth: 2.0,
               ),
@@ -66,10 +77,11 @@ class SignUpScreenState extends State<SignupScreen> {
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 prefixIcon: Icons.email,
-                borderColor: Color.fromARGB(255, 0, 0, 0),
+                borderColor: const Color.fromARGB(255, 0, 0, 0),
                 borderRadius: 15,
                 borderWidth: 2.0,
               ),
+
               const SizedBox(height: 24),
               //textfield for password
               TextFieldInput(
@@ -83,14 +95,25 @@ class SignUpScreenState extends State<SignupScreen> {
                 borderWidth: 2.0,
               ),
 
+              const SizedBox(height: 24),
+              //textfield for confirmation password
+              TextFieldInput(
+                textEditingController: _checkController,
+                hintText: 'Confirm your password',
+                textInputType: TextInputType.text,
+                isPass: true,
+                prefixIcon: Icons.lock,
+                borderColor: Colors.red,
+                borderRadius: 15,
+                borderWidth: 2.0,
+              ),
+
               //button for Register
               const SizedBox(height: 24),
               InkWell(
                 child: RoundedButton(
                   text: 'Register Now!',
-                  press: () {
-                    // Do something when the button is pressed
-                  },
+                  press: signUp,
 
                   //bdeirs old code:
                   // child: const Text('Register Now!'),
@@ -107,10 +130,19 @@ class SignUpScreenState extends State<SignupScreen> {
                 ),
               ),
 
+              const SizedBox(height: 24),
+              InkWell(
+                child: RoundedButton(
+                  text: 'Back to Homepage',
+                  press: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));},
+                ),
+              ),
+
+
               const SizedBox(height: 1),
               Flexible(
-                child: Container(),
                 flex: 1,
+                child: Container(),
               ),
               //Transition to sign up
               SizedBox(

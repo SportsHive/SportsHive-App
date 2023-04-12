@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sportshive/screens/auth/login_page.dart';
 import 'package:sportshive/screens/auth/signup_page.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/utils/colors.dart';
-
 import 'responsive/mobile_screen_layout.dart';
 import 'responsive/responsive_layout_screen.dart';
 import 'responsive/web_screen_layout.dart';
