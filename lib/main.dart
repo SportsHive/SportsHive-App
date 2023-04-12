@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sportshive/screens/auth/login_page.dart';
 import 'package:sportshive/screens/auth/signup_page.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
+import 'package:sportshive/screens/auth/editprofile_page.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'responsive/mobile_screen_layout.dart';
 import 'responsive/responsive_layout_screen.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       // home: const ReponsiveLayout(
       //   mobileScreenLayout: MobileScreenLayout(),
       //    webScreenLayout: WebScreenLayout(),),]
-      home: SignupScreen(),
+      home: UserProfileScreen(),
     );
   }
 }

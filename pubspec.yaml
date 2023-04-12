@@ -36,6 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.4
+  country_picker: ^2.0.20
   google_sign_in: ^6.1.0
 
 dev_dependencies:
@@ -54,7 +55,6 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/login_logo.svg
     - assets/login_logo_emptybackg.svg
     - assets/images/
   #   - images/a_dot_ham.jpeg
