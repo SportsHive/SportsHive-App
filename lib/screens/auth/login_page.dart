@@ -64,7 +64,7 @@ class LoginScreenState extends State<LoginScreen> {
                 textInputType: TextInputType.text,
                 isPass: true,
                 prefixIcon: Icons.lock,
-                borderColor: Colors.red,
+                borderColor: Colors.black,
                 borderWidth: 2.0,
                 borderRadius: 15.0,
               ),
