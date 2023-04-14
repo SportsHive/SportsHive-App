@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:sportshive/componnets/background.dart';
 
 class SportsPreferenceScreen extends StatefulWidget {
   @override
@@ -12,86 +11,84 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 80.0),
-        child: GridView.count(
-          crossAxisCount: 3,
-          children: [
-            _buildSportsIcon('Football', Icons.sports_soccer),
-            _buildSportsIcon('Basketball', Icons.sports_basketball),
-            _buildSportsIcon('Rugby', Icons.sports_rugby),
-            _buildSportsIcon('Tennis', Icons.sports_tennis),
-            _buildSportsIcon('Baseball', Icons.sports_baseball),
-            _buildSportsIcon('MMA', Icons.sports_mma),
-            _buildSportsIcon('Maui Thai', Icons.sports_martial_arts),
-            _buildSportsIcon('American', Icons.sports_football_sharp),
-            _buildSportsIcon('Crossfit', Icons.sports_gymnastics),
-            _buildSportsIcon('Hockey', Icons.sports_hockey),
-            _buildSportsIcon('Handball', Icons.sports_handball),
-            _buildSportsIcon('Cricket', Icons.sports_cricket),
-            _buildSportsIcon('Esports', Icons.sports_esports),
-            _buildSportsIcon('Volleyball', Icons.sports_volleyball),
-      
-          ],
+    return Background(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.only(top: 80.0),
+          child: GridView.count(
+            crossAxisCount: 3,
+            children: [
+              _buildSportsImage('assets/icons/football.png', 'Football'),
+              _buildSportsImage('assets/icons/basketball.png', 'Basketball'),
+              _buildSportsImage('assets/icons/rugby.png', 'Rugby'),
+              _buildSportsImage('assets/icons/tennis.png', 'Tennis'),
+              _buildSportsImage('assets/icons/cycling.png', 'Cycling'),
+              _buildSportsImage('assets/icons/boxing.png', 'Boxing'),
+              _buildSportsImage('assets/icons/mauy_thai.png', 'Mauy Thai'),
+              _buildSportsImage('assets/icons/american_football.png', 'American'),
+              _buildSportsImage('assets/icons/hiking.png', 'Hiking'),
+              _buildSportsImage('assets/icons/MMA.png', 'MMA'),
+              _buildSportsImage('assets/icons/weightlift.png', 'WeightLifting'),
+              _buildSportsImage('assets/icons/track.png', 'Track'),
+              _buildSportsImage('assets/icons/swimming.png', 'Swimming'),
+              _buildSportsImage('assets/icons/volleyball.png', 'Volleyball'),
+              _buildSportsImage('assets/icons/wrestling.png', 'Wrestling'),
+              _buildSportsImage('assets/icons/yoga.png', 'Yoga'),
+              _buildSportsImage('assets/icons/skiing.png', 'Skiing'),
+              _buildSportsImage('assets/icons/table_tennis.png', 'Table Tennis'),
+            ],
+          ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _onDonePressed,
+          child: Icon(Icons.check),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
-      
-      
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onDonePressed,
-        child: Icon(Icons.check),
-      ),
-      
-      
-      
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
-Widget _buildSportsIcon(String sportName, IconData iconData) {
-  bool isSelected = selectedSports.contains(sportName);
+  Widget _buildSportsImage(String imagePath, String sportName) {
+    bool isSelected = selectedSports.contains(sportName);
 
-  return InkWell(
-    onTap: () {
-      setState(() {
-        if (isSelected) {
-          selectedSports.remove(sportName);
-        } else {
-          selectedSports.add(sportName);
-        }
-      });
-    },
-    
-    child: Padding(
-      
-      padding: EdgeInsets.all(5.0), // Adjust the amount of padding as needed
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: isSelected ? Colors.blue : Colors.grey,
-            width: 2.0,
+    return InkWell(
+      onTap: () {
+        setState(() {
+          if (isSelected) {
+            selectedSports.remove(sportName);
+          } else {
+            selectedSports.add(sportName);
+          }
+        });
+      },
+      child: Padding(
+        padding: EdgeInsets.all(5.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: isSelected ? Colors.orange : Colors.grey,
+              width: 2.0,
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                imagePath,
+                width: 50.0,
+                height: 50.0,
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                sportName,
+                style: TextStyle(fontSize: 16.0),
+              ),
+            ],
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              iconData,
-              size: 50.0,
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              sportName,
-              style: TextStyle(fontSize: 16.0),
-            ),
-          ],
-        ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   void _onDonePressed() {
     // Implement your logic here
