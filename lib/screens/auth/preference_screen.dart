@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sportshive/componnets/background.dart';
 
+import '../../responsive/mobile_screen_layout.dart';
+
 class SportsPreferenceScreen extends StatefulWidget {
   @override
   _SportsPreferenceScreenState createState() => _SportsPreferenceScreenState();
@@ -99,8 +101,12 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
     );
   }
 
-  void _onDonePressed() {
-    // Implement your logic here
-    Navigator.of(context).pop();
-  }
+void _onDonePressed() {
+  // Navigate to MobileScreenLayout
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => MobileScreenLayout()),
+  );
+}
+
 }

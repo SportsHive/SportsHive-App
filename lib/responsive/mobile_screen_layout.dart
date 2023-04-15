@@ -3,6 +3,8 @@ import 'package:sportshive/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../screens/auth/welcome_screen.dart';
+
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
 
@@ -40,6 +42,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             SizedBox(width: 5.0),
@@ -59,11 +62,20 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 color: orange,
               ),
             ),
-            SizedBox(width: 125.0),
-            SvgPicture.asset(
-              'assets/logosolo.svg',
-              height: 120,
-            ),
+            SizedBox(width: 180.0),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.orange),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                );
+              },
+              child: Text('Login'),
+            )
           ],
         ),
         actions: [
