@@ -13,8 +13,14 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
   Widget build(BuildContext context) {
     return Background(
       child: Scaffold(
+          appBar: AppBar(
+          title: Text('Select Your Preferred Sport(s)'),
+          backgroundColor: Colors.orange,
+
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 80.0),
+          padding: const EdgeInsets.only(top: 0.0),
           child: GridView.count(
             crossAxisCount: 3,
             children: [
@@ -25,7 +31,8 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
               _buildSportsImage('assets/icons/cycling.png', 'Cycling'),
               _buildSportsImage('assets/icons/boxing.png', 'Boxing'),
               _buildSportsImage('assets/icons/mauy_thai.png', 'Mauy Thai'),
-              _buildSportsImage('assets/icons/american_football.png', 'American'),
+              _buildSportsImage(
+                  'assets/icons/american_football.png', 'American'),
               _buildSportsImage('assets/icons/hiking.png', 'Hiking'),
               _buildSportsImage('assets/icons/MMA.png', 'MMA'),
               _buildSportsImage('assets/icons/weightlift.png', 'WeightLifting'),
@@ -35,13 +42,15 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
               _buildSportsImage('assets/icons/wrestling.png', 'Wrestling'),
               _buildSportsImage('assets/icons/yoga.png', 'Yoga'),
               _buildSportsImage('assets/icons/skiing.png', 'Skiing'),
-              _buildSportsImage('assets/icons/table_tennis.png', 'Table Tennis'),
+              _buildSportsImage(
+                  'assets/icons/table_tennis.png', 'Table Tennis'),
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: _onDonePressed,
           child: Icon(Icons.check),
+          backgroundColor: Colors.orange,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
