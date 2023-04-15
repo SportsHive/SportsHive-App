@@ -24,7 +24,6 @@ class LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passController.dispose();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +75,14 @@ class LoginScreenState extends State<LoginScreen> {
                   text: 'Log In',
                   press: () async {
                     User? user = await loginWithEmail(
-                      email: _emailController.text.trim(),
-                      password: _passController.text.trim(),
-                      context: context);
+                        email: _emailController.text.trim(),
+                        password: _passController.text.trim(),
+                        context: context);
                     print(user);
-                    if (user != null){
+                    if (user != null) {
                       //Instead of WelcomeScreen, We can put any page we want after login in
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => WelcomeScreen()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => WelcomeScreen()));
                     }
                   },
 
@@ -105,7 +105,12 @@ class LoginScreenState extends State<LoginScreen> {
               InkWell(
                 child: RoundedButton(
                   text: 'Back to Homepage',
-                  press: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));},
+                  press: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen()));
+                  },
                 ),
               ),
 
@@ -141,27 +146,23 @@ class LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-
-
   }
-  
-  static Future<User?> loginWithEmail({required String email, required String password, required BuildContext context}) async
-  {
+
+  static Future<User?> loginWithEmail(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
       UserCredential usercred = await auth.signInWithEmailAndPassword(
-        email: email, password: password);
-        user = usercred.user;
-    }
-    on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found"){
+          email: email, password: password);
+      user = usercred.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
         print("No User Registered");
       }
     }
     return user;
   }
-  
-  
 }
-

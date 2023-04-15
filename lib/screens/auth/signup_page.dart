@@ -4,7 +4,39 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
-import 'package:sportshive/widgets/text_field_input.dart';
+import 'package:sportshive/widgets/text_field_input.dart' as CustomTextField;
+import 'package:sportshive/screens/auth/editprofile_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+Future<UserCredential?> signInWithGoogle() async {
+  try {
+    // Trigger the Google Authentication flow
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+    if (googleUser != null) {
+      // Obtain the authentication details from the Google user
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Sign in the user with the credential
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    }
+
+    return null;
+  } catch (e) {
+    print(e);
+    return null;
+  }
+}
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -31,17 +63,25 @@ class SignUpScreenState extends State<SignupScreen> {
   }
 
 //function to sign Up users
-Future signUp() async {
-  if (_checkController.text.trim() == _passController.text.trim()) {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-    email: _emailController.text.trim(),
-    password: _passController.text.trim());
+  Future signUp() async {
+    if (_checkController.text.trim() == _passController.text.trim()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passController.text.trim());
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orange,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.arrow_back),
+      ),
       body: Background(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -61,7 +101,7 @@ Future signUp() async {
               const SizedBox(height: 50),
 
               //textfield for username
-              TextFieldInput(
+              CustomTextField.TextFieldInput(
                 textEditingController: _userController,
                 hintText: 'Create a username',
                 textInputType: TextInputType.text,
@@ -72,7 +112,7 @@ Future signUp() async {
               ),
               const SizedBox(height: 24),
               //textfield for email
-              TextFieldInput(
+              CustomTextField.TextFieldInput(
                 textEditingController: _emailController,
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
@@ -84,7 +124,7 @@ Future signUp() async {
 
               const SizedBox(height: 24),
               //textfield for password
-              TextFieldInput(
+              CustomTextField.TextFieldInput(
                 textEditingController: _passController,
                 hintText: 'Enter your password',
                 textInputType: TextInputType.text,
@@ -97,7 +137,7 @@ Future signUp() async {
 
               const SizedBox(height: 24),
               //textfield for confirmation password
-              TextFieldInput(
+              CustomTextField.TextFieldInput(
                 textEditingController: _checkController,
                 hintText: 'Confirm your password',
                 textInputType: TextInputType.text,
@@ -113,66 +153,46 @@ Future signUp() async {
               InkWell(
                 child: RoundedButton(
                   text: 'Register Now!',
-                  press: signUp,
-
-                  //bdeirs old code:
-                  // child: const Text('Register Now!'),
-                  // width: double.infinity,
-                  // alignment: Alignment.center,
-                  // padding: const EdgeInsets.symmetric(vertical: 12),
-                  // decoration: const ShapeDecoration(
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.all(
-                  //         Radius.circular(4),
-                  //       ),
-                  //     ),
-                  //     color: orange),
+                  press: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserProfileScreen()));
+                  },
                 ),
               ),
-
-              const SizedBox(height: 24),
-              InkWell(
-                child: RoundedButton(
-                  text: 'Back to Homepage',
-                  press: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));},
-                ),
-              ),
-
 
               const SizedBox(height: 1),
               Flexible(
-                flex: 1,
+                flex: 2,
                 child: Container(),
               ),
               //Transition to sign up
-              SizedBox(
-                height: 150,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Handle the "Login with Google" button press
-                        },
-                        child: const Text('Login with Google'),
-                      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: signInWithGoogle,
+                    child: Image.asset(
+                      'assets/google-logo.png',
+                      width: 60,
+                      height: 60,
                     ),
-                    const SizedBox(
-                        width: 16), // Add some spacing between the buttons
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Handle the "Login with Apple" button press
-                        },
-                        child: const Text('Login with Apple'),
-                      ),
+                  ),
+                  SizedBox(
+                    width:
+                        20, // Adjust this value to increase or decrease the spacing between the logos
+                  ),
+                  InkWell(
+                    onTap: signInWithGoogle,
+                    child: Image.asset(
+                      'assets/apple-logo.png',
+                      width: 50,
+                      height: 50,
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
