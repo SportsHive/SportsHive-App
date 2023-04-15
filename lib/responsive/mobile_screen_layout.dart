@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sportshive/utils/colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/cupertino.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
@@ -38,11 +39,94 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            SizedBox(width: 5.0),
+            const Text(
+              "Sports",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+                color: Colors.white,
+              ),
+            ),
+            const Text(
+              "Hive",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+                color: orange,
+              ),
+            ),
+            SizedBox(width: 125.0),
+            SvgPicture.asset(
+              'assets/logosolo.svg',
+              height: 120,
+            ),
+          ],
+        ),
+        actions: [
+          SizedBox(width: 5.0),
+        ],
+      ),
       body: PageView(
         children: [
-          Text("events"),
-          Text("home"),
-          Text("profile"),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20, left: 20),
+              child: Text(
+                "Events",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
+          //
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20, left: 20),
+              child: Text(
+                "Home",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
+          //
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20, left: 20),
+              child: Text(
+                "Add Post/Event",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
+          //
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20, left: 20),
+              child: Text(
+                "Profile",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
         ],
         controller: pageController,
         onPageChanged: onPageChanged,
@@ -52,7 +136,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.event,
+              Icons.event_rounded,
               color: (_page == 0) ? orange : secondaryColor,
             ),
             label: '',
@@ -68,8 +152,16 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
+              Icons.add_circle,
               color: (_page == 2) ? orange : secondaryColor,
+            ),
+            label: '',
+            backgroundColor: primaryColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+              color: (_page == 3) ? orange : secondaryColor,
             ),
             label: '',
             backgroundColor: primaryColor,
