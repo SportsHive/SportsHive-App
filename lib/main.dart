@@ -11,8 +11,6 @@ import 'responsive/mobile_screen_layout.dart';
 import 'responsive/responsive_layout_screen.dart';
 import 'responsive/web_screen_layout.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -33,7 +31,7 @@ class MyApp extends StatelessWidget {
       // home: const ReponsiveLayout(
       //   mobileScreenLayout: MobileScreenLayout(),
       //    webScreenLayout: WebScreenLayout(),),]
-      home: SportsPreferenceScreen(),
+      home: MobileScreenLayout(),
     );
   }
 }
