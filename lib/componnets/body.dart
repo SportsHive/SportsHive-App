@@ -14,9 +14,14 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
+      
+      
       child: Column(
+       
         mainAxisAlignment: MainAxisAlignment.center,
+        
         children: <Widget>[
+          
           const Text(
             "Welcome to SportsHive",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -38,6 +43,3 @@ class Body extends StatelessWidget {
     );
   }
 }
-
-
-

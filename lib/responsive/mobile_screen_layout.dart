@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:sportshive/utils/dimensions.dart';
 
 import '../screens/auth/welcome_screen.dart';
 
@@ -83,67 +84,12 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         ],
       ),
       body: PageView(
-        children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Text(
-                "Events",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-          //
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Text(
-                "Home",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-          //
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Text(
-                "Add Post/Event",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-          //
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Text(
-                "Profile",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-        ],
+         children: homeScreenItems,
         controller: pageController,
         onPageChanged: onPageChanged,
       ),
       bottomNavigationBar: CupertinoTabBar(
+
         backgroundColor: Colors.black,
         items: [
           BottomNavigationBarItem(

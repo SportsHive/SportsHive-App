@@ -27,7 +27,15 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orange,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.arrow_back),
+      ),
       body: Background(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -101,18 +109,7 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              const SizedBox(height: 10),
-              InkWell(
-                child: RoundedButton(
-                  text: 'Back to Homepage',
-                  press: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const WelcomeScreen()));
-                  },
-                ),
-              ),
+              
 
               const SizedBox(height: 12),
               Flexible(
