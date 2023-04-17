@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
-      home: MobileScreenLayout(),
+      home: SportsPreferenceScreen(),
     );
   }
 }
