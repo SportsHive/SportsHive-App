@@ -109,7 +109,12 @@ class ProfileScreen extends StatelessWidget {
               color: mobileBackgroundColor,
               padding: EdgeInsets.symmetric(horizontal: 3),
               child: Column(
-                children: [CustomTernaryOption()],
+                children: [
+                  CustomTernaryOption()
+                  
+                  
+                  
+                  ],
 
               ),
             )
