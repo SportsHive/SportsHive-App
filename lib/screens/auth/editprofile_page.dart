@@ -6,6 +6,8 @@ import 'package:sportshive/screens/auth/profile_pic.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:sportshive/screens/auth/preference_screen.dart';
 
+import '../../data/models/user_model.dart';
+
 class UserProfileScreen extends StatefulWidget {
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();

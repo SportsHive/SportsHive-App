@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
 import 'package:sportshive/data/controllers/sign_up_controllers.dart';
+import 'package:sportshive/data/models/user_model.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart' as CustomTextField;
 import 'package:sportshive/screens/auth/editprofile_page.dart';
@@ -143,12 +144,15 @@ class SignUpScreenState extends State<SignupScreen> {
                   
                   text: 'Register Now!',
                   press: () {
-                    if (_formkey.currentState == null) {}
-                    else if (_formkey.currentState!.validate()){
-                      print(controller.text_email.text);
-                      SignUpController.instance.signUp(controller.text_email.text, controller.text_pass.text);
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => UserProfileScreen()));
-                    }
+                    if (canPass()){
+                      if (_formkey.currentState == null) {}
+                      else if (_formkey.currentState!.validate()){
+                        final user = UserModel(email: controller.text_email.text.trim(), username: controller.text_username.text.trim(), password: controller.text_pass.text.trim());
+                        SignUpController.instance.createUser(user);
+                        SignUpController.instance.signUp(user.email, user.password);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
+                      }
+                    } 
                   },
                 ),
               ),
@@ -190,4 +194,22 @@ class SignUpScreenState extends State<SignupScreen> {
       ),
     );
   }
+
+  bool canPass(){
+    if (controller.text_pass.text.trim() != controller.text_check.text.trim()){
+      print ("password is not verified!");
+      return false;
+    }
+    else if (controller.text_username.text.isEmpty){
+      print ("Enter a valid username.");
+      return false;
+    }
+    else if (controller.text_email.text.isEmpty){
+      print ("Enter a valid email.");
+      return false;
+    }
+    return true;
+    
+  }
 }
+
