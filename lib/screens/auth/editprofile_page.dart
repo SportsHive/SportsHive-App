@@ -121,12 +121,21 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   }
 
   void _onDonePressed() {
+    //create a 
+    String fname = _firstNameController.text.trim(),
+    lname = _lastNameController.text.trim(),
+    pnumber = _phoneController.text.trim(),
+    country = _countryController.text.trim(),
+    about = _bioController.text.trim();
+    
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SportsPreferenceScreen()),
     );
   }
 }
+
+
 
 class TextFieldInput extends StatelessWidget {
   const TextFieldInput({

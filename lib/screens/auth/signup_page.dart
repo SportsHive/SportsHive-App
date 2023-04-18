@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
+import 'package:sportshive/data/controllers/sign_up_controllers.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart' as CustomTextField;
 import 'package:sportshive/screens/auth/editprofile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:get/get.dart';
+import 'package:sportshive/data/controllers/sign_up_controllers.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -45,35 +48,14 @@ class SignupScreen extends StatefulWidget {
   SignUpScreenState createState() => SignUpScreenState();
 }
 
-class SignUpScreenState extends State<SignupScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
-  final TextEditingController _checkController = TextEditingController();
-  final TextEditingController _bioController = TextEditingController();
-  final TextEditingController _userController = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _emailController.dispose();
-    _passController.dispose();
-    _checkController.dispose();
-    _bioController.dispose();
-    _userController.dispose();
-  }
-
-//function to sign Up users
-  Future signUp() async {
-    if (_checkController.text.trim() == _passController.text.trim()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passController.text.trim());
-    }
-  }
+class SignUpScreenState extends State<SignupScreen> {  
+  final controller = Get.put(SignUpController());
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _formkey,
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.orange,
@@ -83,9 +65,8 @@ class SignUpScreenState extends State<SignupScreen> {
         child: Icon(Icons.arrow_back),
       ),
       body: Background(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          width: double.infinity,
+        child: Form(
+          key: _formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -101,8 +82,10 @@ class SignUpScreenState extends State<SignupScreen> {
               const SizedBox(height: 50),
 
               //textfield for username
+              
               CustomTextField.TextFieldInput(
-                textEditingController: _userController,
+                
+                textEditingController: controller.text_username,
                 hintText: 'Create a username',
                 textInputType: TextInputType.text,
                 prefixIcon: Icons.person,
@@ -111,9 +94,11 @@ class SignUpScreenState extends State<SignupScreen> {
                 borderWidth: 2.0,
               ),
               const SizedBox(height: 24),
+
               //textfield for email
               CustomTextField.TextFieldInput(
-                textEditingController: _emailController,
+                
+                textEditingController: controller.text_email,
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 prefixIcon: Icons.email,
@@ -123,9 +108,11 @@ class SignUpScreenState extends State<SignupScreen> {
               ),
 
               const SizedBox(height: 24),
+
               //textfield for password
               CustomTextField.TextFieldInput(
-                textEditingController: _passController,
+                
+                textEditingController: controller.text_pass,
                 hintText: 'Enter your password',
                 textInputType: TextInputType.text,
                 isPass: true,
@@ -138,7 +125,8 @@ class SignUpScreenState extends State<SignupScreen> {
               const SizedBox(height: 24),
               //textfield for confirmation password
               CustomTextField.TextFieldInput(
-                textEditingController: _checkController,
+                
+                textEditingController: controller.text_check,
                 hintText: 'Confirm your password',
                 textInputType: TextInputType.text,
                 isPass: true,
@@ -152,12 +140,15 @@ class SignUpScreenState extends State<SignupScreen> {
               const SizedBox(height: 24),
               InkWell(
                 child: RoundedButton(
+                  
                   text: 'Register Now!',
                   press: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UserProfileScreen()));
+                    if (_formkey.currentState == null) {}
+                    else if (_formkey.currentState!.validate()){
+                      print(controller.text_email.text);
+                      SignUpController.instance.signUp(controller.text_email.text, controller.text_pass.text);
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => UserProfileScreen()));
+                    }
                   },
                 ),
               ),
@@ -179,7 +170,7 @@ class SignUpScreenState extends State<SignupScreen> {
                       height: 60,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width:
                         20, // Adjust this value to increase or decrease the spacing between the logos
                   ),
