@@ -41,6 +41,7 @@ dependencies:
   animated_icon_button: ^1.0.2
   flutter_icons: ^1.1.0
   image_picker: ^0.8.7+3
+  get: ^4.6.5
 
 
 dev_dependencies:
@@ -70,8 +71,9 @@ flutter:
     - assets/images/
     - assets/icons/
 
-    - assets/images/clock_icon.png
-    - assets/images/location_icon.png
+    - assets\images\clock_icon.png
+    - assets\images\location_icon.png
+    - assets/images/Camera_Icon.png
 
     
   #   - images/a_dot_ham.jpeg

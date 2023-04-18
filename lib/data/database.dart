@@ -154,7 +154,7 @@ List<EventsModel> getEvents(){
   events.add(eventsModel);
 
   eventsModel = new EventsModel();
-  
+
   //3
   eventsModel.imgeAssetPath = "assets/images/login_bottom.png";
   eventsModel.date = "Jan 12, 2019";
@@ -167,3 +167,4 @@ List<EventsModel> getEvents(){
   return events;
 
 }
+
