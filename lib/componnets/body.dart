@@ -13,8 +13,8 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    
     return Background(
-      
       
       child: Column(
        
@@ -24,13 +24,14 @@ class Body extends StatelessWidget {
           
           const Text(
             "Welcome to SportsHive",
+            
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           SvgPicture.asset("assets/images/welcome.svg",
               height: size.height * 0.41),
           RoundedButton(
             text: "LOG IN",
-            press: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));},
+            press: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen())); },
           ),
           RoundedButton(
             text: "SIGN UP",

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:sportshive/data/repositories/sing_up_failures.dart';
 import 'package:sportshive/screens/auth/event_page.dart';
+import 'package:sportshive/screens/auth/preference_screen.dart';
 import 'package:sportshive/screens/auth/profile_screen.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
 
@@ -11,6 +12,7 @@ class AuthenticationRepository extends GetxController {
 
   //variables
   final auth = FirebaseAuth.instance;
+  static bool IsLoggedIn = false;
   late final Rx<User?> firebaseUser;
 
   @override
@@ -30,7 +32,7 @@ class AuthenticationRepository extends GetxController {
   void createUserWithEmailAndPassword(String email, String pass) async {
     try {
     await auth.createUserWithEmailAndPassword(email: email, password: pass);
-    firebaseUser.value != null ? Get.offAll(() => ProfileScreen()) : Get.to(const WelcomeScreen());
+    firebaseUser.value != null ? Get.offAll(() => SportsPreferenceScreen()) : Get.to(const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
         final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
         print('FIREBASE AUTH EXCEPTION - ${ex.message}');
@@ -39,12 +41,18 @@ class AuthenticationRepository extends GetxController {
   }
 
   Future<void> loginUserWithEmailAndPassword(String email, String pass) async {
+    IsLoggedIn = true;
     try {
     await auth.signInWithEmailAndPassword(email: email, password: pass);
     } on FirebaseAuthException catch (e) {
-
+      print('LOGIN ERROR');
     } 
   }
 
-  Future<void> logOut() async => await auth.signOut(); 
+  //function to log out users
+  Future<void> logOut() async{
+    IsLoggedIn = !IsLoggedIn;
+    return await auth.signOut();
+  }
+
 }

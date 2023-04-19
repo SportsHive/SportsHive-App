@@ -3,6 +3,7 @@ import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
 import 'package:sportshive/utils/colors.dart';
 
+import '../../data/models/user_model.dart';
 import '../../widgets/custom_option.dart';
 
 class ProfileScreen extends StatelessWidget {

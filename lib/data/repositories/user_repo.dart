@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user_model.dart';
 
 class UserRepository extends GetxController {
@@ -10,7 +10,7 @@ class UserRepository extends GetxController {
     final _db = FirebaseFirestore.instance;
 
     createUser(UserModel user) async {
-      
+
       await _db.collection("USER").add(user.toJson()).whenComplete(
         () => Get.snackbar("Success", "Your SportsHive account has been created successfully!",
           snackPosition: SnackPosition.BOTTOM,
@@ -40,4 +40,15 @@ class UserRepository extends GetxController {
       final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
       return userData;
     }
+
+    //Get the email of the current signed in user
+    String getUserEmail(){
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        String email = user.email!;
+        return email;
+      } return "";
+    }
+
+    
 }
