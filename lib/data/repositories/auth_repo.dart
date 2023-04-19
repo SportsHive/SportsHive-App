@@ -23,14 +23,14 @@ class AuthenticationRepository extends GetxController {
 
   setInitialScreen(User? user){
     user == null? Get.offAll(() => const WelcomeScreen()) : Get.offAll(
-      () => const ProfileScreen()
+      () => ProfileScreen()
     );
   }
 
   void createUserWithEmailAndPassword(String email, String pass) async {
     try {
     await auth.createUserWithEmailAndPassword(email: email, password: pass);
-    firebaseUser.value != null ? Get.offAll(() => const ProfileScreen()) : Get.to(const WelcomeScreen());
+    firebaseUser.value != null ? Get.offAll(() => ProfileScreen()) : Get.to(const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
         final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
         print('FIREBASE AUTH EXCEPTION - ${ex.message}');

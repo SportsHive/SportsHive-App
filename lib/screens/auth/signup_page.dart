@@ -5,6 +5,8 @@ import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
 import 'package:sportshive/data/controllers/sign_up_controllers.dart';
 import 'package:sportshive/data/models/user_model.dart';
+import 'package:sportshive/responsive/mobile_screen_layout.dart';
+import 'package:sportshive/screens/auth/preference_screen.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart' as CustomTextField;
 import 'package:sportshive/screens/auth/editprofile_page.dart';
@@ -71,21 +73,19 @@ class SignUpScreenState extends State<SignupScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
+            Flexible(
                 flex: 2,
                 child: Container(),
-              ),
-              //svg image
-              SvgPicture.asset(
-                'assets/login_logo_emptybackg.svg',
-                height: 140,
-              ),
-              const SizedBox(height: 50),
+            ),
+            //svg image
+            SvgPicture.asset(
+              'assets/login_logo_emptybackg.svg',
+              height: 140,
+            ),
+            const SizedBox(height: 50),
 
-              //textfield for username
-              
-              CustomTextField.TextFieldInput(
-                
+            //textfield for username
+            CustomTextField.TextFieldInput(
                 textEditingController: controller.text_username,
                 hintText: 'Create a username',
                 textInputType: TextInputType.text,
@@ -93,72 +93,74 @@ class SignUpScreenState extends State<SignupScreen> {
                 borderColor: const Color.fromARGB(255, 0, 0, 0),
                 borderRadius: 15,
                 borderWidth: 2.0,
-              ),
-              const SizedBox(height: 24),
+            ),
+            const SizedBox(height: 24),
 
-              //textfield for email
-              CustomTextField.TextFieldInput(
-                
-                textEditingController: controller.text_email,
-                hintText: 'Enter your email',
-                textInputType: TextInputType.emailAddress,
-                prefixIcon: Icons.email,
-                borderColor: const Color.fromARGB(255, 0, 0, 0),
-                borderRadius: 15,
-                borderWidth: 2.0,
-              ),
+            //textfield for email
+            CustomTextField.TextFieldInput(         
+              textEditingController: controller.text_email,
+              hintText: 'Enter your email',
+              textInputType: TextInputType.emailAddress,
+              prefixIcon: Icons.email,
+              borderColor: const Color.fromARGB(255, 0, 0, 0),
+              borderRadius: 15,
+              borderWidth: 2.0,
+            ),
 
-              const SizedBox(height: 24),
+            const SizedBox(height: 24),
 
-              //textfield for password
-              CustomTextField.TextFieldInput(
-                
-                textEditingController: controller.text_pass,
-                hintText: 'Enter your password',
-                textInputType: TextInputType.text,
-                isPass: true,
-                prefixIcon: Icons.lock,
-                borderColor: Colors.black,
-                borderRadius: 15,
-                borderWidth: 2.0,
-              ),
+            //textfield for password
+            CustomTextField.TextFieldInput(                
+              textEditingController: controller.text_pass,
+              hintText: 'Enter your password',
+              textInputType: TextInputType.text,
+              isPass: true,
+              prefixIcon: Icons.lock,
+              borderColor: Colors.black,
+              borderRadius: 15,
+              borderWidth: 2.0,
+            ),
 
-              const SizedBox(height: 24),
-              //textfield for confirmation password
-              CustomTextField.TextFieldInput(
-                
-                textEditingController: controller.text_check,
-                hintText: 'Confirm your password',
-                textInputType: TextInputType.text,
-                isPass: true,
-                prefixIcon: Icons.lock,
-                borderColor: Colors.black,
-                borderRadius: 15,
-                borderWidth: 2.0,
-              ),
+            const SizedBox(height: 24),
+            //textfield for confirmation password
+            CustomTextField.TextFieldInput(            
+              textEditingController: controller.text_check,
+              hintText: 'Confirm your password',
+              textInputType: TextInputType.text,
+              isPass: true,
+              prefixIcon: Icons.lock,
+              borderColor: Colors.black,
+              borderRadius: 15,
+              borderWidth: 2.0,
+            ),
 
-              //button for Register
-              const SizedBox(height: 24),
-              InkWell(
-                child: RoundedButton(
-                  
-                  text: 'Register Now!',
-                  press: () {
-                    if (canPass()){
+            //button for Register
+            const SizedBox(height: 24),
+            InkWell(
+              child: RoundedButton( 
+                text: 'Register Now!',
+                press: () {
+                  if (canPass()){
                       if (_formkey.currentState == null) {}
                       else if (_formkey.currentState!.validate()){
-                        final user = UserModel(email: controller.text_email.text.trim(), username: controller.text_username.text.trim(), password: controller.text_pass.text.trim());
-                        SignUpController.instance.createUser(user);
-                        SignUpController.instance.signUp(user.email, user.password);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
-                      }
-                    } 
-                  },
-                ),
-              ),
+                        
+                        final user = UserModel(email: controller.text_email.text.trim(),
+                                              username: controller.text_username.text.trim(),
+                                              password: controller.text_pass.text.trim());
 
-              const SizedBox(height: 1),
-              Flexible(
+                        SignUpController.instance.createUser(user);
+                        
+                        SignUpController.instance.signUp(user.email, user.password);
+                        
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SportsPreferenceScreen()));
+                      }
+                  } 
+                },
+              ),
+            ),
+
+            const SizedBox(height: 1),
+            Flexible(
                 flex: 2,
                 child: Container(),
               ),

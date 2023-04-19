@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:sportshive/data/repositories/auth_repo.dart';
+import 'package:sportshive/data/repositories/user_repo.dart';
 import 'package:sportshive/utils/colors.dart';
 
 import '../../widgets/custom_option.dart';
 
 class ProfileScreen extends StatelessWidget {
+
   const ProfileScreen({
     Key? key,
   }) : super(key: key);
 
+  
   @override
   Widget build(BuildContext context) {
+    final userRepo = UserRepository();
+    
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(18),
@@ -91,9 +97,23 @@ class ProfileScreen extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Do something when the button is pressed
+                          
                         },
                         child: Text('Follow'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.orange, // Set the background color
+                          onPrimary: Colors.white, // Set the text color
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          final authRepo = AuthenticationRepository();
+                          authRepo.logOut();
+                        },
+                        child: Text('Logout'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.orange, // Set the background color
                           onPrimary: Colors.white, // Set the text color

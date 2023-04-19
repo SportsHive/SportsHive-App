@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/componnets/rounded_button.dart';
 import 'package:sportshive/screens/auth/event_page.dart';
+import 'package:sportshive/screens/auth/profile_screen.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 
@@ -91,7 +92,7 @@ class LoginScreenState extends State<LoginScreen> {
                     if (user != null) {
                       //Instead of WelcomeScreen, We can put any page we want after login in
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => EventsScreen()));
+                          builder: (context) => const ProfileScreen()));
                     }
                   },
 

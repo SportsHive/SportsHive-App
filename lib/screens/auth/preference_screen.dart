@@ -101,12 +101,12 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
     );
   }
 
-void _onDonePressed() {
-  // Navigate to MobileScreenLayout
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => MobileScreenLayout()),
-  );
-}
+  void _onDonePressed() {
+    // Navigate to MobileScreenLayout
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MobileScreenLayout()),
+    );
+  }
 
 }
