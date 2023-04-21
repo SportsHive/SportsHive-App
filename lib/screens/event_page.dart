@@ -23,7 +23,6 @@ class _EventsScreenState extends State<EventsScreen> {
   String todayDateIs = DateTime.now().day.toString();
   final userRepo = Get.put(UserRepository());
 
-
   String _currentUserEmail = '';
   String _currentUsername = '';
 
@@ -34,7 +33,6 @@ class _EventsScreenState extends State<EventsScreen> {
     dates = getDates();
     events = getEvents();
   }
-
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sportshive/screens/auth/login_page.dart';
+import 'package:sportshive/screens/login_page.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sportshive/utils/dimensions.dart';
 
-import '../screens/auth/welcome_screen.dart';
+import '../screens/welcome_screen.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
@@ -72,20 +72,20 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                     MaterialStateProperty.all<Color>(Colors.orange),
               ),
               onPressed: () {
-                if (isLoggedIn()){
+                if (isLoggedIn()) {
                   Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                    context,
+                    MaterialPageRoute(builder: (context) => WelcomeScreen()),
                   );
                 } else {
                   Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
                 }
-                
               },
-              child: isLoggedIn()? const Text('Sign Out') : const Text('Login'),
+              child:
+                  isLoggedIn() ? const Text('Sign Out') : const Text('Login'),
             )
           ],
         ),
@@ -94,12 +94,11 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         ],
       ),
       body: PageView(
-         children: homeScreenItems,
+        children: homeScreenItems,
         controller: pageController,
         onPageChanged: onPageChanged,
       ),
       bottomNavigationBar: CupertinoTabBar(
-
         backgroundColor: Colors.black,
         items: [
           BottomNavigationBarItem(

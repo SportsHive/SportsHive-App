@@ -2,15 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sportshive/componnets/background.dart';
-import 'package:sportshive/componnets/rounded_button.dart';
+import 'package:sportshive/components/background.dart';
+import 'package:sportshive/components/rounded_button.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
-import 'package:sportshive/screens/auth/event_page.dart';
-import 'package:sportshive/screens/auth/preference_screen.dart';
-import 'package:sportshive/screens/auth/profile_screen.dart';
-import 'package:sportshive/screens/auth/welcome_screen.dart';
+import 'package:sportshive/screens/event_page.dart';
+import 'package:sportshive/screens/preference_screen.dart';
+import 'package:sportshive/screens/profile_screen.dart';
+import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {

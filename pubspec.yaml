@@ -71,8 +71,6 @@ flutter:
     - assets/images/
     - assets/icons/
 
-    - assets\images\clock_icon.png
-    - assets\images\location_icon.png
     - assets/images/Camera_Icon.png
 
     

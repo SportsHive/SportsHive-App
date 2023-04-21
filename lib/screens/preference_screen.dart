@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sportshive/componnets/background.dart';
+import 'package:sportshive/components/background.dart';
 
 import '../../responsive/mobile_screen_layout.dart';
 
@@ -15,10 +15,9 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
   Widget build(BuildContext context) {
     return Background(
       child: Scaffold(
-          appBar: AppBar(
+        appBar: AppBar(
           title: Text('Select Your Preferred Sport(s)'),
           backgroundColor: Colors.orange,
-
           iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Padding(
@@ -108,5 +107,4 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
       MaterialPageRoute(builder: (context) => MobileScreenLayout()),
     );
   }
-
 }

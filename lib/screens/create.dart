@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sportshive/screens/auth/add_post_screen.dart';
+import 'package:sportshive/screens/add_post_screen.dart';
 import 'package:sportshive/utils/utils.dart';
 
 class CreatePost extends StatefulWidget {
@@ -12,8 +12,8 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostScreen extends State<CreatePost> {
-     Uint8List? _file;
-    _selectImage(BuildContext context) async {
+  Uint8List? _file;
+  _selectImage(BuildContext context) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -46,10 +46,7 @@ class _CreatePostScreen extends State<CreatePost> {
           );
         });
   }
-  
-  
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +59,10 @@ class _CreatePostScreen extends State<CreatePost> {
               height: 80,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => _selectImage(context)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => _selectImage(context)));
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.orange,

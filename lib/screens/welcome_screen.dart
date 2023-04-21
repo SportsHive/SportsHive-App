@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../componnets/body.dart';
+import '../components/body.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
