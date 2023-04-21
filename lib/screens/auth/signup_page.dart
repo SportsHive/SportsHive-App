@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sportshive/componnets/background.dart';
-import 'package:sportshive/componnets/rounded_button.dart';
+import 'package:sportshive/components/background.dart';
+import 'package:sportshive/components/rounded_button.dart';
 import 'package:sportshive/data/controllers/sign_up_controllers.dart';
 import 'package:sportshive/data/models/user_model.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
@@ -58,7 +58,7 @@ class SignupScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignupScreen> {
   final controller = Get.put(SignUpController());
   final userRepo = Get.put(UserRepository());
-    
+
   final _formkey = GlobalKey<FormState>();
 
 //trying
@@ -149,31 +149,28 @@ class SignUpScreenState extends State<SignupScreen> {
                 borderWidth: 2.0,
               ),
 
-            //button for Register
-            const SizedBox(height: 24),
-            InkWell(
-              child: RoundedButton( 
-                text: 'Register Now!',
-                press: () {
-                  if (canPass()){
-                      if (_formkey.currentState == null) {}
-                      else if (_formkey.currentState!.validate()){
-                        
-                        final user = UserModel(email: controller.text_email.text.trim(),
-                                              username: controller.text_username.text.trim(),
-                                              password: controller.text_pass.text.trim(),
-                                              followers: 0,
-                                              following: 0);
-                        
-                        
+              //button for Register
+              const SizedBox(height: 24),
+              InkWell(
+                child: RoundedButton(
+                  text: 'Register Now!',
+                  press: () {
+                    if (canPass()) {
+                      if (_formkey.currentState == null) {
+                      } else if (_formkey.currentState!.validate()) {
+                        final user = UserModel(
+                            email: controller.text_email.text.trim(),
+                            username: controller.text_username.text.trim(),
+                            password: controller.text_pass.text.trim(),
+                            followers: 0,
+                            following: 0);
+
                         SignUpController.instance.createUser(user, context);
-                      
-                        
+                      }
                     }
-                  } 
-                },
+                  },
+                ),
               ),
-            ),
 
               const SizedBox(height: 1),
               Flexible(
@@ -235,5 +232,4 @@ class SignUpScreenState extends State<SignupScreen> {
     }
     return true;
   }
-
 }

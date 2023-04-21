@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sportshive/screens/auth/login_page.dart';
+import 'package:sportshive/screens/auth/popup_page.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sportshive/utils/dimensions.dart';
-
 import '../screens/auth/welcome_screen.dart';
+
+//for popups
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:sportshive/screens/auth/popup_page.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
@@ -22,7 +26,8 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 1);
+    pageController = PageController(initialPage: 3);
+    _page = 3;
   }
 
   @override
@@ -48,7 +53,6 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            SizedBox(width: 5.0),
             const Text(
               "Sports",
               style: TextStyle(
@@ -65,27 +69,24 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 color: orange,
               ),
             ),
-            SizedBox(width: 180.0),
+            const Spacer(),
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.orange),
               ),
               onPressed: () {
-                if (isLoggedIn()){
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                  );
+                if (isLoggedIn()) {
+                  PopupHelper.showSignOutPopup(context, 'POP_SignOut');
                 } else {
                   Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
                 }
-                
               },
-              child: isLoggedIn()? const Text('Sign Out') : const Text('Login'),
+              child:
+                  isLoggedIn() ? const Text('Sign Out') : const Text('Login'),
             )
           ],
         ),
@@ -94,12 +95,11 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         ],
       ),
       body: PageView(
-         children: homeScreenItems,
+        children: homeScreenItems,
         controller: pageController,
         onPageChanged: onPageChanged,
       ),
       bottomNavigationBar: CupertinoTabBar(
-
         backgroundColor: Colors.black,
         items: [
           BottomNavigationBarItem(
