@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:sportshive/screens/auth/welcome_screen.dart';
+import 'package:sportshive/screens/welcome_screen.dart';
 
 class PopupHelper {
   static void showSignOutPopup(BuildContext context, String popupType) {

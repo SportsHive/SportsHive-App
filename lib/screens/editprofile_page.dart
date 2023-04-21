@@ -3,13 +3,18 @@ import 'package:get/get.dart';
 import 'package:sportshive/components/background.dart';
 import 'package:sportshive/data/controllers/profile_controller.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
+import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 import 'package:sportshive/screens/profile_pic.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:sportshive/screens/preference_screen.dart';
 
-import '../../data/models/user_model.dart';
+import '../data/models/user_model.dart';
+
+//for popups
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:sportshive/screens/popup_page.dart';
 
 class UserProfileScreen extends StatefulWidget {
   @override
@@ -49,11 +54,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 if (snapshot.hasData) {
                   //user is not null
                   UserModel userData = snapshot.data as UserModel;
-                  _firstNameController.text = userData.fname!;
-                  _lastNameController.text = userData.lname!;
-                  _phoneController.text = userData.phone!;
-                  _countryController.text = userData.nationality!;
-                  _bioController.text = userData.desc!;
+                  _firstNameController.text = userData?.fname ?? '';
+                  _lastNameController.text = userData?.lname ?? '';
+                  _phoneController.text = userData?.phone ?? '';
+                  _countryController.text = userData?.nationality ?? '';
+                  _bioController.text = userData?.desc ?? '';
 
                   //recreate the edit profile page with data inside text fields.
                   return Column(
@@ -61,76 +66,82 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       const SizedBox(height: 70),
                       ProfilePic(),
                       const SizedBox(height: 40),
-                      TextFieldInput(
-                        textEditingController: _firstNameController,
-                        hintText: 'First Name',
-                        textInputType: TextInputType.name,
-                        prefixIcon: Icons.person,
-                        borderColor: Color.fromARGB(255, 255, 255, 255),
-                        borderWidth: 2.0,
-                        borderRadius: 15.0,
-                      ),
-                      const SizedBox(height: 24),
-                      TextFieldInput(
-                        textEditingController: _lastNameController,
-                        hintText: 'Last Name',
-                        textInputType: TextInputType.name,
-                        prefixIcon: Icons.person,
-                        borderColor: Colors.white,
-                        borderWidth: 2.0,
-                        borderRadius: 15.0,
-                      ),
-                      const SizedBox(height: 24),
-                      TextFieldInput(
-                        textEditingController: _phoneController,
-                        hintText: 'Phone Number',
-                        textInputType: TextInputType.phone,
-                        prefixIcon: Icons.phone,
-                        borderColor: Colors.white,
-                        borderWidth: 2.0,
-                        borderRadius: 15.0,
-                      ),
-                      const SizedBox(height: 24),
-                      GestureDetector(
-                        onTap: () {
-                          showCountryPicker(
-                            context: context,
-                            showPhoneCode: false,
-                            onSelect: (Country country) {
-                              _countryController.text =
-                                  country.displayNameNoCountryCode;
-                            },
-                          );
-                        },
-                        child: SizedBox(
-                          width: 366,
-                          child: TextFormField(
-                            enabled: false,
-                            controller: _countryController,
-                            style: TextStyle(),
-                            decoration: InputDecoration(
-                              hintText: 'Country',
-                              prefixIcon: Icon(Icons.flag),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  color: Colors.white,
-                                  width: 2.0,
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            TextFieldInput(
+                              textEditingController: _firstNameController,
+                              hintText: 'First Name',
+                              textInputType: TextInputType.name,
+                              prefixIcon: Icons.person,
+                              borderColor: Color.fromARGB(255, 255, 255, 255),
+                              borderWidth: 2.0,
+                              borderRadius: 15.0,
+                            ),
+                            const SizedBox(height: 24),
+                            TextFieldInput(
+                              textEditingController: _lastNameController,
+                              hintText: 'Last Name',
+                              textInputType: TextInputType.name,
+                              prefixIcon: Icons.person,
+                              borderColor: Colors.white,
+                              borderWidth: 2.0,
+                              borderRadius: 15.0,
+                            ),
+                            const SizedBox(height: 24),
+                            TextFieldInput(
+                              textEditingController: _phoneController,
+                              hintText: 'Phone Number',
+                              textInputType: TextInputType.phone,
+                              prefixIcon: Icons.phone,
+                              borderColor: Colors.white,
+                              borderWidth: 2.0,
+                              borderRadius: 15.0,
+                            ),
+                            const SizedBox(height: 24),
+                            GestureDetector(
+                              onTap: () {
+                                showCountryPicker(
+                                  context: context,
+                                  showPhoneCode: false,
+                                  onSelect: (Country country) {
+                                    _countryController.text =
+                                        country.displayNameNoCountryCode;
+                                  },
+                                );
+                              },
+                              child: SizedBox(
+                                width: 366,
+                                child: TextFormField(
+                                  enabled: false,
+                                  controller: _countryController,
+                                  style: TextStyle(),
+                                  decoration: InputDecoration(
+                                    hintText: 'Country',
+                                    prefixIcon: Icon(Icons.flag),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                        color: Colors.white,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                            const SizedBox(height: 24),
+                            TextFieldInput(
+                              textEditingController: _bioController,
+                              hintText: 'About',
+                              textInputType: TextInputType.multiline,
+                              prefixIcon: Icons.info,
+                              borderColor: Colors.white,
+                              borderWidth: 2.0,
+                              borderRadius: 15.0,
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 24),
-                      TextFieldInput(
-                        textEditingController: _bioController,
-                        hintText: 'About',
-                        textInputType: TextInputType.multiline,
-                        prefixIcon: Icons.info,
-                        borderColor: Colors.white,
-                        borderWidth: 2.0,
-                        borderRadius: 15.0,
                       ),
                     ],
                   );
@@ -161,10 +172,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         country = _countryController.text.trim(),
         about = _bioController.text.trim();
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SportsPreferenceScreen()),
-    );
+    PopupHelper.showSuccessfulLoginPopup(context, 'POP_SUCCESFUL');
+
+    Future.delayed(Duration(seconds: 4), () {
+      // code to execute after 2 seconds
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MobileScreenLayout()),
+      );
+    });
   }
 }
 

@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportshive/data/repositories/auth_repo.dart';
-import 'package:sportshive/screens/auth/popup_page.dart';
-import 'package:sportshive/screens/auth/welcome_screen.dart';
+import 'package:sportshive/screens/popup_page.dart';
+import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/utils/colors.dart';
 
 void main() async {

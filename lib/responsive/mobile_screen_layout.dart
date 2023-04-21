@@ -1,16 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sportshive/screens/auth/login_page.dart';
-import 'package:sportshive/screens/auth/popup_page.dart';
+import 'package:sportshive/screens/login_page.dart';
+import 'package:sportshive/screens/popup_page.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sportshive/utils/dimensions.dart';
-import '../screens/auth/welcome_screen.dart';
+import '../screens/welcome_screen.dart';
 
 //for popups
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:sportshive/screens/auth/popup_page.dart';
+import 'package:sportshive/screens/popup_page.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);

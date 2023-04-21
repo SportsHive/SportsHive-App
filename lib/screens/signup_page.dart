@@ -11,7 +11,7 @@ import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/preference_screen.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart' as CustomTextField;
-import 'package:sportshive/screens/edit_profile_page.dart';
+import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
@@ -97,7 +97,7 @@ class SignUpScreenState extends State<SignupScreen> {
                 'assets/login_logo_emptybackg.svg',
                 height: 140,
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 10),
 
               //textfield for username
               CustomTextField.TextFieldInput(

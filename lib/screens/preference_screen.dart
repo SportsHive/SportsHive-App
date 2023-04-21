@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sportshive/components/background.dart';
-import 'package:sportshive/screens/auth/editprofile_page.dart';
+import 'package:sportshive/screens/editprofile_page.dart';
 
 import '../../responsive/mobile_screen_layout.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/components/rounded_button.dart';
-import 'package:sportshive/screens/auth/login_page.dart';
-import 'package:sportshive/screens/auth/signup_page.dart';
+import 'package:sportshive/screens/login_page.dart';
+import 'package:sportshive/screens/signup_page.dart';
 
-import '../screens/auth/welcome_screen.dart';
+import '../screens/welcome_screen.dart';
 import 'background.dart';
 
 class Body extends StatelessWidget {
