@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sportshive/data/models/date_model.dart';
 import 'package:sportshive/data/models/event_model.dart';
 import 'package:sportshive/data/models/event_type_model.dart';
 import 'package:sportshive/data/database.dart';
 import 'package:sportshive/utils/colors.dart';
+import 'package:sportshive/data/repositories/user_repo.dart';
+
+import '../../data/repositories/user_repo.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({Key? key}) : super(key: key);
@@ -17,6 +21,11 @@ class _EventsScreenState extends State<EventsScreen> {
   List<EventsModel> events = <EventsModel>[];
 
   String todayDateIs = DateTime.now().day.toString();
+  final userRepo = Get.put(UserRepository());
+
+
+  String _currentUserEmail = '';
+  String _currentUsername = '';
 
   @override
   void initState() {
@@ -25,6 +34,7 @@ class _EventsScreenState extends State<EventsScreen> {
     dates = getDates();
     events = getEvents();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +64,7 @@ class _EventsScreenState extends State<EventsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  "Hello, USER!",
+                                  "Hello, ${userRepo.userData.username}",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700,
@@ -127,7 +137,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                   desc: events[index].desc,
                                   imgeAssetPath: events[index].imgeAssetPath,
                                   date: events[index].date,
-                                  address: events[index].address, // Add this line to enable the small image
+                                  address: events[index]
+                                      .address, // Add this line to enable the small image
                                 );
                               }),
                         )
@@ -194,9 +205,7 @@ class PopularEventTile extends StatelessWidget {
       {required this.address,
       required this.date,
       required this.imgeAssetPath,
-      required this.desc
-      
-      });
+      required this.desc});
 
   @override
   Widget build(BuildContext context) {

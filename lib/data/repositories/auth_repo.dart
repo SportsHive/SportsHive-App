@@ -1,7 +1,10 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:sportshive/data/repositories/sing_up_failures.dart';
+import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/auth/event_page.dart';
 import 'package:sportshive/screens/auth/preference_screen.dart';
 import 'package:sportshive/screens/auth/profile_screen.dart';
@@ -23,10 +26,10 @@ class AuthenticationRepository extends GetxController {
     ever(firebaseUser, setInitialScreen);
   }
 
-  setInitialScreen(User? user){
-    user == null? Get.offAll(() => const WelcomeScreen()) : Get.offAll(
-      () => ProfileScreen()
-    );
+  setInitialScreen(User? user) {
+    user == null
+        ? Get.offAll(() => const WelcomeScreen())
+        : Get.offAll(() => MobileScreenLayout());
   }
 
   void createUserWithEmailAndPassword(String email, String pass) async {
@@ -54,5 +57,4 @@ class AuthenticationRepository extends GetxController {
     IsLoggedIn = !IsLoggedIn;
     return await auth.signOut();
   }
-
 }

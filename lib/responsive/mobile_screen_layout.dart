@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sportshive/screens/auth/login_page.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,12 +72,20 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                     MaterialStateProperty.all<Color>(Colors.orange),
               ),
               onPressed: () {
-                Navigator.push(
+                if (isLoggedIn()){
+                  Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                  );
+                } else {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
                 );
+                }
+                
               },
-              child: Text('Login'),
+              child: isLoggedIn()? const Text('Sign Out') : const Text('Login'),
             )
           ],
         ),
@@ -129,4 +139,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
       ),
     );
   }
+}
+
+bool isLoggedIn() {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  return _auth.currentUser != null;
 }

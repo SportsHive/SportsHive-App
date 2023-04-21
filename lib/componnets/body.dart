@@ -25,7 +25,8 @@ class Body extends StatelessWidget {
           const Text(
             "Welcome to SportsHive",
             
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            
           ),
           SvgPicture.asset("assets/images/welcome.svg",
               height: size.height * 0.41),

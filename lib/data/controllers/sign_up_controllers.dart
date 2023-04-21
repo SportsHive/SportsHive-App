@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,10 +13,11 @@ class SignUpController extends GetxController {
   final  text_email = TextEditingController();
   final text_pass = TextEditingController();
   final  text_check = TextEditingController();
-  final  text_bio = TextEditingController();
   final  text_username = TextEditingController();
+//final  text_bio = TextEditingController();
 
   final userRepo = Get.put(UserRepository());
+  
 
   @override
   //function to sign Up users
@@ -25,7 +25,7 @@ class SignUpController extends GetxController {
       AuthenticationRepository.instance.createUserWithEmailAndPassword(email, password);
   }
 
-  Future<void> createUser(UserModel user) async {
-    await userRepo.createUser(user);
+  Future<void> createUser(UserModel user, context) async {
+    await userRepo.createUser(user, context);
   }
 }

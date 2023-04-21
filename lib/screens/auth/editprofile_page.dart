@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportshive/componnets/background.dart';
 import 'package:sportshive/data/controllers/profile_controller.dart';
+import 'package:sportshive/data/repositories/user_repo.dart';
 import 'package:sportshive/screens/auth/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 import 'package:sportshive/screens/auth/profile_pic.dart';
@@ -24,7 +25,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProfileController());
+    final controller = Get.put(UserRepository());
 
     return Scaffold(
       appBar: AppBar(

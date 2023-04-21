@@ -2,6 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+//email, username and password are available on registration
+
 class UserModel {
   final String? id;
   final String username;
@@ -34,14 +37,24 @@ class UserModel {
     this.avatar,
     this.desc,
     this.phone,
-    
   });
 
-  toJson(){
+
+  Map<String, dynamic> toJson(){
     return {
-    "email": email,
-    "username":  username,
-    "password": password,  
+      "email": email,
+      "username":  username,
+      "password": password,  
+      "first_name": fname,
+      "last_name": lname,
+      "address": address,
+      "nationality": nationality,
+      "dob": dob,
+      "followers_count": followers,
+      "follows-count": following,
+      "avatar_url": avatar,
+      "description": desc,
+      "phone": phone,
     };
   }
 
@@ -51,7 +64,17 @@ class UserModel {
       id: document.id,
       email: data!["email"],
       username: data["username"],
-      password: data["password"]
+      password: data["password"],
+      fname: data["first_name"],
+      lname: data["last_name"],
+      address: data["address"],
+      nationality: data["nationality"],
+      dob: data["dob"],
+      followers: data["followers_count"],
+      following: data["follows-count"],
+      avatar: data["avatar_url"] ,
+      desc: data["description"],
+      phone: data["phone"],
       );
   }
 }
