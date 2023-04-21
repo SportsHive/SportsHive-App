@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../utils/colors.dart';
 
-const webBackgroundColor = Color.fromRGBO(18, 18, 18, 1);
+
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: webBackgroundColor,
+      backgroundColor: mobileBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

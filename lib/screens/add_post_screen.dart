@@ -7,48 +7,12 @@ import 'package:flutter/src/material/icons.dart';
 import '../../utils/utils.dart';
 
 class AddPostScreen extends StatefulWidget {
-  const AddPostScreen({Key? key}) : super(key: key);
+  const AddPostScreen({Key? key, required Uint8List file}) : super(key: key);
   @override
   _AddPostScreenState createState() => _AddPostScreenState();
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
-  // Uint8List? _file;
-
-  // _selectImage(BuildContext context) async {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return SimpleDialog(
-  //           title: const Text('Create Post'),
-  //           children: [
-  //             SimpleDialogOption(
-  //               padding: const EdgeInsets.all(20),
-  //               child: const Text('Take a photo'),
-  //               onPressed: () async {
-  //                 Navigator.of(context).pop();
-  //                 Uint8List file = await pickImage(ImageSource.camera);
-  //                 setState(() {
-  //                   _file = file;
-  //                 });
-  //               },
-  //             ),
-  //             SimpleDialogOption(
-  //               padding: const EdgeInsets.all(20),
-  //               child: const Text('Choose from Gallery'),
-  //               onPressed: () async {
-  //                 Navigator.of(context).pop();
-  //                 Uint8List file = await pickImage(ImageSource.gallery);
-  //                 setState(() {
-  //                   _file = file;
-  //                 });
-  //               },
-  //             ),
-  //           ],
-  //         );
-  //       });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -197,7 +197,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               SizedBox(height: 20.0),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: 'Please provide the a google maps link to the location',
+                  hintText: 'Provide a Google Maps or similar link to the location',
                 ),
                 keyboardType: TextInputType
                     .url, // set the keyboard type to url for better user experience

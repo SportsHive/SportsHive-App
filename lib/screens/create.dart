@@ -30,9 +30,16 @@ class _CreatePostScreenState extends State<CreatePost> {
               onPressed: () async {
                 Navigator.of(context).pop();
                 final file = await pickImage(ImageSource.camera);
-                setState(() {
-                  _file = file;
-                });
+                if (file != null) {
+                  setState(() {
+                    _file = file;
+                  });
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AddPostScreen(file: _file),
+                    ),
+                  );
+                }
               },
             ),
             SimpleDialogOption(
@@ -41,9 +48,16 @@ class _CreatePostScreenState extends State<CreatePost> {
               onPressed: () async {
                 Navigator.of(context).pop();
                 final file = await pickImage(ImageSource.gallery);
-                setState(() {
-                  _file = file;
-                });
+                if (file != null) {
+                  setState(() {
+                    _file = file;
+                  });
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AddPostScreen(file: _file),
+                    ),
+                  );
+                }
               },
             ),
           ],
@@ -96,17 +110,16 @@ class _CreatePostScreenState extends State<CreatePost> {
               () => _selectImage(context),
             ),
             SizedBox(height: 40),
-_buildElevatedButton(
-  'Create Event',
-  Icons.add,
-  () => Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => CreateEventScreen(),
-    ),
-  ),
-),
-
+            _buildElevatedButton(
+              'Create Event',
+              Icons.add,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateEventScreen(),
+                ),
+              ),
+            ),
           ],
         ),
       ),
