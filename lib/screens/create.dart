@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sportshive/screens/add_post_screen.dart';
 import 'package:sportshive/utils/utils.dart';
 
+import 'create_events_screen.dart';
+
 class CreatePost extends StatefulWidget {
   const CreatePost({Key? key}) : super(key: key);
 
@@ -94,11 +96,17 @@ class _CreatePostScreenState extends State<CreatePost> {
               () => _selectImage(context),
             ),
             SizedBox(height: 40),
-            _buildElevatedButton(
-              'Create Event',
-              Icons.add,
-              () => Navigator.pushNamed(context, '/create_event'),
-            ),
+_buildElevatedButton(
+  'Create Event',
+  Icons.add,
+  () => Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => CreateEventScreen(),
+    ),
+  ),
+),
+
           ],
         ),
       ),
