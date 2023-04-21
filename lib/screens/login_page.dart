@@ -7,10 +7,10 @@ import 'package:sportshive/components/rounded_button.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
-import 'package:sportshive/screens/auth/event_page.dart';
-import 'package:sportshive/screens/auth/preference_screen.dart';
-import 'package:sportshive/screens/auth/profile_screen.dart';
-import 'package:sportshive/screens/auth/welcome_screen.dart';
+import 'package:sportshive/screens/event_page.dart';
+import 'package:sportshive/screens/preference_screen.dart';
+import 'package:sportshive/screens/profile_screen.dart';
+import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
