@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/create_events_screen.dart';
+import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:sportshive/screens/popup_page.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
+import 'package:sportshive/screens/add_post_screen.dart';
+
 import 'package:sportshive/utils/colors.dart';
 
 void main() async {
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
-      home: MobileScreenLayout(),
+      home: UserProfileScreen(),
     );
   }
 }

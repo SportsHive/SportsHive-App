@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sportshive/utils/dimensions.dart';
+import 'package:sportshive/utils/global_variables.dart';
 
 class ReponsiveLayout extends StatelessWidget {
   final Widget webScreenLayout;

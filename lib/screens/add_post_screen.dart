@@ -1,20 +1,76 @@
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:flutter/src/material/icons.dart';
+
 import '../../utils/utils.dart';
 
 class AddPostScreen extends StatefulWidget {
-  const AddPostScreen({Key? key, required Uint8List file}) : super(key: key);
+  const AddPostScreen({
+    Key? key,
+    /*required Uint8List file*/
+  }) : super(key: key);
   @override
   _AddPostScreenState createState() => _AddPostScreenState();
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
+  Uint8List? _file;
+
+  _selectImage(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text('Create a Post'),
+          children: [
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Take a photo'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                Uint8List file = await pickImage(ImageSource.camera);
+                setState(() {
+                  _file = file;
+                });
+              },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Choose from Gallery'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                Uint8List file = await pickImage(ImageSource.gallery);
+                setState(() {
+                  _file = file;
+                });
+              },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Cancel'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    // return _file == null
+    // ? Center(
+    //     child: ElevatedButton(
+    //       onPressed: () => _selectImage(context),
+    //       child: const Text('Upload'),
+    //     ),
+    //   )
     return Scaffold(
       appBar: AppBar(
         backgroundColor: orange,
@@ -80,6 +136,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   ),
                 ),
               ),
+              const Divider(),
             ],
           ),
         ],

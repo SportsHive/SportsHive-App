@@ -5,7 +5,7 @@ import 'package:sportshive/screens/popup_page.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:sportshive/utils/dimensions.dart';
+import 'package:sportshive/utils/global_variables.dart';
 import '../screens/welcome_screen.dart';
 
 //for popups
@@ -71,23 +71,20 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
             ),
             const Spacer(),
             ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.orange),
-              ),
               onPressed: () {
-                if (isLoggedIn()) {
-                  PopupHelper.showSignOutPopup(context, 'POP_SignOut');
-                } else {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                }
+                // Add code here for the search button
               },
-              child:
-                  isLoggedIn() ? const Text('Sign Out') : const Text('Login'),
-            )
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange, // Set the background color
+                onPrimary: Colors.white, // Set the text color
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.search, color: Colors.white),
+                ],
+              ),
+            ),
           ],
         ),
         actions: [

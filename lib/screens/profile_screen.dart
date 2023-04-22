@@ -8,6 +8,10 @@ import 'package:sportshive/utils/colors.dart';
 import '../../data/models/user_model.dart';
 import '../../widgets/custom_option.dart';
 
+//for popups
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:sportshive/screens/popup_page.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -59,6 +63,12 @@ class ProfileScreenState extends State<ProfileScreen> {
     } else {
       followButtonText = "Follow";
     }
+    IconButton(
+      icon: Icon(Icons.logout),
+      onPressed: () {
+        // Add code here to log out the user
+      },
+    );
 
     return Scaffold(
       body: Padding(
@@ -146,31 +156,55 @@ class ProfileScreenState extends State<ProfileScreen> {
                               ),
                               Container(
                                 width: double.infinity,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    if (!profileIsForCurrentUser()) {
-                                      updateFollow();
-                                      setState(() {
-                                        followButtonText = isFollowing()
-                                            ? 'Unfollow'
-                                            : 'Follow';
-                                      });
-                                    } else {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                UserProfileScreen()),
-                                      );
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors
-                                        .orange, // Set the background color
-                                    onPrimary:
-                                        Colors.white, // Set the text color
-                                  ),
-                                  child: Text(followButtonText),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          if (!profileIsForCurrentUser()) {
+                                            updateFollow();
+                                            setState(() {
+                                              followButtonText = isFollowing()
+                                                  ? 'Unfollow'
+                                                  : 'Follow';
+                                            });
+                                          } else {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UserProfileScreen(),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.orange,
+                                          onPrimary: Colors.white,
+                                        ),
+                                        child: Text("Edit Profile"),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        width: 10), // add space between buttons
+                                    Expanded(
+                                      flex: 1,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          PopupHelper.showSignOutPopup(
+                                              context, 'POP_SignOut');
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.redAccent,
+                                          onPrimary: Colors.white,
+                                        ),
+                                        child: Text("Log Out"),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
