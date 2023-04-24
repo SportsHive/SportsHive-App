@@ -40,8 +40,7 @@ class UserRepository extends GetxController {
         colorText: Colors.black);
     Future.delayed(Duration(seconds: 1), () {
       SignUpController.instance.signUp(user.email, user.password);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => SportsPreferenceScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SportsPreferenceScreen()));
     });
   }
 
