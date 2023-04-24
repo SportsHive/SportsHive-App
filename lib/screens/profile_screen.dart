@@ -93,7 +93,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   CircleAvatar(
                                     radius: 50,
                                     backgroundImage: AssetImage(
-                                        "assets/images/profilepicsample.png"),
+                                        "assets/images/user_default_profile.png"),
                                   ),
                                   InkWell(
                                     onTap: () {},

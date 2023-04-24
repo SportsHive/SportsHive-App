@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import "package:sportshive/data/models/event_model.dart";
+import 'package:sportshive/data/repositories/user_repo.dart';
 
 class CreateEventScreen extends StatefulWidget {
   @override
@@ -9,11 +14,11 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
+
   String? _selectedSport;
   int _selectedAvailability = 1;
   DateTime _selectedDate = DateTime.now();
   LatLng? _selectedLocation;
-
   final _sports = [
     'Football',
     'BasketBall',
@@ -34,10 +39,14 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     'Wrestling',
     'Yoga'
   ];
-
   File? _imageFile;
+  String imageURL = "";
 
   final _availabilityValues = List<int>.generate(20, (i) => i + 1);
+  final  title_controller = TextEditingController();
+  final location_controller = TextEditingController();
+  final _db = FirebaseFirestore.instance;
+  final userRepo = UserRepository();
 
   void _handleSportSelection(String? value) {
     setState(() {
@@ -70,6 +79,19 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     });
   }
 
+  void addImageFile(File file) async {
+    final storage = FirebaseStorage.instance;
+    Reference ref = storage.ref().child("${userRepo.userData.username}/profile_pic.jpg");
+    await ref.putFile(_imageFile!);
+    ref.getDownloadURL().then((value) {
+      print(value);
+      setState(() {
+        imageURL = value;
+      });
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +115,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       _imageFile = File(pickedFile.path);
                     });
                   }
+                  addImageFile(_imageFile!);
                 },
                 child: Container(
                   width: double.infinity,
@@ -105,16 +128,18 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       : Image.file(_imageFile!, fit: BoxFit.cover),
                 ),
               ),
-
-              SizedBox(height: 16.0),
-
+              
+              
               // Title input
+              SizedBox(height: 16.0),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Title',
                 ),
+                controller: title_controller,  
               ),
               SizedBox(height: 16.0),
+
 
               // Sport selection
               DropdownButtonFormField<String>(
@@ -132,6 +157,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               ),
               SizedBox(height: 16.0),
 
+
               // Availability selection
               DropdownButtonFormField<int>(
                 decoration: InputDecoration(
@@ -147,6 +173,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 }).toList(),
               ),
               SizedBox(height: 16.0),
+
 
               // Date selection
               TextFormField(
@@ -170,6 +197,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   labelText: 'Date',
                 ),
               ),
+
+              //Time selection
               SizedBox(height: 16.0),
               GestureDetector(
                 onTap: () async {
@@ -193,9 +222,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   ),
                 ),
               ),
+
+
               // Location selection
               SizedBox(height: 20.0),
               TextFormField(
+                controller: location_controller,
                 decoration: InputDecoration(
                   hintText: 'Provide a Google Maps or similar link to the location',
                 ),
@@ -206,10 +238,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 },
               ),
 
+              //CreateEvent button
               SizedBox(height: 80.0),
-
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () { createEvent(context); },
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.orange),
@@ -222,4 +254,38 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       ),
     );
   }
+
+  void createEvent(context) async {
+
+    //create an EventModel with the User informations
+    EventsModel newEvent = EventsModel(
+      title: title_controller.text.trim(),
+      SportRelated: _selectedSport,
+      posterURL: imageURL,
+      seats_available: _selectedAvailability,
+      seats_registered: 0,
+      date: "${_selectedDate.day}-${_selectedDate.month}-${_selectedDate.year}",
+      start_time: "${_selectedDate.hour}:${_selectedDate.minute}",
+      location: location_controller.text.trim(),
+    );
+
+    //add the Event Model to the database
+    await _db.collection("EVENT").add(newEvent.toJson()).whenComplete(
+        () => Get.snackbar(
+        "Success", "Your SportsHive Event has been created successfully!",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.orangeAccent.withOpacity(1),
+        colorText: Colors.black ),
+      )
+        .catchError((error, stackTrace) {
+      Get.snackbar("Error", "Something went wrong! Try again.",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.redAccent.withOpacity(1),
+          colorText: Colors.black);
+      print(error.toString());
+      
+    });
+    
+  }
 }
+

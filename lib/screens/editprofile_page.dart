@@ -56,11 +56,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 if (snapshot.hasData) {
                   //user is not null
                   UserModel userData = snapshot.data as UserModel;
-                  _firstNameController.text = userData?.fname ?? '';
-                  _lastNameController.text = userData?.lname ?? '';
-                  _phoneController.text = userData?.phone ?? '';
-                  _countryController.text = userData?.nationality ?? '';
-                  _bioController.text = userData?.desc ?? '';
+                  _firstNameController.text = userData.fname ?? '';
+                  _lastNameController.text = userData.lname ?? '';
+                  _phoneController.text = userData.phone ?? '';
+                  _countryController.text = userData.nationality ?? '';
+                  _bioController.text = userData.desc ?? '';
 
                   //recreate the edit profile page with data inside text fields.
                   return Column(
