@@ -49,16 +49,19 @@ class _EventsScreenState extends State<EventsScreen> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  List<EventsModel> event_data = snapshot.data as List<EventsModel>;
+                  List<EventsModel> event_data =
+                      snapshot.data as List<EventsModel>;
                   return Container(
                     child: Stack(
                       children: <Widget>[
                         Container(
-                          decoration: BoxDecoration(color: mobileBackgroundColor),
+                          decoration:
+                              BoxDecoration(color: mobileBackgroundColor),
                         ),
                         SingleChildScrollView(
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 60, horizontal: 30),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -68,7 +71,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                 Row(
                                   children: <Widget>[
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
                                           "Hello, ${userRepo.userData.username}",
@@ -81,9 +85,10 @@ class _EventsScreenState extends State<EventsScreen> {
                                           height: 6,
                                         ),
                                         Text(
-                                          "Let's explore what’s happening nearby",
+                                          "Explore what’s happening nearby",
                                           style: TextStyle(
-                                              color: Colors.white, fontSize: 15),
+                                              color: Colors.white,
+                                              fontSize: 15),
                                         )
                                       ],
                                     ),
@@ -95,18 +100,23 @@ class _EventsScreenState extends State<EventsScreen> {
                                         borderRadius: BorderRadius.circular(30),
                                       ),
                                       child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(30),
-                                          child: (userRepo.userData.avatar != null) ?
-                                          Image.asset(userRepo.userData.avatar!) :
-                                          Image.asset("assets/images/user_default_profile.png", height: 40,)
-                                        ),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child:
+                                              (userRepo.userData.avatar != null)
+                                                  ? Image.asset(
+                                                      userRepo.userData.avatar!)
+                                                  : Image.asset(
+                                                      "assets/images/user_default_profile_picture.png",
+                                                      height: 40,
+                                                    )),
                                     )
                                   ],
                                 ),
                                 SizedBox(
                                   height: 20,
                                 ),
-                
+
                                 /// Dates
                                 Container(
                                   height: 60,
@@ -118,11 +128,12 @@ class _EventsScreenState extends State<EventsScreen> {
                                         return DateTile(
                                           weekDay: dates[index].weekDay,
                                           date: dates[index].date,
-                                          isSelected: todayDateIs == dates[index].date,
+                                          isSelected:
+                                              todayDateIs == dates[index].date,
                                         );
                                       }),
                                 ),
-                
+
                                 SizedBox(
                                   height: 20,
                                 ),
@@ -141,13 +152,16 @@ class _EventsScreenState extends State<EventsScreen> {
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
                                         return PopularEventTile(
-                                          
                                           desc: event_data[index].title!,
-                                          imgAssetPath: event_data[index].posterURL!,
+                                          imgAssetPath:
+                                              event_data[index].posterURL!,
                                           date: event_data[index].date!,
-                                          address: event_data[index].location!, // Add this line to enable the small image
-                                          seats_available: event_data[index].seats_available!,
-                                          seats_registered: event_data[index].seats_registered!,
+                                          address: event_data[index]
+                                              .location!, // Add this line to enable the small image
+                                          seats_available: event_data[index]
+                                              .seats_available!,
+                                          seats_registered: event_data[index]
+                                              .seats_registered!,
                                         );
                                       }),
                                 )
@@ -158,19 +172,15 @@ class _EventsScreenState extends State<EventsScreen> {
                       ],
                     ),
                   );
-                }
-                else if (snapshot.hasError){
+                } else if (snapshot.hasError) {
                   return Center(child: Text(snapshot.error.toString()));
-                }
-                else {
+                } else {
                   return Center(child: Text("Something went wrong..."));
                 }
-              }
-              else {
+              } else {
                 return Center(child: CircularProgressIndicator());
               }
             },
-            
           ),
         ),
       ),
@@ -226,14 +236,14 @@ class PopularEventTile extends StatelessWidget {
   int seats_registered;
 
   /// later can be changed with imgUrl
-  PopularEventTile(
-      {required this.address,
-      required this.date,
-      required this.imgAssetPath,
-      required this.desc,
-      required this.seats_available,
-      required this.seats_registered,
-      });
+  PopularEventTile({
+    required this.address,
+    required this.date,
+    required this.imgAssetPath,
+    required this.desc,
+    required this.seats_available,
+    required this.seats_registered,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -274,8 +284,6 @@ class PopularEventTile extends StatelessWidget {
                       )
                     ],
                   ),
-
-
                   SizedBox(
                     height: 4,
                   ),
@@ -294,7 +302,6 @@ class PopularEventTile extends StatelessWidget {
                       )
                     ],
                   ),
-
                   SizedBox(
                     height: 4,
                   ),
@@ -313,8 +320,6 @@ class PopularEventTile extends StatelessWidget {
                       )
                     ],
                   ),
-
-
                 ],
               ),
             ),
@@ -323,8 +328,9 @@ class PopularEventTile extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(8),
                   bottomRight: Radius.circular(8)),
-              child: (imgAssetPath == "") ? Image.asset("assets/images/login_bottom.png") : Image.network(imgAssetPath)
-            ),
+              child: (imgAssetPath == "")
+                  ? Image.asset("assets/images/login_bottom.png")
+                  : Image.network(imgAssetPath)),
         ],
       ),
     );

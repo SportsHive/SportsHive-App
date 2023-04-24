@@ -197,7 +197,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         height = _heightController.text.trim(),
         weight = _weightController.text.trim();
 
-    PopupHelper.showSuccessfulLoginPopup(context, 'POP_SUCCESFUL');
+    PopupHelper.showSuccessfulLoginPopup(context, 'POP_SUCCESSFUL');
 
     Future.delayed(Duration(seconds: 4), () {
       // code to execute after 2 seconds
