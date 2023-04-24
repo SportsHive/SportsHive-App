@@ -37,7 +37,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     if (!await isFileSizeValid(maxImageSizeInKiloBytes)) {
       //allow maximum of 5000KB sized image
       Get.snackbar("Image is too large",
-          "Try uploading an image smaller than ${maxImageSizeInKiloBytes / 1024}megabytes",
+          "Try uploading an image smaller than ${maxImageSizeInKiloBytes / 1024} megabytes",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.redAccent.withOpacity(1),
           colorText: Colors.black);
@@ -161,6 +161,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ),
               SizedBox(height: 30.0),
               TextField(
+                maxLength: 1500,
                 onChanged: (value) {
                   _caption = value;
                 },

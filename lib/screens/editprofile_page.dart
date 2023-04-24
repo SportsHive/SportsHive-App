@@ -236,6 +236,7 @@ class TextFieldInput extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
       child: TextField(
+        maxLength: 256,
         controller: textEditingController,
         keyboardType: textInputType,
         obscureText: isPass,

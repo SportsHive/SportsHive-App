@@ -201,50 +201,43 @@ class SignUpScreenState extends State<SignupScreen> {
     );
   }
 
-
   bool canPass() {
     if (controller.text_username.text.isEmpty) {
-      Get.snackbar(
-        "Error", "Please enter a valid username",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.black.withOpacity(1),
-        colorText: Colors.orangeAccent);
+      Get.snackbar("Error", "Please enter a valid username",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.black.withOpacity(1),
+          colorText: Colors.orangeAccent);
       print("Please enter a valid username.");
       return false;
-    }
-    else if (controller.text_pass.text.trim() == ""){
-      Get.snackbar(
-        "Error", "Password field is empty",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.black.withOpacity(1),
-        colorText: Colors.orange);
+    } else if (controller.text_pass.text.trim() == "") {
+      Get.snackbar("Error", "Password field is empty",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.black.withOpacity(1),
+          colorText: Colors.orange);
       print("Password is empty!");
       return false;
-    }
-     else if (controller.text_pass.text.trim() != controller.text_check.text.trim()) {
-      Get.snackbar(
-        "Error", "Password and Verify Password fields does not have the same value",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.black.withOpacity(1),
-        colorText: Colors.orange);
+    } else if (controller.text_pass.text.trim() !=
+        controller.text_check.text.trim()) {
+      Get.snackbar("Error",
+          "Password and Verify Password fields does not have the same value",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.black.withOpacity(1),
+          colorText: Colors.orange);
       print("Password is not verified!");
       return false;
-    }
-     else if (controller.text_email.text.isEmpty) {
-      Get.snackbar(
-        "Error", "Please enter a valid email",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.black.withOpacity(1),
-        colorText: Colors.orangeAccent);
+    } else if (controller.text_email.text.isEmpty) {
+      Get.snackbar("Error", "Please enter a valid email",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.black.withOpacity(1),
+          colorText: Colors.orangeAccent);
       print("Please enter a valid email.");
       return false;
-    }
-    else if (controller.text_pass.text.trim().length < 8) {
+    } else if (controller.text_pass.text.trim().length < 8) {
       Get.snackbar(
-        "Error", "Please enter at least 8 characters for the password",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.black.withOpacity(1),
-        colorText: Colors.orangeAccent);
+          "Error", "Please enter at least 8 characters for the password",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.black.withOpacity(1),
+          colorText: Colors.orangeAccent);
       print("short password");
       return false;
     }

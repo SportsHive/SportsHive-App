@@ -33,6 +33,7 @@ class TextFieldInput extends StatelessWidget {
     );
 
     return TextField(
+      maxLength: 256,
       controller: textEditingController,
       decoration: InputDecoration(
         hintText: hintText,
