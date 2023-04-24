@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:image_picker/image_picker.dart';
+import 'package:sportshive/utils/colors.dart';
 import 'dart:io';
+
+import '../components/rounded_button.dart';
 
 class CreateEventScreen extends StatefulWidget {
   @override
@@ -12,7 +15,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   String? _selectedSport;
   int _selectedAvailability = 1;
   DateTime _selectedDate = DateTime.now();
-  LatLng? _selectedLocation;
 
   final _sports = [
     'Football',
@@ -64,18 +66,22 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     });
   }
 
-  void _handleLocationSelection(LatLng? value) {
-    setState(() {
-      _selectedLocation = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Event'),
+        title: Text(
+          'Create Event',
+          style: TextStyle(
+            color:
+                mobileBackgroundColor, // Change this to the color you want for the title
+          ),
+        ),
         backgroundColor: Colors.orange,
+        iconTheme: IconThemeData(
+          color: mobileBackgroundColor, ),
+        centerTitle: true,
+        
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -197,7 +203,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               SizedBox(height: 20.0),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: 'Provide a Google Maps or similar link to the location',
+                  hintText:
+                      'Provide a Google Maps or similar link to the location',
                 ),
                 keyboardType: TextInputType
                     .url, // set the keyboard type to url for better user experience
@@ -206,15 +213,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 },
               ),
 
-              SizedBox(height: 80.0),
+              SizedBox(height: 20.0),
 
-              ElevatedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.orange),
-                ),
-                child: Text('Create Event'),
+              RoundedButton(
+                press: () {},
+                color: mobileBackgroundColor,
+                text: 'Create Event',
               ),
             ],
           ),

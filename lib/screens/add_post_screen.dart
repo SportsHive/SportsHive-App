@@ -1,6 +1,7 @@
 import 'dart:io' show File;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sportshive/components/background.dart';
 import 'package:sportshive/utils/colors.dart';
 
 import '../components/rounded_button.dart';
@@ -33,9 +34,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Post'),
+        title: Text(
+          'Create Post',
+          style: TextStyle(
+            color:
+                mobileBackgroundColor, // Change this to the color you want for the title
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.orange,
+        iconTheme: IconThemeData(
+          color: mobileBackgroundColor, // Change this to the color you want for the back arrow
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -80,7 +90,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     borderSide: BorderSide.none,
                   ),
                   filled: true,
-                  fillColor: Colors.grey,
+                  fillColor: mobileBackgroundColor,
                 ),
               ),
               SizedBox(height: 25.0),
@@ -109,7 +119,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   _buildSportChip('Yoga'),
                 ],
               ),
-              SizedBox(height: 80,),
+              SizedBox(
+                height: 80,
+              ),
               RoundedButton(
                 text: 'POST',
                 press: () {},
