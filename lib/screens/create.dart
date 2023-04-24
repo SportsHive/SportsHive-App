@@ -1,11 +1,9 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sportshive/screens/add_post_screen.dart';
+import 'package:sportshive/screens/create_post_screen.dart';
 import 'package:sportshive/utils/utils.dart';
-
-import 'create_events_screen.dart';
+import 'create_event_screen.dart';
 
 class CreatePost extends StatefulWidget {
   const CreatePost({Key? key}) : super(key: key);
@@ -15,7 +13,6 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePost> {
-
   Widget _buildElevatedButton(
     String label,
     IconData iconData,

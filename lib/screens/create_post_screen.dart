@@ -1,10 +1,14 @@
 import 'dart:io' show File;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sportshive/components/background.dart';
 import 'package:sportshive/utils/colors.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import '../components/rounded_button.dart';
+import 'package:sportshive/data/repositories/user_repo.dart';
 
 class AddPostScreen extends StatefulWidget {
   @override
@@ -16,6 +20,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   File _image = File('/assets/images/background.jpeg');
   String _caption = '';
   List<String> _selectedSports = [];
+  bool _imageWasSelected = false;
 
   void _selectImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -24,10 +29,85 @@ class _AddPostScreenState extends State<AddPostScreen> {
         _image = File(pickedFile.path);
       });
     }
+    _imageWasSelected = true;
   }
 
-  void _submitPost() {
-    // Implement your logic to submit the post
+  Future<String> uploadImage(File imageFile) async {
+    int maxImageSizeInKiloBytes = 4000;
+    if (!await isFileSizeValid(maxImageSizeInKiloBytes)) {
+      //allow maximum of 5000KB sized image
+      Get.snackbar("Image is too large",
+          "Try uploading an image smaller than ${maxImageSizeInKiloBytes / 1024}megabytes",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.redAccent.withOpacity(1),
+          colorText: Colors.black);
+    }
+    // create unique filename based on current time
+    String fileName = 'images/${DateTime.now().millisecondsSinceEpoch}';
+
+    FirebaseStorage storage = FirebaseStorage.instance;
+
+    // upload the image to firebase storage
+    UploadTask uploadTask = storage.ref(fileName).putFile(imageFile);
+
+    // wait for the upload to complete and get the download url
+    TaskSnapshot snapshot = await uploadTask;
+
+    String downloadImageURL = await snapshot.ref.getDownloadURL();
+    return downloadImageURL;
+  }
+
+  Future<bool> isFileSizeValid(int maxSizeInKiloBytes) async {
+    maxSizeInKiloBytes *= 1024; //convert from bytes to kilobytes
+    if (!_imageWasSelected) {
+      return false;
+    }
+    int fileSize = await _image.length();
+    return fileSize <= maxSizeInKiloBytes;
+  }
+
+  Future<void> addDatabaseEntry(String imageURL) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference collection = firestore.collection('POST');
+    final userRepo = Get.put(UserRepository());
+
+    Map<String, dynamic> post = {
+      'user': userRepo.userData.username,
+      'timestamp': DateTime.now(),
+      'selected_sports': _selectedSports,
+      'caption': _caption,
+      'image_url': imageURL,
+    };
+    await collection.add(post);
+  }
+
+  Future<bool> _submitPost() async {
+    if (!_imageWasSelected) {
+      Get.snackbar("Error", "You need to select an image",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.redAccent.withOpacity(1),
+          colorText: Colors.black);
+      return false;
+    }
+    if (_caption == '') {
+      Get.snackbar("Error", "It seems you forgot to write a caption!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.redAccent.withOpacity(1),
+          colorText: Colors.black);
+      return false;
+    }
+
+    // Upload the image to Firebase Storage and get the download URL
+    String imageURL = await uploadImage(_image);
+
+    // Add the entry to Firestore
+    await addDatabaseEntry(imageURL);
+    Get.snackbar("Post uploaded successfully!", "",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.greenAccent.withOpacity(1),
+        colorText: Colors.black);
+
+    return true;
   }
 
   @override
@@ -94,8 +174,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   fillColor: mobileBackgroundColor,
                 ),
               ),
-              SizedBox(height: 25.0),
-              Text('Select sports:'),
+              // SizedBox(height: 25.0),
+              // Text('Select sports:'),
               Wrap(
                 children: [
                   _buildSportChip('Football'),
@@ -119,11 +199,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ],
               ),
               SizedBox(
-                height: 80,
+                height: 10,
               ),
               RoundedButton(
                 text: 'POST',
-                press: () {},
+                press: () {
+                  _submitPost().then((postCreationSuccess) {
+                    if (postCreationSuccess) {
+                      Navigator.pop(context);
+                    }
+                  });
+                },
                 color: mobileBackgroundColor,
               ),
             ],

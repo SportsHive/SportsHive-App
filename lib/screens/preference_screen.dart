@@ -34,7 +34,7 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
               _buildSportsImage('assets/icons/boxing.png', 'Boxing'),
               _buildSportsImage('assets/icons/muay_thai.png', 'Muay Thai'),
               _buildSportsImage(
-                  'assets/icons/american_football.png', 'American Football'),
+                  'assets/icons/american_football.png', 'American'),
               _buildSportsImage('assets/icons/hiking.png', 'Hiking'),
               _buildSportsImage('assets/icons/MMA.png', 'MMA'),
               _buildSportsImage('assets/icons/weightlift.png', 'Weightlifting'),
