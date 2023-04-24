@@ -26,18 +26,18 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
           child: GridView.count(
             crossAxisCount: 3,
             children: [
-              _buildSportsImage('assets/icons/football.png', 'Football'),
+              _buildSportsImage('assets/icons/football2.png', 'Football'),
               _buildSportsImage('assets/icons/basketball.png', 'Basketball'),
               _buildSportsImage('assets/icons/rugby.png', 'Rugby'),
               _buildSportsImage('assets/icons/tennis.png', 'Tennis'),
               _buildSportsImage('assets/icons/cycling.png', 'Cycling'),
               _buildSportsImage('assets/icons/boxing.png', 'Boxing'),
-              _buildSportsImage('assets/icons/mauy_thai.png', 'Mauy Thai'),
+              _buildSportsImage('assets/icons/muay_thai.png', 'Muay Thai'),
               _buildSportsImage(
-                  'assets/icons/american_football.png', 'American'),
+                  'assets/icons/american_football.png', 'American Football'),
               _buildSportsImage('assets/icons/hiking.png', 'Hiking'),
               _buildSportsImage('assets/icons/MMA.png', 'MMA'),
-              _buildSportsImage('assets/icons/weightlift.png', 'WeightLifting'),
+              _buildSportsImage('assets/icons/weightlift.png', 'Weightlifting'),
               _buildSportsImage('assets/icons/track.png', 'Track'),
               _buildSportsImage('assets/icons/swimming.png', 'Swimming'),
               _buildSportsImage('assets/icons/volleyball.png', 'Volleyball'),

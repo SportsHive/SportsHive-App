@@ -15,18 +15,17 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-
   String? _selectedSport;
   int _selectedAvailability = 1;
   DateTime _selectedDate = DateTime.now();
-  
+
   final _sports = [
     'Football',
-    'BasketBall',
+    'Basketball',
     'American Football',
-    'boxing',
-    'cycling',
-    'hiking',
+    'Boxing',
+    'Cycling',
+    'Hiking',
     'Muay Thai',
     'MMA',
     'Rugby',
@@ -35,8 +34,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     'Table Tennis',
     'Tennis',
     'Track',
-    'VolleyBall',
-    'WeightLifting',
+    'Volleyball',
+    'Weightlifting',
     'Wrestling',
     'Yoga'
   ];
@@ -44,7 +43,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   String imageURL = "";
 
   final _availabilityValues = List<int>.generate(20, (i) => i + 1);
-  final  title_controller = TextEditingController();
+  final title_controller = TextEditingController();
   final location_controller = TextEditingController();
   final _db = FirebaseFirestore.instance;
   final userRepo = UserRepository();
@@ -76,7 +75,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
   void addImageFile(File file) async {
     final storage = FirebaseStorage.instance;
-    Reference ref = storage.ref().child("${userRepo.userData.username}/profile_pic.jpg");
+    Reference ref =
+        storage.ref().child("${userRepo.userData.username}/profile_pic.jpg");
     await ref.putFile(_imageFile!);
     ref.getDownloadURL().then((value) {
       print(value);
@@ -85,7 +85,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,9 +99,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         ),
         backgroundColor: Colors.orange,
         iconTheme: IconThemeData(
-          color: mobileBackgroundColor, ),
+          color: mobileBackgroundColor,
+        ),
         centerTitle: true,
-        
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -133,18 +132,16 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       : Image.file(_imageFile!, fit: BoxFit.cover),
                 ),
               ),
-              
-              
+
               // Title input
               SizedBox(height: 16.0),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Title',
                 ),
-                controller: title_controller,  
+                controller: title_controller,
               ),
               SizedBox(height: 16.0),
-
 
               // Sport selection
               DropdownButtonFormField<String>(
@@ -162,7 +159,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               ),
               SizedBox(height: 16.0),
 
-
               // Availability selection
               DropdownButtonFormField<int>(
                 decoration: InputDecoration(
@@ -178,7 +174,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 }).toList(),
               ),
               SizedBox(height: 16.0),
-
 
               // Date selection
               TextFormField(
@@ -228,7 +223,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 ),
               ),
 
-
               // Location selection
               SizedBox(height: 20.0),
               TextFormField(
@@ -247,7 +241,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               SizedBox(height: 80.0),
 
               ElevatedButton(
-                onPressed: () { createEvent(context); },
+                onPressed: () {
+                  createEvent(context);
+                },
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.orange),
@@ -262,7 +258,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   }
 
   void createEvent(context) async {
-
     //create an EventModel with the User informations
     EventsModel newEvent = EventsModel(
       title: title_controller.text.trim(),
@@ -276,22 +271,22 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     );
 
     //add the Event Model to the database
-    await _db.collection("EVENT").add(newEvent.toJson()).whenComplete(
-        () => Get.snackbar(
-        "Success", "Your SportsHive Event has been created successfully!",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.orangeAccent.withOpacity(1),
-        colorText: Colors.black ),
-      )
+    await _db
+        .collection("EVENT")
+        .add(newEvent.toJson())
+        .whenComplete(
+          () => Get.snackbar(
+              "Success", "Your SportsHive Event has been created successfully!",
+              snackPosition: SnackPosition.TOP,
+              backgroundColor: Colors.orangeAccent.withOpacity(1),
+              colorText: Colors.black),
+        )
         .catchError((error, stackTrace) {
       Get.snackbar("Error", "Something went wrong! Try again.",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.redAccent.withOpacity(1),
           colorText: Colors.black);
       print(error.toString());
-      
     });
-    
   }
 }
-

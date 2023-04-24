@@ -128,7 +128,7 @@ class LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(
                       vertical: 1,
                     ),
-                    child: const Text("Dont Have an Account?"),
+                    child: const Text("Don't have an account?"),
                   ),
                   GestureDetector(
                     onTap: () {},

@@ -44,7 +44,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
         centerTitle: true,
         backgroundColor: Colors.orange,
         iconTheme: IconThemeData(
-          color: mobileBackgroundColor, // Change this to the color you want for the back arrow
+          color:
+              mobileBackgroundColor, // Change this to the color you want for the back arrow
         ),
       ),
       body: SingleChildScrollView(
@@ -101,20 +102,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   _buildSportChip('Basketball'),
                   _buildSportChip('Tennis'),
                   _buildSportChip('MMA'),
-                  _buildSportChip('Baseball'),
-                  _buildSportChip('Hockey'),
                   _buildSportChip('American Football'),
                   _buildSportChip('Boxing'),
                   _buildSportChip('Cycling'),
                   _buildSportChip('Hiking'),
-                  _buildSportChip('Mauy Thai'),
+                  _buildSportChip('Muay Thai'),
                   _buildSportChip('Rugby'),
                   _buildSportChip('Skiing'),
                   _buildSportChip('Swimming'),
                   _buildSportChip('Table Tennis'),
                   _buildSportChip('Track'),
                   _buildSportChip('Volleyball'),
-                  _buildSportChip('WeightLifting'),
+                  _buildSportChip('Weightlifting'),
                   _buildSportChip('Wrestling'),
                   _buildSportChip('Yoga'),
                 ],

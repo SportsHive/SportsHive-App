@@ -98,7 +98,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   CircleAvatar(
                                     radius: 50,
                                     backgroundImage: AssetImage(
-                                        "assets/images/user_default_profile.png"),
+                                        "assets/images/user_default_profile_picture.png"),
                                   ),
                                   InkWell(
                                     onTap: () {},  //option to change the image

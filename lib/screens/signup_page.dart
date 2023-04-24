@@ -221,13 +221,13 @@ class SignUpScreenState extends State<SignupScreen> {
 
   bool canPass() {
     if (controller.text_pass.text.trim() != controller.text_check.text.trim()) {
-      print("password is not verified!");
+      print("Password is not verified!");
       return false;
     } else if (controller.text_username.text.isEmpty) {
-      print("Enter a valid username.");
+      print("Please enter a valid username.");
       return false;
     } else if (controller.text_email.text.isEmpty) {
-      print("Enter a valid email.");
+      print("PLease enter a valid email.");
       return false;
     }
     return true;

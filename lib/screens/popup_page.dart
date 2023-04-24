@@ -33,14 +33,14 @@ class PopupHelper {
 
   static void showSuccessfulLoginPopup(BuildContext context, String popupType) {
     switch (popupType) {
-      case 'POP_SUCCESFUL':
+      case 'POP_SUCCESSFUL':
         AwesomeDialog(
             context: context,
             dialogType: DialogType.success,
             animType: AnimType.scale,
             showCloseIcon: true,
             title: 'Congratulations! ',
-            desc: 'You made an Account Succesfully!')
+            desc: 'You made an account successfully!')
           ..show();
         break;
       default:
