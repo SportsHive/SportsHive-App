@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sportshive/utils/colors.dart';
 import 'dart:io';
-import "package:sportshive/data/models/event_model.dart";
-import 'package:sportshive/data/repositories/user_repo.dart';
+
+import '../data/models/event_model.dart';
+import '../data/repositories/user_repo.dart';
 
 class CreateEventScreen extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   String? _selectedSport;
   int _selectedAvailability = 1;
   DateTime _selectedDate = DateTime.now();
-  LatLng? _selectedLocation;
+  
   final _sports = [
     'Football',
     'BasketBall',
@@ -73,12 +74,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     });
   }
 
-  void _handleLocationSelection(LatLng? value) {
-    setState(() {
-      _selectedLocation = value;
-    });
-  }
-
   void addImageFile(File file) async {
     final storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child("${userRepo.userData.username}/profile_pic.jpg");
@@ -96,8 +91,18 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Event'),
+        title: Text(
+          'Create Event',
+          style: TextStyle(
+            color:
+                mobileBackgroundColor, // Change this to the color you want for the title
+          ),
+        ),
         backgroundColor: Colors.orange,
+        iconTheme: IconThemeData(
+          color: mobileBackgroundColor, ),
+        centerTitle: true,
+        
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -229,7 +234,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               TextFormField(
                 controller: location_controller,
                 decoration: InputDecoration(
-                  hintText: 'Provide a Google Maps or similar link to the location',
+                  hintText:
+                      'Provide a Google Maps or similar link to the location',
                 ),
                 keyboardType: TextInputType
                     .url, // set the keyboard type to url for better user experience
@@ -238,8 +244,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 },
               ),
 
-              //CreateEvent button
               SizedBox(height: 80.0),
+
               ElevatedButton(
                 onPressed: () { createEvent(context); },
                 style: ButtonStyle(

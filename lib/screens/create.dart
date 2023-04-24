@@ -15,56 +15,6 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePost> {
-  late Uint8List _file;
-
-  // Future<void> _selectImage(BuildContext context) async {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return SimpleDialog(
-  //         title: const Text('Create Post'),
-  //         children: [
-  //           SimpleDialogOption(
-  //             padding: const EdgeInsets.all(20),
-  //             child: const Text('Take a photo'),
-  //             onPressed: () async {
-  //               Navigator.of(context).pop();
-  //               final file = await pickImage(ImageSource.camera);
-  //               if (file != null) {
-  //                 setState(() {
-  //                   _file = file;
-  //                 });
-  //                 Navigator.of(context).push(
-  //                   MaterialPageRoute(
-  //                     builder: (context) => AddPostScreen(file: _file),
-  //                   ),
-  //                 );
-  //               }
-  //             },
-  //           ),
-  //           SimpleDialogOption(
-  //             padding: const EdgeInsets.all(20),
-  //             child: const Text('Choose from Gallery'),
-  //             onPressed: () async {
-  //               Navigator.of(context).pop();
-  //               final file = await pickImage(ImageSource.gallery);
-  //               if (file != null) {
-  //                 setState(() {
-  //                   _file = file;
-  //                 });
-  //                 Navigator.of(context).push(
-  //                   MaterialPageRoute(
-  //                     builder: (context) => AddPostScreen(file: _file),
-  //                   ),
-  //                 );
-  //               }
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
   Widget _buildElevatedButton(
     String label,
