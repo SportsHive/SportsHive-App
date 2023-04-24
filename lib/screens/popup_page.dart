@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:get/get.dart';
+import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
 
 class PopupHelper {
+
   static void showSignOutPopup(BuildContext context, String popupType) {
     switch (popupType) {
       case 'POP_SignOut':
@@ -16,6 +19,7 @@ class PopupHelper {
             //actions to perform on cancels and ok button
             btnCancelOnPress: () {},
             btnOkOnPress: () {
+              AuthenticationRepository.instance.logOut();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => WelcomeScreen()),

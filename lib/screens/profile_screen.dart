@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sportshive/data/controllers/profile_controller.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
 import 'package:sportshive/screens/editprofile_page.dart';
@@ -20,6 +23,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
+
+  
   static bool profileIsForCurrentUser() {
     /**
      * change when search is implemented to have different
@@ -96,7 +101,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                         "assets/images/user_default_profile.png"),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {},  //option to change the image
                                     child: CircleAvatar(
                                       radius: 15,
                                       backgroundColor: Colors.orangeAccent,
