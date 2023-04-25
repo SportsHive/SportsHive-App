@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportshive/components/background.dart';
 import 'package:sportshive/screens/editprofile_page.dart';
+import 'package:sportshive/utils/colors.dart';
 
 import '../../responsive/mobile_screen_layout.dart';
 
@@ -18,7 +19,7 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Select Your Preferred Sport(s)'),
-          backgroundColor: Colors.orange,
+          backgroundColor: orange,
           iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Padding(
@@ -77,7 +78,7 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: isSelected ? Colors.orange : Colors.grey,
+              color: isSelected ? orange : Colors.grey,
               width: 2.0,
             ),
           ),

@@ -95,8 +95,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                     Spacer(),
                                     Container(
                                       decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 3, color: Color(0xffFAE072)),
+                                        border:
+                                            Border.all(width: 3, color: orange),
                                         borderRadius: BorderRadius.circular(30),
                                       ),
                                       child: ClipRRect(
@@ -140,7 +140,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                 Text(
                                   "EVENTS ",
                                   style: TextStyle(
-                                      color: Colors.orange,
+                                      color: orange,
                                       fontSize: 22,
                                       fontWeight: FontWeight.w800),
                                 ),

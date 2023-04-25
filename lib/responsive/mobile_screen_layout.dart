@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:sportshive/screens/login_page.dart';
 import 'package:sportshive/screens/popup_page.dart';
 import 'package:sportshive/utils/colors.dart';
@@ -73,9 +74,13 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
             ElevatedButton(
               onPressed: () {
                 // Add code here for the search button
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.orange, // Set the background color
+                primary: orange, // Set the background color
                 onPrimary: Colors.white, // Set the text color
               ),
               child: Row(

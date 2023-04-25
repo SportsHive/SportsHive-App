@@ -227,7 +227,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       child: ChoiceChip(
         selected: isSelected,
         label: Text(sport),
-        selectedColor: Colors.orange,
+        selectedColor: orange,
         onSelected: (selected) {
           setState(() {
             if (selected) {

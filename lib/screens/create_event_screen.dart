@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +97,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 mobileBackgroundColor, // Change this to the color you want for the title
           ),
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: orange,
         iconTheme: IconThemeData(
           color: mobileBackgroundColor,
         ),
@@ -246,8 +245,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   createEvent(context);
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.orange),
+                  backgroundColor: MaterialStateProperty.all<Color>(orange),
                 ),
                 child: Text('Create Event'),
               ),
@@ -279,7 +277,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
           () => Get.snackbar(
               "Success", "Your SportsHive Event has been created successfully!",
               snackPosition: SnackPosition.TOP,
-              backgroundColor: Colors.orangeAccent.withOpacity(1),
+              backgroundColor: orange,
               colorText: Colors.black),
         )
         .catchError((error, stackTrace) {

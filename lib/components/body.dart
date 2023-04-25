@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sportshive/components/rounded_button.dart';
 import 'package:sportshive/screens/login_page.dart';
 import 'package:sportshive/screens/signup_page.dart';
+import 'package:sportshive/utils/colors.dart';
 
 import '../screens/welcome_screen.dart';
 import 'background.dart';
@@ -22,8 +23,7 @@ class Body extends StatelessWidget {
             "Welcome to SportsHive",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
-          SvgPicture.asset("assets/images/welcome.svg",
-              height: size.height * 0.41),
+          Image.asset("assets/WEL.png", height: size.height * 0.41),
           RoundedButton(
             text: "LOG IN",
             press: () {
@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
           RoundedButton(
             text: "SIGN UP",
             textColor: Colors.black,
-            color: Colors.orangeAccent,
+            color: orange,
             press: () {
               Navigator.push(
                   context,

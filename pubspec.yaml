@@ -75,6 +75,8 @@ flutter:
     - assets/icons/
 
     - assets/images/Camera_Icon.png
+    - assets/WEL.png
+
 
     
   #   - images/a_dot_ham.jpeg

@@ -2,6 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportshive/data/repositories/auth_repo.dart';
+import 'package:sportshive/screens/event_page.dart';
+import 'package:sportshive/screens/login_page.dart';
+import 'package:sportshive/screens/signup_page.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/utils/colors.dart';
 // import 'package:sportshive/responsive/mobile_screen_layout.dart';
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
-      home: WelcomeScreen(),
+      home: EventsScreen(),
     );
   }
 }

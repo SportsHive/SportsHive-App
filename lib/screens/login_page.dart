@@ -11,6 +11,7 @@ import 'package:sportshive/screens/event_page.dart';
 import 'package:sportshive/screens/preference_screen.dart';
 import 'package:sportshive/screens/profile_screen.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
+import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange,
+        backgroundColor: orange,
         onPressed: () {
           Navigator.pop(context);
         },
@@ -86,6 +87,7 @@ class LoginScreenState extends State<LoginScreen> {
 
               InkWell(
                 child: RoundedButton(
+                  color: orange,
                   text: 'Log In',
                   press: () async {
                     User? user = await loginWithEmail(
@@ -99,19 +101,6 @@ class LoginScreenState extends State<LoginScreen> {
                           builder: (context) => MobileScreenLayout()));
                     }
                   },
-
-                  //bdeirs old button:
-                  // child: const Text('Log in'),
-                  // width: double.infinity,
-                  // alignment: Alignment.center,
-                  // padding: const EdgeInsets.symmetric(vertical: 12),
-                  // decoration: const ShapeDecoration(
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.all(
-                  //         Radius.circular(4),
-                  //       ),
-                  //     ),
-                  //     color: orange),
                 ),
               ),
 

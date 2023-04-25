@@ -10,6 +10,7 @@ import 'package:sportshive/data/models/user_model.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/preference_screen.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
+import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/widgets/text_field_input.dart' as CustomTextField;
 import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -67,7 +68,7 @@ class SignUpScreenState extends State<SignupScreen> {
       key: _formkey,
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange,
+        backgroundColor: orange,
         onPressed: () {
           Navigator.pop(context);
         },
