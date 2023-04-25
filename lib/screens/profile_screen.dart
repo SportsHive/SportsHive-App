@@ -104,7 +104,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                     onTap: () {},  //option to change the image
                                     child: CircleAvatar(
                                       radius: 15,
-                                      backgroundColor: Colors.orangeAccent,
+                                      backgroundColor: orange,
                                       child: Icon(
                                         Icons.edit,
                                         size: 20,
@@ -187,7 +187,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                           }
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.orange,
+                                          primary: orange,
                                           onPrimary: Colors.white,
                                         ),
                                         child: Text("Edit Profile"),

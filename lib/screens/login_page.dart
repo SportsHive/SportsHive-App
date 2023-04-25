@@ -55,10 +55,11 @@ class LoginScreenState extends State<LoginScreen> {
                 child: Container(),
               ),
               //svg image
-              SvgPicture.asset(
-                'assets/login_logo_emptybackg.svg',
+              Image.asset(
+                'assets/original_logo.png',
                 height: 140,
               ),
+
               const SizedBox(height: 35),
               //textfield for email
               TextFieldInput(

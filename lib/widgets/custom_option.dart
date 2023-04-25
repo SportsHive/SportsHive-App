@@ -47,13 +47,13 @@ class _CustomTernaryOptionState extends State<CustomTernaryOption> {
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: selectedOption == 0
-                                ? Colors.orange
+                                ? orange
                                 : Colors.white,
                           ),
                     ),
                     Container(
                       height: selectedOption == 0 ? 3 : 1,
-                      color: selectedOption == 0 ? Colors.orange : Colors.white,
+                      color: selectedOption == 0 ? orange : Colors.white,
                     ),
                   ],
                 ),
@@ -74,13 +74,13 @@ class _CustomTernaryOptionState extends State<CustomTernaryOption> {
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: selectedOption == 1
-                                ? Colors.orange
+                                ? orange
                                 : Colors.white,
                           ),
                     ),
                     Container(
                       height: selectedOption == 1 ? 3 : 1,
-                      color: selectedOption == 1 ? Colors.orange : Colors.white,
+                      color: selectedOption == 1 ? orange : Colors.white,
                     ),
                   ],
                 ),
@@ -101,13 +101,13 @@ class _CustomTernaryOptionState extends State<CustomTernaryOption> {
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: selectedOption == 2
-                                ? Colors.orange
+                                ? orange
                                 : Colors.white,
                           ),
                     ),
                     Container(
                       height: selectedOption == 2 ? 3 : 1,
-                      color: selectedOption == 2 ? Colors.orange : Colors.white,
+                      color: selectedOption == 2 ? orange : Colors.white,
                     ),
                   ],
                 ),

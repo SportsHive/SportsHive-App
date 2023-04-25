@@ -122,7 +122,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.orange,
+        backgroundColor: orange,
         iconTheme: IconThemeData(
           color:
               mobileBackgroundColor, // Change this to the color you want for the back arrow

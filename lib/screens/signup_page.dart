@@ -85,10 +85,11 @@ class SignUpScreenState extends State<SignupScreen> {
                 child: Container(),
               ),
               //svg image
-              SvgPicture.asset(
-                'assets/login_logo_emptybackg.svg',
+              Image.asset(
+                'assets/original_logo.png',
                 height: 140,
               ),
+
               const SizedBox(height: 10),
 
               //textfield for username
@@ -207,14 +208,14 @@ class SignUpScreenState extends State<SignupScreen> {
       Get.snackbar("Error", "Please enter a valid username",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.black.withOpacity(1),
-          colorText: Colors.orangeAccent);
+          colorText: orange);
       print("Please enter a valid username.");
       return false;
     } else if (controller.text_pass.text.trim() == "") {
       Get.snackbar("Error", "Password field is empty",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.black.withOpacity(1),
-          colorText: Colors.orange);
+          colorText: orange);
       print("Password is empty!");
       return false;
     } else if (controller.text_pass.text.trim() !=
@@ -223,14 +224,14 @@ class SignUpScreenState extends State<SignupScreen> {
           "Password and Verify Password fields does not have the same value",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.black.withOpacity(1),
-          colorText: Colors.orange);
+          colorText: orange);
       print("Password is not verified!");
       return false;
     } else if (controller.text_email.text.isEmpty) {
       Get.snackbar("Error", "Please enter a valid email",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.black.withOpacity(1),
-          colorText: Colors.orangeAccent);
+          colorText: orange);
       print("Please enter a valid email.");
       return false;
     } else if (controller.text_pass.text.trim().length < 8) {
@@ -238,7 +239,7 @@ class SignUpScreenState extends State<SignupScreen> {
           "Error", "Please enter at least 8 characters for the password",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.black.withOpacity(1),
-          colorText: Colors.orangeAccent);
+          colorText: orange);
       print("short password");
       return false;
     }

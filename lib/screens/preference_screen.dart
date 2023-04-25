@@ -53,7 +53,7 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: _onDonePressed,
           child: Icon(Icons.check),
-          backgroundColor: Colors.orange,
+          backgroundColor: orange,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),

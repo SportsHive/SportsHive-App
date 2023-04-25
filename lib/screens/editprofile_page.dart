@@ -5,6 +5,7 @@ import 'package:sportshive/data/controllers/profile_controller.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
+import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
 import 'package:sportshive/screens/profile_pic.dart';
 import 'package:country_picker/country_picker.dart';
@@ -37,7 +38,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tell us more about yourself'),
-        backgroundColor: Colors.orange,
+        backgroundColor: orange,
         iconTheme: IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -181,7 +182,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _onDonePressed,
         child: Icon(Icons.navigate_next),
-        backgroundColor: Colors.orange,
+        backgroundColor: orange,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
