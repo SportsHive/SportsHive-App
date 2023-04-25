@@ -24,97 +24,91 @@ class _CustomTernaryOptionState extends State<CustomTernaryOption> {
 
   @override
   Widget build(BuildContext context) {
-  return Container(
-        color: mobileBackgroundColor,
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  if (selectedOption != 0) {
-                    setState(() {
-                      selectedOption = 0;
-                    });
-                  }
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      widget.textLeft,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: selectedOption == 0
-                                ? orange
-                                : Colors.white,
-                          ),
-                    ),
-                    Container(
-                      height: selectedOption == 0 ? 3 : 1,
-                      color: selectedOption == 0 ? orange : Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: InkWell(
-                onTap: () {
+    return Container(
+      color: mobileBackgroundColor,
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                if (selectedOption != 0) {
                   setState(() {
-                    selectedOption = 1;
+                    selectedOption = 0;
                   });
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      widget.textMiddle,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: selectedOption == 1
-                                ? orange
-                                : Colors.white,
-                          ),
-                    ),
-                    Container(
-                      height: selectedOption == 1 ? 3 : 1,
-                      color: selectedOption == 1 ? orange : Colors.white,
-                    ),
-                  ],
-                ),
+                }
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    widget.textLeft,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: selectedOption == 0 ? orange : Colors.white,
+                        ),
+                  ),
+                  Container(
+                    height: selectedOption == 0 ? 3 : 1,
+                    color: selectedOption == 0 ? orange : Colors.white,
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    selectedOption = 2;
-                  });
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      widget.textRight,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: selectedOption == 2
-                                ? orange
-                                : Colors.white,
-                          ),
-                    ),
-                    Container(
-                      height: selectedOption == 2 ? 3 : 1,
-                      color: selectedOption == 2 ? orange : Colors.white,
-                    ),
-                  ],
-                ),
+          ),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  selectedOption = 1;
+                });
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    widget.textMiddle,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: selectedOption == 1 ? orange : Colors.white,
+                        ),
+                  ),
+                  Container(
+                    height: selectedOption == 1 ? 3 : 1,
+                    color: selectedOption == 1 ? orange : Colors.white,
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      );
+          ),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  selectedOption = 2;
+                });
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    widget.textRight,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: selectedOption == 2 ? orange : Colors.white,
+                        ),
+                  ),
+                  Container(
+                    height: selectedOption == 2 ? 3 : 1,
+                    color: selectedOption == 2 ? orange : Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

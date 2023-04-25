@@ -10,7 +10,6 @@ import 'package:sportshive/widgets/text_field_input.dart';
 import 'package:sportshive/screens/profile_pic.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:sportshive/screens/preference_screen.dart';
-
 import '../data/models/user_model.dart';
 
 //for popups
