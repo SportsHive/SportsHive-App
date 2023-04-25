@@ -3,6 +3,8 @@ import 'package:sportshive/screens/create_post_screen.dart';
 import 'package:sportshive/screens/create_event_screen.dart';
 import 'package:sportshive/utils/colors.dart';
 
+import 'create_awards_screen.dart';
+
 class CreatePost extends StatefulWidget {
   const CreatePost({Key? key}) : super(key: key);
 
@@ -49,23 +51,7 @@ class _CreatePostScreenState extends State<CreatePost> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Share your thoughts or promote your event with the community!",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    blurRadius: 10.0,
-                    color: Colors.black,
-                    offset: Offset(2.0, 2.0),
-                  ),
-                ],
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 40),
+    
             _buildElevatedButton(
               'Create Post',
               Icons.add,
@@ -84,6 +70,17 @@ class _CreatePostScreenState extends State<CreatePost> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CreateEventScreen(),
+                ),
+              ),
+            ),
+            SizedBox(height: 40),
+            _buildElevatedButton(
+              'Add an Award',
+              Icons.add,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateAwardsPage(),
                 ),
               ),
             ),

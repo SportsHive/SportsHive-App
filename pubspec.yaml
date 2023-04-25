@@ -68,7 +68,7 @@ flutter:
 
     - assets/google-logo.png
     - assets/apple-logo.png
-
+    - assets/awards/
     - assets/logosolo.svg
 
     - assets/images/
