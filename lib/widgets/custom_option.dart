@@ -6,9 +6,9 @@ import 'package:flutter/src/widgets/framework.dart';
 class CustomTernaryOption extends StatefulWidget {
   CustomTernaryOption({
     Key? key,
-    this.textLeft = "Posts",
-    this.textMiddle = "Awards",
-    this.textRight = "Stats",
+    this.textLeft = "Left",
+    this.textMiddle = "Middle",
+    this.textRight = "Right",
   }) : super(key: key);
 
   String textLeft;
