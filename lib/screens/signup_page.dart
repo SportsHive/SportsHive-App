@@ -75,129 +75,129 @@ class SignUpScreenState extends State<SignupScreen> {
         child: Icon(Icons.arrow_back),
       ),
       body: Background(
-        child: Form(
-          key: _formkey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                flex: 2,
-                child: Container(),
-              ),
-              //svg image
-              Image.asset(
-                'assets/original_logo.png',
-                height: 140,
-              ),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
 
-              const SizedBox(height: 10),
-
-              //textfield for username
-              CustomTextField.TextFieldInput(
-                textEditingController: controller.text_username,
-                hintText: 'Create a username',
-                textInputType: TextInputType.text,
-                prefixIcon: Icons.person,
-                borderColor: const Color.fromARGB(255, 0, 0, 0),
-                borderRadius: 15,
-                borderWidth: 2.0,
-              ),
-              const SizedBox(height: 24),
-
-              //textfield for email
-              CustomTextField.TextFieldInput(
-                textEditingController: controller.text_email,
-                hintText: 'Enter your email',
-                textInputType: TextInputType.emailAddress,
-                prefixIcon: Icons.email,
-                borderColor: const Color.fromARGB(255, 0, 0, 0),
-                borderRadius: 15,
-                borderWidth: 2.0,
-              ),
-
-              const SizedBox(height: 24),
-
-              //textfield for password
-              CustomTextField.TextFieldInput(
-                textEditingController: controller.text_pass,
-                hintText: 'Enter your password',
-                textInputType: TextInputType.text,
-                isPass: true,
-                prefixIcon: Icons.lock,
-                borderColor: Colors.black,
-                borderRadius: 15,
-                borderWidth: 2.0,
-              ),
-
-              const SizedBox(height: 24),
-              //textfield for confirmation password
-              CustomTextField.TextFieldInput(
-                textEditingController: controller.text_check,
-                hintText: 'Confirm your password',
-                textInputType: TextInputType.text,
-                isPass: true,
-                prefixIcon: Icons.lock,
-                borderColor: Colors.black,
-                borderRadius: 15,
-                borderWidth: 2.0,
-              ),
-
-              //button for Register
-              const SizedBox(height: 24),
-              InkWell(
-                child: RoundedButton(
-                  text: 'Register Now!',
-                  press: () {
-                    if (canPass()) {
-                      if (_formkey.currentState == null) {
-                      } else if (_formkey.currentState!.validate()) {
-                        final user = UserModel(
-                            email: controller.text_email.text.trim(),
-                            username: controller.text_username.text.trim(),
-                            password: controller.text_pass.text.trim(),
-                            followers: 0,
-                            following: 0,
-                            avatar: "assets/images/user_default_profile_picture.png");
-
-                        SignUpController.instance.createUser(user, context);
-                      }
-                    }
-                  },
+                //svg image
+                Image.asset(
+                  'assets/original_logo.png',
+                  height: 140,
                 ),
-              ),
 
-              const SizedBox(height: 1),
-              Flexible(
-                flex: 2,
-                child: Container(),
-              ),
-              //Transition to sign up
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: signInWithGoogle,
-                    child: Image.asset(
-                      'assets/google-logo.png',
-                      width: 60,
-                      height: 60,
+                const SizedBox(height: 10),
+
+                //textfield for username
+                CustomTextField.TextFieldInput(
+                  textEditingController: controller.text_username,
+                  hintText: 'Create a username',
+                  textInputType: TextInputType.text,
+                  prefixIcon: Icons.person,
+                  borderColor: const Color.fromARGB(255, 0, 0, 0),
+                  borderRadius: 15,
+                  borderWidth: 2.0,
+                ),
+                const SizedBox(height: 24),
+
+                //textfield for email
+                CustomTextField.TextFieldInput(
+                  textEditingController: controller.text_email,
+                  hintText: 'Enter your email',
+                  textInputType: TextInputType.emailAddress,
+                  prefixIcon: Icons.email,
+                  borderColor: const Color.fromARGB(255, 0, 0, 0),
+                  borderRadius: 15,
+                  borderWidth: 2.0,
+                ),
+
+                const SizedBox(height: 24),
+
+                //textfield for password
+                CustomTextField.TextFieldInput(
+                  textEditingController: controller.text_pass,
+                  hintText: 'Enter your password',
+                  textInputType: TextInputType.text,
+                  isPass: true,
+                  prefixIcon: Icons.lock,
+                  borderColor: Colors.black,
+                  borderRadius: 15,
+                  borderWidth: 2.0,
+                ),
+
+                const SizedBox(height: 24),
+
+                //textfield for confirmation password
+                CustomTextField.TextFieldInput(
+                  textEditingController: controller.text_check,
+                  hintText: 'Confirm your password',
+                  textInputType: TextInputType.text,
+                  isPass: true,
+                  prefixIcon: Icons.lock,
+                  borderColor: Colors.black,
+                  borderRadius: 15,
+                  borderWidth: 2.0,
+                ),
+
+                //button for Register
+                InkWell(
+                  child: RoundedButton(
+                    text: 'Register Now!',
+                    press: () {
+                      if (canPass()) {
+                        if (_formkey.currentState == null) {
+                        } else if (_formkey.currentState!.validate()) {
+                          final user = UserModel(
+                              email: controller.text_email.text.trim(),
+                              username: controller.text_username.text.trim(),
+                              password: controller.text_pass.text.trim(),
+                              followers: 0,
+                              following: 0,
+                              avatar:
+                                  "assets/images/user_default_profile_picture.png");
+
+                          SignUpController.instance.createUser(user, context);
+                        }
+                      }
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 1),
+
+                //Transition to sign up
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: signInWithGoogle,
+                      child: Image.asset(
+                        'assets/google-logo.png',
+                        width: 60,
+                        height: 60,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width:
-                        20, // Adjust this value to increase or decrease the spacing between the logos
-                  ),
-                  InkWell(
-                    onTap: signInWithGoogle,
-                    child: Image.asset(
-                      'assets/apple-logo.png',
-                      width: 50,
-                      height: 50,
+                    const SizedBox(
+                      width:
+                          20, // Adjust this value to increase or decrease the spacing between the logos
                     ),
-                  ),
-                ],
-              )
-            ],
+                    InkWell(
+                      onTap: signInWithGoogle,
+                      child: Image.asset(
+                        'assets/apple-logo.png',
+                        width: 50,
+                        height: 50,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
