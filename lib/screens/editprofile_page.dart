@@ -77,7 +77,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 hintText: 'First Name',
                                 textInputType: TextInputType.name,
                                 prefixIcon: Icons.person,
-                                borderColor: Color.fromARGB(255, 255, 255, 255),
+                                borderColor: Colors.white,
                                 borderWidth: 2.0,
                                 borderRadius: 15.0,
                               ),

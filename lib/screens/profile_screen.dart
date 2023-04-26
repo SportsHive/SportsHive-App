@@ -23,8 +23,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
-
-  
   static bool profileIsForCurrentUser() {
     /**
      * change when search is implemented to have different
@@ -100,17 +98,17 @@ class ProfileScreenState extends State<ProfileScreen> {
                                     backgroundImage: AssetImage(
                                         "assets/images/user_default_profile_picture.png"),
                                   ),
-                                  InkWell(
-                                    onTap: () {},  //option to change the image
-                                    child: CircleAvatar(
-                                      radius: 15,
-                                      backgroundColor: orange,
-                                      child: Icon(
-                                        Icons.edit,
-                                        size: 20,
-                                      ),
-                                    ),
-                                  )
+                                  // InkWell(
+                                  //   onTap: () {}, //option to change the image: icon disabled until supported
+                                  //   child: CircleAvatar(
+                                  //     radius: 15,
+                                  //     backgroundColor: orange,
+                                  //     child: Icon(
+                                  //       Icons.edit,
+                                  //       size: 20,
+                                  //     ),
+                                  //   ),
+                                  // )
                                 ],
                               ),
                               Padding(

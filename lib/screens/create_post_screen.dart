@@ -32,7 +32,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     _imageWasSelected = true;
   }
 
-  Future<String> uploadImage(File imageFile) async {
+  Future<String> uploadImage(File imageFile, String postID) async {
     int maxImageSizeInKiloBytes = 4000;
     if (!await isFileSizeValid(maxImageSizeInKiloBytes)) {
       //allow maximum of 5000KB sized image
@@ -42,13 +42,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
           backgroundColor: Colors.redAccent.withOpacity(1),
           colorText: Colors.black);
     }
-    // create unique filename based on current time
-    String fileName = 'images/${DateTime.now().millisecondsSinceEpoch}';
 
     FirebaseStorage storage = FirebaseStorage.instance;
 
     // upload the image to firebase storage
-    UploadTask uploadTask = storage.ref(fileName).putFile(imageFile);
+    UploadTask uploadTask = storage.ref(postID).putFile(imageFile);
 
     // wait for the upload to complete and get the download url
     TaskSnapshot snapshot = await uploadTask;
@@ -66,9 +64,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
     return fileSize <= maxSizeInKiloBytes;
   }
 
-  Future<void> addDatabaseEntry(String imageURL) async {
+  Future<void> addDatabaseEntry(String postID) async {
+    // Upload the image to Firebase Storage and get the download URL
+    String imageURL = await uploadImage(_image, postID);
+
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference collection = firestore.collection('POST');
+    CollectionReference collection = firestore.collection('POSTS');
     final userRepo = Get.put(UserRepository());
 
     Map<String, dynamic> post = {
@@ -77,6 +78,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       'selected_sports': _selectedSports,
       'caption': _caption,
       'image_url': imageURL,
+      'post_id': postID,
     };
     await collection.add(post);
   }
@@ -96,12 +98,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
           colorText: Colors.black);
       return false;
     }
-
-    // Upload the image to Firebase Storage and get the download URL
-    String imageURL = await uploadImage(_image);
+    // create unique filename based on current time
+    String postID = 'images/${DateTime.now().millisecondsSinceEpoch}';
 
     // Add the entry to Firestore
-    await addDatabaseEntry(imageURL);
+    await addDatabaseEntry(postID);
     Get.snackbar("Post uploaded successfully!", "",
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.greenAccent.withOpacity(1),
