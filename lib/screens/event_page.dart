@@ -41,7 +41,7 @@ class _EventsScreenState extends State<EventsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+        minimum: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
         child: Padding(
           padding: const EdgeInsets.symmetric(),
           child: FutureBuilder(
@@ -56,11 +56,11 @@ class _EventsScreenState extends State<EventsScreen> {
                       children: <Widget>[
                         Container(
                           decoration:
-                              BoxDecoration(color: mobileBackgroundColor),
+                              const BoxDecoration(color: mobileBackgroundColor),
                         ),
                         SingleChildScrollView(
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 60, horizontal: 30),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,15 +76,15 @@ class _EventsScreenState extends State<EventsScreen> {
                                       children: <Widget>[
                                         Text(
                                           "Hello, ${userRepo.userData.username}",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w700,
                                               fontSize: 21),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 6,
                                         ),
-                                        Text(
+                                        const Text(
                                           "Explore what’s happening nearby",
                                           style: TextStyle(
                                               color: Colors.white,
@@ -92,7 +92,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                         )
                                       ],
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Container(
                                       decoration: BoxDecoration(
                                         border:
@@ -103,7 +103,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                           borderRadius:
                                               BorderRadius.circular(30),
                                           child:
-                                              (userRepo.userData.avatar != null)
+                                              (userRepo.userData.avatar == null)
                                                   ? Image.asset(
                                                       userRepo.userData.avatar!)
                                                   : Image.asset(
@@ -113,7 +113,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                     )
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
 
@@ -134,17 +134,17 @@ class _EventsScreenState extends State<EventsScreen> {
                                       }),
                                 ),
 
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
-                                Text(
+                                const Text(
                                   "EVENTS ",
                                   style: TextStyle(
                                       color: orange,
                                       fontSize: 22,
                                       fontWeight: FontWeight.w800),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Container(
                                   child: ListView.builder(
                                       itemCount: event_data.length,
@@ -175,10 +175,10 @@ class _EventsScreenState extends State<EventsScreen> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text(snapshot.error.toString()));
                 } else {
-                  return Center(child: Text("Something went wrong..."));
+                  return const Center(child: Text("Something went wrong..."));
                 }
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             },
           ),
@@ -198,8 +198,8 @@ class DateTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 12),
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.only(right: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
           color: isSelected ? orange : Colors.transparent,
           borderRadius: BorderRadius.circular(10)),
@@ -212,7 +212,7 @@ class DateTile extends StatelessWidget {
                 color: isSelected ? Colors.black : Colors.white,
                 fontWeight: FontWeight.w600),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
@@ -249,14 +249,15 @@ class PopularEventTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-          color: Color(0xff29404E), borderRadius: BorderRadius.circular(8)),
+          color: const Color(0xff29404E),
+          borderRadius: BorderRadius.circular(8)),
       child: Row(
         children: <Widget>[
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 16),
+              padding: const EdgeInsets.only(left: 16),
               width: MediaQuery.of(context).size.width - 100,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -264,9 +265,9 @@ class PopularEventTile extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     desc,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Row(
@@ -275,16 +276,17 @@ class PopularEventTile extends StatelessWidget {
                         "assets/images/clock_icon.png",
                         height: 12,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Text(
                         date,
-                        style: TextStyle(color: Colors.white, fontSize: 10),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   Row(
@@ -293,16 +295,17 @@ class PopularEventTile extends StatelessWidget {
                         "assets/images/location_icon.png",
                         height: 12,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Text(
                         address,
-                        style: TextStyle(color: Colors.white, fontSize: 10),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   Row(
@@ -311,12 +314,13 @@ class PopularEventTile extends StatelessWidget {
                         "assets/images/line.png",
                         height: 12,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Text(
                         "${seats_registered} seats registered of ${seats_available}",
-                        style: TextStyle(color: Colors.white, fontSize: 10),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],
                   ),
@@ -325,7 +329,7 @@ class PopularEventTile extends StatelessWidget {
             ),
           ),
           ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(8),
                   bottomRight: Radius.circular(8)),
               child: (imgAssetPath == "")

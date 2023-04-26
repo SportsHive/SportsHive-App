@@ -66,19 +66,21 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   Future<void> addDatabaseEntry(String postID) async {
     // Upload the image to Firebase Storage and get the download URL
-    String imageURL = await uploadImage(_image, postID);
+    String imageURL = await uploadImage(_image, "images/$postID");
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference collection = firestore.collection('POSTS');
     final userRepo = Get.put(UserRepository());
 
     Map<String, dynamic> post = {
-      'user': userRepo.userData.username,
+      'username': userRepo.userData.username,
       'timestamp': DateTime.now(),
       'selected_sports': _selectedSports,
       'caption': _caption,
       'image_url': imageURL,
       'post_id': postID,
+      'likes': 0,
+      'comment_count': 0,
     };
     await collection.add(post);
   }
@@ -99,7 +101,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       return false;
     }
     // create unique filename based on current time
-    String postID = 'images/${DateTime.now().millisecondsSinceEpoch}';
+    String postID = '${DateTime.now().millisecondsSinceEpoch}';
 
     // Add the entry to Firestore
     await addDatabaseEntry(postID);

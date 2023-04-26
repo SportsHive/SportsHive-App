@@ -5,8 +5,8 @@ class ImagePost extends StatefulWidget {
   final String username;
   final String caption;
   final String imageUrl;
-  final int? likes;
-  final int? comments;
+  final int likes;
+  final int commentCount;
 
   const ImagePost({
     Key? key,
@@ -14,7 +14,7 @@ class ImagePost extends StatefulWidget {
     required this.caption,
     required this.imageUrl,
     this.likes = 0,
-    this.comments = 0,
+    this.commentCount = 0,
   }) : super(key: key);
 
   @override
@@ -89,7 +89,7 @@ class _ImagePostState extends State<ImagePost> {
                           color: Colors.white,
                         ),
                         Text(
-                          widget.comments.toString(),
+                          widget.commentCount.toString(),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
