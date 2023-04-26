@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sportshive/data/controllers/profile_controller.dart';
+import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
 import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:sportshive/utils/colors.dart';
@@ -95,9 +96,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 children: [
                                   CircleAvatar(
                                     radius: 50,
-                                    backgroundImage: AssetImage(
-                                        "assets/images/user_default_profile_picture.png"),
-                                  ),
+                                    child: Image.asset("assets/images/user_default_profile_picture.png", height: 50)
                                   // InkWell(
                                   //   onTap: () {}, //option to change the image: icon disabled until supported
                                   //   child: CircleAvatar(
@@ -109,6 +108,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   //     ),
                                   //   ),
                                   // )
+                                  )
                                 ],
                               ),
                               Padding(
@@ -199,6 +199,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                                         onPressed: () {
                                           PopupHelper.showSignOutPopup(
                                               context, 'POP_SignOut');
+                                            Future.delayed(Duration(seconds: 3)).then((value) => AuthenticationRepository.instance.logOut());
+                                            
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.redAccent,

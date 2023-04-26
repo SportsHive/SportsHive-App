@@ -20,6 +20,9 @@ class UserModel {
   final String? avatar;
   final String? desc;
   final String? phone;
+  final List<String>? awards;
+  final int? height;
+  final int? weight;
   
 
   const UserModel({
@@ -37,6 +40,9 @@ class UserModel {
     this.avatar,
     this.desc,
     this.phone,
+    this.awards,
+    this.height,
+    this.weight,
   });
 
 
@@ -55,6 +61,9 @@ class UserModel {
       "avatar_url": avatar,
       "description": desc,
       "phone": phone,
+      "awards": awards,
+      "height": height,
+      "weight": weight,
     };
   }
 
@@ -75,6 +84,9 @@ class UserModel {
       avatar: data["avatar_url"] ,
       desc: data["description"],
       phone: data["phone"],
+      awards: data["awards"],
+      weight: data["weight"],
+      height: data["height"]
       );
   }
 }

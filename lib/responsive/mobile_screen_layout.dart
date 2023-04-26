@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:sportshive/screens/login_page.dart';
 import 'package:sportshive/screens/popup_page.dart';
+import 'package:sportshive/screens/search_screen.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,7 +77,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 // Add code here for the search button
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                  MaterialPageRoute(builder: (context) => const SearchScreen())
                 );
               },
               style: ElevatedButton.styleFrom(

@@ -102,14 +102,9 @@ class _EventsScreenState extends State<EventsScreen> {
                                       child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(30),
-                                          child:
-                                              (userRepo.userData.avatar != null)
-                                                  ? Image.asset(
-                                                      userRepo.userData.avatar!)
-                                                  : Image.asset(
-                                                      "assets/images/user_default_profile_picture.png",
-                                                      height: 40,
-                                                    )),
+                                          child: Image.asset(
+                                                      userRepo.userData.avatar!, height: 40,)
+                                              ),
                                     )
                                   ],
                                 ),
