@@ -10,6 +10,7 @@ import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/event_page.dart';
 import 'package:sportshive/screens/preference_screen.dart';
 import 'package:sportshive/screens/profile_screen.dart';
+import 'package:sportshive/screens/signup_page.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
@@ -121,7 +122,12 @@ class LoginScreenState extends State<LoginScreen> {
                     child: const Text("Don't have an account?"),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignupScreen()),
+                      );
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,

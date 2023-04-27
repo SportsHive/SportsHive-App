@@ -16,6 +16,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:sportshive/screens/popup_page.dart';
 
 import '../widgets/award_display.dart';
+import '../widgets/info_display.dart';
 
 class PostWidget extends StatelessWidget {
   @override
@@ -55,7 +56,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       case 1:
         return AwardsWidget(); // Replace with your actual AwardWidget
       case 2:
-        return StatsWidget(); // Replace with your actual StatsWidget
+        return StatsInfo(); // Replace with your actual StatsWidget
       default:
         return Container();
     }
