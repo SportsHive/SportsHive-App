@@ -338,8 +338,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         'phone': pn,
         'age': age,
         'desc': about,
-        'height': h,
-        'weight': w,
+        'height': int.parse(h),
+        'weight': int.parse(w),
         });
         
        
