@@ -147,17 +147,23 @@ class _EventsScreenState extends State<EventsScreen> {
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
-                                        return PopularEventTile(
-                                          desc: event_data[index].title!,
-                                          imgAssetPath:
-                                              event_data[index].posterURL!,
-                                          date: event_data[index].date!,
-                                          address: event_data[index]
-                                              .location!, // Add this line to enable the small image
-                                          seats_available: event_data[index]
-                                              .seats_available!,
-                                          seats_registered: event_data[index]
-                                              .seats_registered!,
+                                        return GestureDetector(
+                                          onTap: () {
+                                            _showEventDialog(
+                                                context, event_data[index]);
+                                          },
+                                          child: PopularEventTile(
+                                            desc: event_data[index].title!,
+                                            imgAssetPath:
+                                                event_data[index].posterURL!,
+                                            date: event_data[index].date!,
+                                            address: event_data[index]
+                                                .location!, // Add this line to enable the small image
+                                            seats_available: event_data[index]
+                                                .seats_available!,
+                                            seats_registered: event_data[index]
+                                                .seats_registered!,
+                                          ),
                                         );
                                       }),
                                 )
@@ -188,36 +194,48 @@ class DateTile extends StatelessWidget {
   String weekDay;
   String date;
   bool isSelected;
-  DateTile(
-      {required this.weekDay, required this.date, required this.isSelected});
+  VoidCallback? onTap;
+
+  DateTile({
+    required this.weekDay,
+    required this.date,
+    required this.isSelected,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(right: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
           color: isSelected ? orange : Colors.transparent,
-          borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            date,
-            style: TextStyle(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              date,
+              style: TextStyle(
                 color: isSelected ? Colors.black : Colors.white,
-                fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            weekDay,
-            style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              weekDay,
+              style: TextStyle(
                 color: isSelected ? Colors.black : Colors.white,
-                fontWeight: FontWeight.w600),
-          )
-        ],
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -335,4 +353,110 @@ class PopularEventTile extends StatelessWidget {
       ),
     );
   }
+}
+
+_showEventDialog(BuildContext context, EventsModel event) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (event.posterURL != null && event.posterURL!.isNotEmpty)
+                  Center(
+                    child: Image.network(
+                      event.posterURL!,
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                const SizedBox(height: 16),
+                Text(
+                  event.title!,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      color: orange,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      event.location != null && event.location!.isNotEmpty
+                          ? event.location!
+                          : 'No Info',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_today,
+                      color: orange,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      event.date != null && event.date!.isNotEmpty
+                          ? event.date!
+                          : 'No Info',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.event_seat,
+                      color: orange,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      event.seats_available != null &&
+                              event.seats_registered != null
+                          ? 'Spots remaining: ${event.seats_available! - event.seats_registered!}'
+                          : 'No Info',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // add your registration logic here
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Register'),
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Close'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }
