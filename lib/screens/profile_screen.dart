@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +9,7 @@ import 'package:sportshive/data/repositories/user_repo.dart';
 import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:sportshive/utils/colors.dart';
+import 'package:sportshive/utils/global_variables.dart';
 import '../../data/models/user_model.dart';
 import '../../widgets/custom_option.dart';
 
@@ -68,8 +69,15 @@ class ProfileScreenState extends State<ProfileScreen> {
      * change when search is implemented to have different
      * behavior for a different user on the profile screen
      */
-    // if (!isLoggedIn()) return notloggedinbheavior;
-    return true;
+    if (FirebaseAuth.instance.currentUser == null) {
+      //not logged in logic
+      return false;
+    } else if (desiredProfileUsername ==
+        FirebaseAuth.instance.currentUser!.displayName) {
+      return true;
+    }
+
+    return false;
   }
 
   static bool isFollowing() {
@@ -120,8 +128,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         child: FutureBuilder(
             future: profileIsForCurrentUser()
                 ? userRepo.getUserData()
-                : userRepo
-                    .getUserData(), //change to getUserDetailsByUsername(profileUsername), to support other peoples profiles
+                : userRepo.getUserDetailsByUsername(desiredProfileUsername),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {

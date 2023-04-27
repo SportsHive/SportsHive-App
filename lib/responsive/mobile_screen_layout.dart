@@ -139,17 +139,18 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
           ),
         ],
         onTap: (int index) {
-          // setState(() {
-          //   _page = index;
-          //   if (index == 3) {
-          //     if (FirebaseAuth.instance.currentUser==null) {
-          //       desiredProfileUsername = "";
-          //     } else{
-          //     desiredProfileUsername = FirebaseAuth.instance.currentUser.displayName!;
-          //     }
-          //   }
-          //   navigationTapped; // Call the function regardless of the index
-          // });
+          setState(() {
+            _page = index;
+            if (index == 3) {
+              if (FirebaseAuth.instance.currentUser == null) {
+                desiredProfileUsername = "";
+              } else {
+                desiredProfileUsername =
+                    FirebaseAuth.instance.currentUser!.displayName ?? "";
+              }
+            }
+            navigationTapped; // Call the function regardless of the index
+          });
         },
       ),
     );
