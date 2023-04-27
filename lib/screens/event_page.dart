@@ -386,7 +386,7 @@ class PopularEventTile extends StatelessWidget {
   }
 }
 
-_showEventDialog(BuildContext context, EventsModel event) {
+_showEventDialog(BuildContext context, EventsModel event) async {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -471,7 +471,7 @@ _showEventDialog(BuildContext context, EventsModel event) {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      (event.registered.length <= 0)
+                      (event.registered.isEmpty)
                           ? " Be the first to register!"
                           : ' ${event.registered.join(", ")}',
                       style: const TextStyle(fontSize: 14),
@@ -503,39 +503,44 @@ _showEventDialog(BuildContext context, EventsModel event) {
                            * does not work yet, couldnt figure out how to get docRef
                            */
 
-                          CollectionReference colRef =
-                              FirebaseFirestore.instance.collection('EVENT');
+                          // CollectionReference colRef =
+                          //     FirebaseFirestore.instance.collection('EVENT');
 
-                          Query query = colRef
-                              .where('title', isEqualTo: event.title)
-                              .where('date', isEqualTo: event.date)
-                              .where('start_time', isEqualTo: event.start_time)
-                              .where('sport_related',
-                                  isEqualTo: event.SportRelated);
+                          // Query query = colRef
+                          //     .where('title', isEqualTo: event.title)
+                          //     .where('date', isEqualTo: event.date)
+                          //     .where('start_time', isEqualTo: event.start_time)
+                          //     .where('sport_related',
+                          //         isEqualTo: event.SportRelated);
 
-                          // Retrieve the document snapshot using the get() method
-                          QuerySnapshot snapshot = await query.get();
+                          // // Retrieve the document snapshot using the get() method
+                          // QuerySnapshot snapshot = await query.get();
 
-                          // Get the DocumentSnapshot object representing the document
-                          DocumentSnapshot docSnapshot = snapshot.docs.first;
+                          // // Get the DocumentSnapshot object representing the document
+                          // DocumentSnapshot docSnapshot = snapshot.docs.first;
 
-                          // Get the DocumentReference using the reference property of the DocumentSnapshot object
-                          DocumentReference docRef = docSnapshot.reference;
-                          //i dont know how to continue
-
-                          docRef
-                              .update({'registered': event.registered})
-                              .then((value) => Get.snackbar("Registered!", "",
-                                  snackPosition: SnackPosition.TOP,
-                                  backgroundColor:
-                                      Colors.greenAccent.withOpacity(1),
-                                  colorText: Colors.black))
-                              .catchError((error) => Get.snackbar(
-                                  "Couldn't register.", "Failed: $error}",
-                                  snackPosition: SnackPosition.TOP,
-                                  backgroundColor:
-                                      Colors.redAccent.withOpacity(1),
-                                  colorText: Colors.black));
+                          // // Get the DocumentReference using the reference property of the DocumentSnapshot object
+                          // DocumentReference docRef = docSnapshot.reference;
+                          // //i dont know how to continue
+                          // // event.registered.add(user!.displayName!);
+                          // List<dynamic> oldList = event.registered;
+                          // List<dynamic> registeredList =
+                          //     List<dynamic>.from(event.registered);
+                          // registeredList.add(user!.displayName!);
+                          // docRef
+                          //     .update({'registered': registeredList})
+                          //     .then((value) => Get.snackbar(
+                          //         "Registered!", "WOWOWOWOWOWOWOWOOOWOWOW",
+                          //         snackPosition: SnackPosition.TOP,
+                          //         backgroundColor:
+                          //             Colors.greenAccent.withOpacity(1),
+                          //         colorText: Colors.black))
+                          //     .catchError((error) => Get.snackbar(
+                          //         "Couldn't register.", "Failed: $error}",
+                          //         snackPosition: SnackPosition.TOP,
+                          //         backgroundColor:
+                          //             Colors.redAccent.withOpacity(1),
+                          //         colorText: Colors.black));
                         }
                         /**
                          * need to make Events page reload to show changes
