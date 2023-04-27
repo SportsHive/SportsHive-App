@@ -4,33 +4,29 @@ import "package:flutter/material.dart";
 import "package:sportshive/utils/colors.dart";
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}): super(key: key);
+  const SearchScreen({Key? key}) : super(key: key);
 
   _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-
   final TextEditingController searchCont = TextEditingController();
   String name = "";
-  
+
   void dispose() {
     super.dispose();
     searchCont.dispose();
   }
 
   @override
-  Widget build (BuildContext context){
-    
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         title: TextFormField(
           controller: searchCont,
-          decoration: const InputDecoration(
-            labelText: "Search for a user" 
-          ),
-          onChanged: (String value){
+          decoration: const InputDecoration(labelText: "Search for a user"),
+          onChanged: (String value) {
             setState(() {
               name = value;
               print("value is : ${value}");
@@ -39,46 +35,58 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("USER").snapshots(),
-        builder: (context, snapshots) {
-          return (snapshots.connectionState == ConnectionState.waiting)
-            ? Center (child: CircularProgressIndicator(),)
-            : ListView.builder(
-            itemCount: (snapshots.data! as dynamic).docs.length,
-            itemBuilder: (context, index) {
-              print("result: ${(snapshots.data! as dynamic).docs[index]["username"]} for name: ${name}");
-              var data = snapshots.data!.docs[index].data() as Map<String, dynamic>;
+          stream: FirebaseFirestore.instance.collection("USER").snapshots(),
+          builder: (context, snapshots) {
+            return (snapshots.connectionState == ConnectionState.waiting)
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : ListView.builder(
+                    itemCount: (snapshots.data! as dynamic).docs.length,
+                    //chatgpt said replace with this to fix error: itemCount: snapshots.data?.docs.length ?? 0,
 
-              if (name.isEmpty){
-                return ListTile(
-                  title: Text(
-                    data["username"],
-                    maxLines: 1, 
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.cyanAccent, fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  leading: CircleAvatar(
-                    child: Image.asset(data["avatar_url"])),
-                  );
-              }
-              if (data["username"].toString().toLowerCase().startsWith(name.toLowerCase())){
-                return ListTile(
-                  title: Text(
-                    data["username"],
-                    maxLines: 1, 
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.cyanAccent, fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  leading: CircleAvatar(
-                    child: Image.asset(data["avatar_url"])),
-                  );
-              }
-              return Container();
-            }
-          );
-        }
-        ),
-      
+                    itemBuilder: (context, index) {
+                      print(
+                          "result: ${(snapshots.data! as dynamic).docs[index]["username"]} for name: ${name}");
+                      var data = snapshots.data!.docs[index].data()
+                          as Map<String, dynamic>;
+
+                      if (name.isEmpty) {
+                        return ListTile(
+                          title: Text(
+                            data["username"],
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.cyanAccent,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          leading: CircleAvatar(
+                              child: Image.asset(data["avatar_url"])),
+                        );
+                      }
+                      if (data["username"]
+                          .toString()
+                          .toLowerCase()
+                          .startsWith(name.toLowerCase())) {
+                        return ListTile(
+                          title: Text(
+                            data["username"],
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.cyanAccent,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          leading: CircleAvatar(
+                              child: Image.asset(data["avatar_url"])),
+                        );
+                      }
+                      return Container();
+                    });
+          }),
     );
   }
 }

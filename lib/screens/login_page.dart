@@ -10,6 +10,7 @@ import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/event_page.dart';
 import 'package:sportshive/screens/preference_screen.dart';
 import 'package:sportshive/screens/profile_screen.dart';
+import 'package:sportshive/screens/signup_page.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/widgets/text_field_input.dart';
@@ -51,7 +52,7 @@ class LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 35),
                 Image.asset(
                   'assets/original_logo.png',
                   height: 140,
