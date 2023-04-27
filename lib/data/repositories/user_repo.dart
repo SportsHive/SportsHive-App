@@ -40,7 +40,8 @@ class UserRepository extends GetxController {
         colorText: Colors.black);
     Future.delayed(Duration(seconds: 1), () {
       SignUpController.instance.signUp(user.email, user.password);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SportsPreferenceScreen()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => SportsPreferenceScreen()));
     });
   }
 
@@ -65,6 +66,16 @@ class UserRepository extends GetxController {
   Future<UserModel?> getUserDetails(String email) async {
     final snapshot =
         await _db.collection("USER").where("email", isEqualTo: email).get();
+    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    return userData;
+  }
+
+  //get specific user info
+  Future<UserModel?> getUserDetailsByUsername(String username) async {
+    final snapshot = await _db
+        .collection("USER")
+        .where("username", isEqualTo: username)
+        .get();
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     return userData;
   }
