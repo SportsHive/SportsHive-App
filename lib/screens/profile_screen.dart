@@ -8,13 +8,33 @@ import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
 import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:sportshive/utils/colors.dart';
-
 import '../../data/models/user_model.dart';
 import '../../widgets/custom_option.dart';
 
 //for popups
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:sportshive/screens/popup_page.dart';
+
+class PostWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text("PostWidget"));
+  }
+}
+
+class AwardWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text("AwardWidget"));
+  }
+}
+
+class StatsWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text("StatsWidget"));
+  }
+}
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -24,6 +44,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
+  int _selectedIndex = 0;
+
+  Widget _buildSelectedContent() {
+    switch (_selectedIndex) {
+      case 0:
+        return PostWidget(); // Replace with your actual PostWidget
+      case 1:
+        return AwardWidget(); // Replace with your actual AwardWidget
+      case 2:
+        return StatsWidget(); // Replace with your actual StatsWidget
+      default:
+        return Container();
+    }
+  }
+
   static bool profileIsForCurrentUser() {
     /**
      * change when search is implemented to have different
@@ -95,20 +130,22 @@ class ProfileScreenState extends State<ProfileScreen> {
                               Stack(
                                 children: [
                                   CircleAvatar(
-                                    radius: 50,
-                                    child: Image.asset("assets/images/user_default_profile_picture.png", height: 50)
-                                  // InkWell(
-                                  //   onTap: () {}, //option to change the image: icon disabled until supported
-                                  //   child: CircleAvatar(
-                                  //     radius: 15,
-                                  //     backgroundColor: orange,
-                                  //     child: Icon(
-                                  //       Icons.edit,
-                                  //       size: 20,
-                                  //     ),
-                                  //   ),
-                                  // )
-                                  )
+                                      radius: 50,
+                                      child: Image.asset(
+                                          "assets/images/user_default_profile_picture.png",
+                                          height: 50)
+                                      // InkWell(
+                                      //   onTap: () {}, //option to change the image: icon disabled until supported
+                                      //   child: CircleAvatar(
+                                      //     radius: 15,
+                                      //     backgroundColor: orange,
+                                      //     child: Icon(
+                                      //       Icons.edit,
+                                      //       size: 20,
+                                      //     ),
+                                      //   ),
+                                      // )
+                                      )
                                 ],
                               ),
                               Padding(
@@ -199,8 +236,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                                         onPressed: () {
                                           PopupHelper.showSignOutPopup(
                                               context, 'POP_SignOut');
-                                            Future.delayed(Duration(seconds: 3)).then((value) => AuthenticationRepository.instance.logOut());
-                                            
+                                          Future.delayed(Duration(seconds: 3))
+                                              .then((value) =>
+                                                  AuthenticationRepository
+                                                      .instance
+                                                      .logOut());
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.redAccent,
@@ -221,7 +261,21 @@ class ProfileScreenState extends State<ProfileScreen> {
                         color: mobileBackgroundColor,
                         padding: EdgeInsets.symmetric(horizontal: 3),
                         child: Column(
-                          children: [CustomTernaryOption()],
+                          children: [
+                            CustomTernaryOption(
+                              textLeft: "Posts",
+                              textMiddle: "Awards",
+                              textRight: "Stats",
+                              selectedOption: _selectedIndex,
+                              onOptionSelected: (index) {
+                                setState(() {
+                                  _selectedIndex = index;
+                                });
+                              },
+                            ),
+                            // Add the Stack widget here with the _buildSelectedContent method
+                            _buildSelectedContent(),
+                          ],
                         ),
                       )
                     ],

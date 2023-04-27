@@ -9,21 +9,39 @@ class CustomTernaryOption extends StatefulWidget {
     this.textLeft = "Left",
     this.textMiddle = "Middle",
     this.textRight = "Right",
+    required this.selectedOption, 
+    required this.onOptionSelected,
+    
   }) : super(key: key);
 
   String textLeft;
   String textMiddle;
   String textRight;
+  int selectedOption;
+  final Function(int) onOptionSelected;
 
   @override
   State<CustomTernaryOption> createState() => _CustomTernaryOptionState();
 }
 
 class _CustomTernaryOptionState extends State<CustomTernaryOption> {
-  int selectedOption = 0;
+  late int selectedOption;
 
   @override
+  void initState() {
+    super.initState();
+    selectedOption = widget.selectedOption;
+  }
+
+  void _onOptionSelected(int index) {
+    setState(() {
+      selectedOption = index;
+    });
+    widget.onOptionSelected(selectedOption);
+  }
+  @override
   Widget build(BuildContext context) {
+    
     return Container(
       color: mobileBackgroundColor,
       height: 50,
@@ -33,11 +51,9 @@ class _CustomTernaryOptionState extends State<CustomTernaryOption> {
           Expanded(
             child: InkWell(
               onTap: () {
-                if (selectedOption != 0) {
-                  setState(() {
-                    selectedOption = 0;
-                  });
-                }
+  
+                  _onOptionSelected(0);
+                
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -61,7 +77,7 @@ class _CustomTernaryOptionState extends State<CustomTernaryOption> {
             child: InkWell(
               onTap: () {
                 setState(() {
-                  selectedOption = 1;
+            _onOptionSelected(1);
                 });
               },
               child: Column(
@@ -85,9 +101,8 @@ class _CustomTernaryOptionState extends State<CustomTernaryOption> {
           Expanded(
             child: InkWell(
               onTap: () {
-                setState(() {
-                  selectedOption = 2;
-                });
+                  _onOptionSelected(2);
+                
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
