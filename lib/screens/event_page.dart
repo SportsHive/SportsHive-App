@@ -23,12 +23,30 @@ class _EventsScreenState extends State<EventsScreen> {
   List<EventTypeModel> eventsType = [];
   List<EventsModel> events = <EventsModel>[];
 
+  List<EventsModel> _filterEventsByDate(List<EventsModel> events) {
+    return events.where((event) {
+      DateTime eventDate = DateTime.parse(event.date!);
+      DateTime selectedDate = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        int.parse(_selectedDate),
+      );
+      return eventDate.day == selectedDate.day &&
+          eventDate.month == selectedDate.month;
+    }).toList();
+  }
+
   String todayDateIs = DateTime.now().day.toString();
   final userRepo = Get.put(UserRepository());
   final eventRepo = Get.put(EventRepository());
 
-  String _currentUserEmail = '';
-  String _currentUsername = '';
+  String _selectedDate = DateTime.now().day.toString();
+
+  void _onDateTileTapped(String date) {
+    setState(() {
+      _selectedDate = date;
+    });
+  }
 
   @override
   void initState() {
@@ -117,17 +135,20 @@ class _EventsScreenState extends State<EventsScreen> {
                                 Container(
                                   height: 60,
                                   child: ListView.builder(
-                                      itemCount: dates.length,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        return DateTile(
-                                          weekDay: dates[index].weekDay,
-                                          date: dates[index].date,
-                                          isSelected:
-                                              todayDateIs == dates[index].date,
-                                        );
-                                      }),
+                                    itemCount: dates.length,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return DateTile(
+                                        weekDay: dates[index].weekDay,
+                                        date: dates[index].date,
+                                        isSelected:
+                                            _selectedDate == dates[index].date,
+                                        onTap: () => _onDateTileTapped(
+                                            dates[index].date),
+                                      );
+                                    },
+                                  ),
                                 ),
 
                                 const SizedBox(
@@ -206,7 +227,11 @@ class DateTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        if (onTap != null) {
+          onTap!();
+        }
+      },
       child: Container(
         margin: const EdgeInsets.only(right: 12),
         padding: const EdgeInsets.symmetric(horizontal: 10),

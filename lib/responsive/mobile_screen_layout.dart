@@ -149,7 +149,8 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                     FirebaseAuth.instance.currentUser!.displayName ?? "";
               }
             }
-            navigationTapped; // Call the function regardless of the index
+            navigationTapped(
+                index); // Call the function with the index argument
           });
         },
       ),
