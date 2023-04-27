@@ -11,12 +11,16 @@ import 'package:sportshive/screens/profile_pic.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:sportshive/screens/preference_screen.dart';
 import '../data/models/user_model.dart';
-
-//for popups
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sportshive/screens/popup_page.dart';
 
+
+
+
+
 class UserProfileScreen extends StatefulWidget {
+  
+  
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
 }
@@ -32,29 +36,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   final TextEditingController _speedcontroller = TextEditingController();
   final TextEditingController _genderController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
-  final TextEditingController _positionController = TextEditingController();
 
-  void _showSpeedSelectionDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Select Running Speed'),
-          content: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                _buildSpeedOption('Very Slow', 'Very Slow'),
-                _buildSpeedOption('Slow', 'Slow'),
-                _buildSpeedOption('Moderate', 'Moderate'),
-                _buildSpeedOption('Fast', 'Fast'),
-                _buildSpeedOption('Very Fast', 'Very Fast'),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   Widget _buildSpeedOption(String label, String speed) {
     return GestureDetector(
@@ -71,7 +53,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       ),
     );
   }
-
+  
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(UserRepository());

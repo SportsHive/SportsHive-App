@@ -19,27 +19,15 @@ import '../widgets/award_display.dart';
 import '../widgets/info_display.dart';
 
 class PostWidget extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Center(child: Text("PostWidget"));
   }
 }
 
-class AwardWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text("AwardWidget"));
-  }
-}
-
-class StatsWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text("StatsWidget"));
-  }
-}
-
 class ProfileScreen extends StatefulWidget {
+  
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
@@ -49,14 +37,15 @@ class ProfileScreen extends StatefulWidget {
 class ProfileScreenState extends State<ProfileScreen> {
   int _selectedIndex = 0;
 
+
   Widget _buildSelectedContent() {
     switch (_selectedIndex) {
       case 0:
         return PostWidget(); // Replace with your actual PostWidget
       case 1:
-        return AwardsWidget(); // Replace with your actual AwardWidget
+        return AwardsWidget(); 
       case 2:
-        return StatsInfo(); // Replace with your actual StatsWidget
+        return const StatsInfo(); 
       default:
         return Container();
     }

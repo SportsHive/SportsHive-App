@@ -102,7 +102,13 @@ class LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Text("Don't have an account?"),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignupScreen()),
+                        );
+                      },
                       child: const Text(
                         " Sign Up !",
                         style: TextStyle(fontWeight: FontWeight.bold),

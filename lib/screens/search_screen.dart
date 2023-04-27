@@ -1,6 +1,7 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_storage/firebase_storage.dart";
 import "package:flutter/material.dart";
+import "package:get/get.dart";
 import "package:sportshive/screens/welcome_screen.dart";
 import "package:sportshive/utils/colors.dart";
 
@@ -9,11 +10,16 @@ class SearchScreen extends StatefulWidget {
 
   _SearchScreenState createState() => _SearchScreenState();
 }
+class SelectedUser {
+  static String username = "";
+}
+
+
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController searchCont = TextEditingController();
   String name = "";
-
+  String selectedUsername="";
   void dispose() {
     super.dispose();
     searchCont.dispose();
@@ -55,13 +61,18 @@ class _SearchScreenState extends State<SearchScreen> {
                               .startsWith(name.toLowerCase())) {
                         return GestureDetector(
                           onTap: () {
-                            // Navigate to the EventScreen when a user is tapped
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => WelcomeScreen(),
-                              ),
-                            );
+                             Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => WelcomeScreen()),
+    );
+                             selectedUsername = data["username"];
+                            SelectedUser.username = selectedUsername; 
+                            Get.snackbar(selectedUsername,
+          "Try uploading smaller image",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.redAccent.withOpacity(1),
+          colorText: Colors.black);
+                            
                           },
                           child: ListTile(
                             title: Text(
@@ -86,3 +97,4 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
+

@@ -9,6 +9,8 @@ class AwardsWidget extends StatelessWidget {
     'assets/awards/Belt.png',
     'assets/awards/Belt.png',
 
+
+
   ];
 
   final List<String> awardTitles = [
