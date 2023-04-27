@@ -268,7 +268,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             CustomTernaryOption(
                               textLeft: "Posts",
                               textMiddle: "Awards",
-                              textRight: "Stats",
+                              textRight: "Info",
                               selectedOption: _selectedIndex,
                               onOptionSelected: (index) {
                                 setState(() {

@@ -1,28 +1,48 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
-class StatsInfo extends StatelessWidget {
-  final String photoUrl;
+class StatsInfo extends StatefulWidget {
   final String name;
   final int age;
   final String country;
-  final String gender; // Added gender
-  final double weight; // Added weight
+  final String gender;
+  final double weight;
   final double height;
   final String bio;
-  //final List<String> interestedSports;
 
   const StatsInfo({
     Key? key,
-    this.photoUrl = '',
     this.name = '',
     this.age = 0,
     this.country = '',
-    this.gender = '', // Initialize gender
-    this.weight = 0, // Initialize weight
+    this.gender = '',
+    this.weight = 0,
     this.height = 0,
     this.bio = '',
-    //required this.interestedSports, // Initialize height
   }) : super(key: key);
+
+  @override
+  _StatsInfoState createState() => _StatsInfoState();
+}
+
+class _StatsInfoState extends State<StatsInfo> {
+  File? _image;
+
+  Future<void> _pickImage(BuildContext context) async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _image = File(image.path);
+      });
+    } else {
+      print('No image selected');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,42 +56,45 @@ class StatsInfo extends StatelessWidget {
             width: 120,
             height: 300,
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey,
-                width: 1,
-                style: BorderStyle.solid,
-              ),
+              border: _image == null
+                  ? Border.all(
+                      color: Colors.grey,
+                      width: 1,
+                      style: BorderStyle.solid,
+                    )
+                  : null,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Stack(
               children: [
-                if (photoUrl != null && photoUrl.isNotEmpty)
+                if (_image != null)
                   Positioned.fill(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        photoUrl,
+                      child: Image.file(
+                        _image!,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                Positioned.fill(
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        // TODO: Implement image upload logic
-                      },
-                      child: Center(
-                        child: Icon(
-                          Icons.add_a_photo,
-                          size: 48,
-                          color: Colors.grey,
+                if (_image == null) // Add this condition
+                  Positioned.fill(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          _pickImage(context);
+                        },
+                        child: Center(
+                          child: Icon(
+                            Icons.add_a_photo,
+                            size: 48,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
               ],
             ),
           ),
@@ -83,7 +106,7 @@ class StatsInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Name: $name',
+                    'Name: ${widget.name}',
                     style: TextStyle(
                       fontSize: 18,
                     ),
@@ -97,14 +120,14 @@ class StatsInfo extends StatelessWidget {
                   //   ),
                   // ),
                   Text(
-                    'Age: $age',
+                    'Age: ${widget.age}',
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Country: $country',
+                    'Country: ${widget.country}',
                     style: TextStyle(
                       fontSize: 18,
                     ),
@@ -112,7 +135,7 @@ class StatsInfo extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     // Added gender
-                    'Gender: $gender',
+                    'Gender: ${widget.gender}',
                     style: TextStyle(
                       fontSize: 18,
                     ),
@@ -120,7 +143,7 @@ class StatsInfo extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     // Added weight
-                    'Weight: ${weight.toStringAsFixed(1)} kg',
+                    'Weight: ${widget.weight.toStringAsFixed(1)} kg',
                     style: TextStyle(
                       fontSize: 18,
                     ),
@@ -128,14 +151,14 @@ class StatsInfo extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     // Added height
-                    'Height: ${height.toStringAsFixed(1)} cm',
+                    'Height: ${widget.height.toStringAsFixed(1)} cm',
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'About: $bio',
+                    'About: ${widget.bio}',
                     style: TextStyle(
                       fontSize: 18,
                     ),
