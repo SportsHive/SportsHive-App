@@ -9,7 +9,7 @@ class StatsInfo extends StatelessWidget {
   final double weight; // Added weight
   final double height;
   final String bio;
-  final List<String> interestedSports;
+  //final List<String> interestedSports;
 
   const StatsInfo({
     Key? key,
@@ -21,7 +21,7 @@ class StatsInfo extends StatelessWidget {
     this.weight = 0, // Initialize weight
     this.height = 0,
     this.bio = '',
-    required this.interestedSports, // Initialize height
+    //required this.interestedSports, // Initialize height
   }) : super(key: key);
 
   @override
@@ -89,13 +89,13 @@ class StatsInfo extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    // Added interestedSports
-                    'Interested Sports: ${interestedSports.join(", ")}',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
+                  // Text(
+                  //   // Added interestedSports
+                  //   'Interested Sports: ${interestedSports.join(", ")}',
+                  //   style: TextStyle(
+                  //     fontSize: 18,
+                  //   ),
+                  // ),
                   Text(
                     'Age: $age',
                     style: TextStyle(
