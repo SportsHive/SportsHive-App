@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //email, username and password are available on registration
 
 class UserModel {
-
   //attributes
   String? id;
   String username;
@@ -24,36 +23,33 @@ class UserModel {
   List<String>? posts;
   int? height;
   int? weight;
-  
 
-   UserModel({
-    this.id,
-    required this.email,
-    required this.username,
-    required this.password,
-    this.fname,
-    this.lname,
-    this.address,
-    this.nationality,
-    this.dob,
-    this.followers,
-    this.following,
-    this.avatar,
-    this.desc,
-    this.phone,
-    this.awards,
-    this.height,
-    this.weight,
-    this.sports,
-    this.posts
-  });
+  UserModel(
+      {this.id,
+      required this.email,
+      required this.username,
+      required this.password,
+      this.fname,
+      this.lname,
+      this.address,
+      this.nationality,
+      this.dob,
+      this.followers,
+      this.following,
+      this.avatar,
+      this.desc,
+      this.phone,
+      this.awards,
+      this.height,
+      this.weight,
+      this.sports,
+      this.posts});
 
-
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "email": email,
-      "username":  username,
-      "password": password,  
+      "username": username,
+      "password": password,
       "first_name": fname,
       "last_name": lname,
       "address": address,
@@ -72,7 +68,8 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document){
+  factory UserModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data();
     return UserModel(
       id: document.id,
@@ -86,7 +83,7 @@ class UserModel {
       dob: data["dob"],
       followers: data["followers_count"],
       following: data["follows-count"],
-      avatar: data["avatar_url"] ,
+      avatar: data["avatar_url"],
       desc: data["description"],
       phone: data["phone"],
       awards: data["awards"],
@@ -94,6 +91,6 @@ class UserModel {
       height: data["height"],
       sports: data["sports"],
       posts: data["posts"],
-      );
+    );
   }
 }

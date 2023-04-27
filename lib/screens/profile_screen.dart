@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sportshive/data/controllers/profile_controller.dart';
 import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
+import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/screens/editprofile_page.dart';
 import 'package:sportshive/utils/colors.dart';
 import '../../data/models/user_model.dart';
@@ -19,15 +20,27 @@ import '../widgets/award_display.dart';
 import '../widgets/info_display.dart';
 
 class PostWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("PostWidget"));
+    return const Center(child: Text("PostWidget"));
+  }
+}
+
+class AwardWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("AwardWidget"));
+  }
+}
+
+class StatsWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("StatsWidget"));
   }
 }
 
 class ProfileScreen extends StatefulWidget {
-  
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
@@ -37,15 +50,14 @@ class ProfileScreen extends StatefulWidget {
 class ProfileScreenState extends State<ProfileScreen> {
   int _selectedIndex = 0;
 
-
   Widget _buildSelectedContent() {
     switch (_selectedIndex) {
       case 0:
         return PostWidget(); // Replace with your actual PostWidget
       case 1:
-        return AwardsWidget(); 
+        return AwardsWidget();
       case 2:
-        return const StatsInfo(); 
+        return const StatsInfo(); // Replace with your actual StatsWidget
       default:
         return Container();
     }
@@ -56,6 +68,7 @@ class ProfileScreenState extends State<ProfileScreen> {
      * change when search is implemented to have different
      * behavior for a different user on the profile screen
      */
+    // if (!isLoggedIn()) return notloggedinbheavior;
     return true;
   }
 
@@ -95,7 +108,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       followButtonText = "Follow";
     }
     IconButton(
-      icon: Icon(Icons.logout),
+      icon: const Icon(Icons.logout),
       onPressed: () {
         // Add code here to log out the user
       },
@@ -105,11 +118,14 @@ class ProfileScreenState extends State<ProfileScreen> {
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: FutureBuilder(
-            future: userRepo.getUserData(),
+            future: profileIsForCurrentUser()
+                ? userRepo.getUserData()
+                : userRepo
+                    .getUserData(), //change to getUserDetailsByUsername(profileUsername), to support other peoples profiles
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  UserModel user_data = snapshot.data as UserModel;
+                  UserModel userData = snapshot.data as UserModel;
                   return Column(
                     children: [
                       Container(
@@ -142,7 +158,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(20.0),
-                                child: Text(user_data.username),
+                                child: Text(userData.username),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -151,7 +167,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   // Column(
                                   //   children: [
                                   //     Text(
-                                  //       user_data.followers.toString(),
+                                  //       userData.followers.toString(),
                                   //     ),
                                   //     SizedBox(
                                   //       height: 10,
@@ -162,28 +178,28 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   Column(
                                     children: [
                                       Text(
-                                        user_data.followers.toString(),
+                                        userData.followers.toString(),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
-                                      Text("Followers")
+                                      const Text("Followers")
                                     ],
                                   ),
                                   Column(
                                     children: [
                                       Text(
-                                        user_data.following.toString(),
+                                        userData.following.toString(),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
-                                      Text("Following")
+                                      const Text("Following")
                                     ],
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Container(
@@ -217,10 +233,10 @@ class ProfileScreenState extends State<ProfileScreen> {
                                           primary: orange,
                                           onPrimary: Colors.white,
                                         ),
-                                        child: Text("Edit Profile"),
+                                        child: const Text("Edit Profile"),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                         width: 10), // add space between buttons
                                     Expanded(
                                       flex: 1,
@@ -228,7 +244,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                                         onPressed: () {
                                           PopupHelper.showSignOutPopup(
                                               context, 'POP_SignOut');
-                                          Future.delayed(Duration(seconds: 3))
+                                          Future.delayed(
+                                                  const Duration(seconds: 3))
                                               .then((value) =>
                                                   AuthenticationRepository
                                                       .instance
@@ -238,7 +255,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                           primary: Colors.redAccent,
                                           onPrimary: Colors.white,
                                         ),
-                                        child: Text("Log Out"),
+                                        child: const Text("Log Out"),
                                       ),
                                     ),
                                   ],
@@ -251,7 +268,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 18),
                       Container(
                         color: mobileBackgroundColor,
-                        padding: EdgeInsets.symmetric(horizontal: 3),
+                        padding: const EdgeInsets.symmetric(horizontal: 3),
                         child: Column(
                           children: [
                             CustomTernaryOption(
@@ -275,10 +292,10 @@ class ProfileScreenState extends State<ProfileScreen> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text(snapshot.error.toString()));
                 } else {
-                  return Center(child: Text("Something went wrong..."));
+                  return const Center(child: Text("Something went wrong..."));
                 }
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             }),
       ),

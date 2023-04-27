@@ -76,9 +76,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
               onPressed: () {
                 // Add code here for the search button
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SearchScreen())
-                );
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SearchScreen()));
               },
               style: ElevatedButton.styleFrom(
                 primary: orange, // Set the background color
