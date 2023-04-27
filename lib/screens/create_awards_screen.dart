@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sportshive/components/rounded_button.dart';
 import 'package:sportshive/utils/colors.dart';
+import 'package:sportshive/widgets/award_display.dart';
+
+typedef OnAwardCreated = void Function(Award award);
 
 class CreateAwardsPage extends StatefulWidget {
-  const CreateAwardsPage({Key? key}) : super(key: key);
+  final OnAwardCreated onAwardCreated;
+
+  const CreateAwardsPage({Key? key, required this.onAwardCreated})
+      : super(key: key);
 
   @override
   _CreateAwardsPageState createState() => _CreateAwardsPageState();
@@ -39,14 +45,14 @@ class _CreateAwardsPageState extends State<CreateAwardsPage> {
     super.dispose();
   }
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: orange,
         title: Text('Create Award'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,41 +60,37 @@ class _CreateAwardsPageState extends State<CreateAwardsPage> {
             TextField(
               controller: awardNameController,
               decoration: InputDecoration(
-                labelText: 'Whats the name of your award',
+                labelText: 'What is the name of your award?',
               ),
             ),
             SizedBox(height: 30.0),
-            Text('What Icon best describes your award:'),
+            Text('What icon best describes your award?'),
             SizedBox(height: 20.0),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 3,
-                mainAxisSpacing: 20.0,
-                crossAxisSpacing: 20.0,
-                childAspectRatio: 1.0,
-                children: List.generate(awardIcons.length, (index) {
-                  return GestureDetector(
-                    onTap: () => selectAward(index),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      padding: EdgeInsets.all(
-                          selectedAward == awardIcons[index] ? 5.0 : 0.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                            selectedAward == awardIcons[index] ? 10.0 : 0.0),
-                        color: selectedAward == awardIcons[index]
-                            ? Colors.blue.withOpacity(0.5)
-                            : null,
-                      ),
-                      child: Image.asset(
-                        awardIcons[index],
-                        width: 40,
-                        height: 40,
-                      ),
+            Wrap(
+              spacing: 20.0,
+              runSpacing: 20.0,
+              children: List.generate(awardIcons.length, (index) {
+                return GestureDetector(
+                  onTap: () => selectAward(index),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    padding: EdgeInsets.all(
+                        selectedAward == awardIcons[index] ? 5.0 : 0.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          selectedAward == awardIcons[index] ? 10.0 : 0.0),
+                      color: selectedAward == awardIcons[index]
+                          ? Colors.blue.withOpacity(0.5)
+                          : null,
                     ),
-                  );
-                }),
-              ),
+                    child: Image.asset(
+                      awardIcons[index],
+                      width: 40,
+                      height: 40,
+                    ),
+                  ),
+                );
+              }),
             ),
             SizedBox(height: 16.0),
             Align(
@@ -100,7 +102,10 @@ class _CreateAwardsPageState extends State<CreateAwardsPage> {
                   press: () {
                     if (selectedAward != null &&
                         awardNameController.text.isNotEmpty) {
-                      // Save the award and the name
+                      widget.onAwardCreated(Award(
+                        imagePath: selectedAward!,
+                        title: awardNameController.text,
+                      ));
                     }
                   },
                   text: "Create",

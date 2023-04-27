@@ -74,16 +74,16 @@ class _CreatePostScreenState extends State<CreatePost> {
               ),
             ),
             SizedBox(height: 40),
-            _buildElevatedButton(
-              'Add an Award',
-              Icons.add,
-              () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CreateAwardsPage(),
-                ),
-              ),
-            ),
+            // _buildElevatedButton(
+            //   'Add an Award',
+            //   Icons.add,
+            //   () => Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => CreateAwardsPage(),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
