@@ -156,8 +156,17 @@ class SignUpScreenState extends State<SignupScreen> {
                               password: controller.text_pass.text.trim(),
                               followers: 0,
                               following: 0,
-                              avatar:
-                                  "assets/images/user_default_profile_picture.png");
+                              avatar:"assets/images/user_default_profile_picture.png",
+                              fname: "",
+                              lname: "",
+                              address: "",
+                              nationality: "",
+                              dob: "",
+                              desc: "",
+                              phone: "",
+                              height: 0,
+                              weight: 0,
+                              );
 
                           SignUpController.instance.createUser(user, context);
                         }

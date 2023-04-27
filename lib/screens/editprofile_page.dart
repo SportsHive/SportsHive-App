@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportshive/components/background.dart';
@@ -304,9 +306,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         country = _countryController.text.trim(),
         about = _bioController.text.trim(),
         height = _heightController.text.trim(),
-        weight = _weightController.text.trim();
+        weight = _weightController.text.trim(),
+        age = _ageController.text.trim();
 
     PopupHelper.showSuccessfulLoginPopup(context, 'POP_SUCCESSFUL');
+
+    //update the data in the db
+    UpdateData(fname, lname, country, pnumber, age, about, height, weight);
 
     Future.delayed(Duration(seconds: 4), () {
       // code to execute after 2 seconds
@@ -317,6 +323,28 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     });
   }
 }
+
+  UpdateData(String fn, String ln, String count,String pn,String age,String about,String h,String w) async {
+    String em = FirebaseAuth.instance.currentUser!.email!;
+    final CollectionReference usersCollection = FirebaseFirestore.instance.collection('USER');
+    QuerySnapshot querySnapshot = await usersCollection.where('email', isEqualTo: em).get();
+    if (querySnapshot.docs.length > 0) {
+      DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
+      String documentId = documentSnapshot.id;
+      usersCollection.doc(documentId).update({
+        'first_name': fn,
+        'last_name': ln,
+        'nationality': count,
+        'phone': pn,
+        'age': age,
+        'desc': about,
+        'height': h,
+        'weight': w,
+        });
+        
+       
+    }
+  }
 
 class TextFieldInput extends StatelessWidget {
   const TextFieldInput({

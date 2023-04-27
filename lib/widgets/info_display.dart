@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
+
 class StatsInfo extends StatefulWidget {
   final String name;
   final int age;
@@ -38,10 +39,12 @@ class _StatsInfoState extends State<StatsInfo> {
     if (image != null) {
       setState(() {
         _image = File(image.path);
+
       });
     } else {
       print('No image selected');
     }
+    
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sportshive/data/controllers/profile_controller.dart';
 import 'package:sportshive/data/controllers/sign_up_controllers.dart';
+import 'package:sportshive/utils/colors.dart';
 import '../../screens/preference_screen.dart';
 import '../models/user_model.dart';
 import 'auth_repo.dart';
@@ -36,8 +37,8 @@ class UserRepository extends GetxController {
     Get.snackbar(
         "Success", "Your SportsHive account has been created successfully!",
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.orangeAccent.withOpacity(1),
-        colorText: Colors.black);
+        backgroundColor: Colors.black.withOpacity(1),
+        colorText: orange);
     Future.delayed(Duration(seconds: 1), () {
       SignUpController.instance.signUp(user.email, user.password);
       Navigator.push(context,

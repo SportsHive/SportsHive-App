@@ -18,9 +18,9 @@ class UserModel {
   String? dob;
   String? desc;
   String? phone;
-  List<String>? awards;
-  List<String>? sports;
-  List<String>? posts;
+  List<String>? awards = [""];
+  List<String>? sports = [""];
+  List<String>? posts = [""];
   int? height;
   int? weight;
 

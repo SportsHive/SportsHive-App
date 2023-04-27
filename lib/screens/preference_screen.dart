@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sportshive/components/background.dart';
 import 'package:sportshive/screens/editprofile_page.dart';
@@ -103,10 +105,11 @@ class _SportsPreferenceScreenState extends State<SportsPreferenceScreen> {
   }
 
   void _onDonePressed() {
-    // Navigate to MobileScreenLayout
-    Navigator.push(
+    
+      Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => UserProfileScreen()),
     );
   }
+
 }
