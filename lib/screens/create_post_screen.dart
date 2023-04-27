@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../components/rounded_button.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
+import 'package:sportshive/screens/create.dart';
 
 class AddPostScreen extends StatefulWidget {
   @override
@@ -213,6 +214,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       Navigator.pop(context);
                     }
                   });
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => CreatePost()));
                 },
                 color: mobileBackgroundColor,
               ),

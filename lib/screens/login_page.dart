@@ -44,95 +44,73 @@ class LoginScreenState extends State<LoginScreen> {
         child: Icon(Icons.arrow_back),
       ),
       body: Background(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                flex: 2,
-                child: Container(),
-              ),
-              //svg image
-              Image.asset(
-                'assets/original_logo.png',
-                height: 140,
-              ),
-
-              const SizedBox(height: 35),
-              //textfield for email
-              TextFieldInput(
-                textEditingController: _emailController,
-                hintText: 'Enter your email',
-                textInputType: TextInputType.emailAddress,
-                prefixIcon: Icons.email,
-                borderColor: const Color.fromARGB(255, 0, 0, 0),
-                borderWidth: 2.0,
-                borderRadius: 15.0,
-              ),
-              //textfield for password
-              const SizedBox(height: 24),
-              TextFieldInput(
-                textEditingController: _passController,
-                hintText: 'Enter your password',
-                textInputType: TextInputType.text,
-                isPass: true,
-                prefixIcon: Icons.lock,
-                borderColor: Colors.black,
-                borderWidth: 2.0,
-                borderRadius: 15.0,
-              ),
-              //button for login
-              const SizedBox(height: 29),
-
-              InkWell(
-                child: RoundedButton(
-                  color: orange,
-                  text: 'Log In',
-                  press: () async {
-                    User? user = await loginWithEmail(
-                        email: _emailController.text.trim(),
-                        password: _passController.text.trim(),
-                        context: context);
-
-                    if (user != null) {
-                      //Instead of WelcomeScreen, We can put any page we want after login in
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => MobileScreenLayout()));
-                    }
-                  },
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                Image.asset(
+                  'assets/original_logo.png',
+                  height: 140,
                 ),
-              ),
+                const SizedBox(height: 35),
+                TextFieldInput(
+                  textEditingController: _emailController,
+                  hintText: 'Enter your email',
+                  textInputType: TextInputType.emailAddress,
+                  prefixIcon: Icons.email,
+                  borderColor: const Color.fromARGB(255, 0, 0, 0),
+                  borderWidth: 2.0,
+                  borderRadius: 15.0,
+                ),
+                const SizedBox(height: 24),
+                TextFieldInput(
+                  textEditingController: _passController,
+                  hintText: 'Enter your password',
+                  textInputType: TextInputType.text,
+                  isPass: true,
+                  prefixIcon: Icons.lock,
+                  borderColor: Colors.black,
+                  borderWidth: 2.0,
+                  borderRadius: 15.0,
+                ),
+                const SizedBox(height: 29),
+                InkWell(
+                  child: RoundedButton(
+                    color: orange,
+                    text: 'Log In',
+                    press: () async {
+                      User? user = await loginWithEmail(
+                          email: _emailController.text.trim(),
+                          password: _passController.text.trim(),
+                          context: context);
 
-              const SizedBox(height: 12),
-              Flexible(
-                flex: 2,
-                child: Container(),
-              ),
-              //Transition to sign up
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 1,
-                    ),
-                    child: const Text("Don't have an account?"),
+                      if (user != null) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => MobileScreenLayout()));
+                      }
+                    },
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't have an account?"),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        " Sign Up !",
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      child: const Text(" Sign Up !",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

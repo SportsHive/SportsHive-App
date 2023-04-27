@@ -29,6 +29,48 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _heightController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
+  final TextEditingController _speedcontroller = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _positionController = TextEditingController();
+
+  void _showSpeedSelectionDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select Running Speed'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _buildSpeedOption('Very Slow', 'Very Slow'),
+                _buildSpeedOption('Slow', 'Slow'),
+                _buildSpeedOption('Moderate', 'Moderate'),
+                _buildSpeedOption('Fast', 'Fast'),
+                _buildSpeedOption('Very Fast', 'Very Fast'),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildSpeedOption(String label, String speed) {
+    return GestureDetector(
+      onTap: () {
+        _speedcontroller.text = speed;
+        Navigator.of(context).pop();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Text(
+          label,
+          style: TextStyle(fontSize: 18.0),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +114,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
+                              const SizedBox(height: 30),
                               TextFieldInput(
                                 textEditingController: _firstNameController,
                                 hintText: 'First Name',
@@ -81,7 +124,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 borderWidth: 2.0,
                                 borderRadius: 15.0,
                               ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 10),
                               TextFieldInput(
                                 textEditingController: _lastNameController,
                                 hintText: 'Last Name',
@@ -91,17 +134,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 borderWidth: 2.0,
                                 borderRadius: 15.0,
                               ),
-                              const SizedBox(height: 24),
-                              TextFieldInput(
-                                textEditingController: _phoneController,
-                                hintText: 'Phone Number',
-                                textInputType: TextInputType.phone,
-                                prefixIcon: Icons.phone,
-                                borderColor: Colors.white,
-                                borderWidth: 2.0,
-                                borderRadius: 15.0,
-                              ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () {
                                   showCountryPicker(
@@ -113,27 +146,119 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     },
                                   );
                                 },
-                                child: SizedBox(
-                                  width: 366,
-                                  child: TextFormField(
-                                    enabled: false,
-                                    controller: _countryController,
-                                    style: TextStyle(),
-                                    decoration: InputDecoration(
-                                      hintText: 'Country',
-                                      prefixIcon: Icon(Icons.flag),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                          color: Colors.white,
-                                          width: 2.0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: SizedBox(
+                                    width: 366,
+                                    child: TextFormField(
+                                      enabled: false,
+                                      controller: _countryController,
+                                      style: TextStyle(),
+                                      decoration: InputDecoration(
+                                        hintText: 'Country',
+                                        prefixIcon: Icon(Icons.flag),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 30),
+
+                              TextFieldInput(
+                                textEditingController: _phoneController,
+                                hintText: 'Phone Number',
+                                textInputType: TextInputType.phone,
+                                prefixIcon: Icons.phone,
+                                borderColor: Colors.white,
+                                borderWidth: 2.0,
+                                borderRadius: 15.0,
+                              ),
+                              const SizedBox(height: 10),
+
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Select Gender'),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              GestureDetector(
+                                                child: Text('Male'),
+                                                onTap: () {
+                                                  _genderController.text =
+                                                      'Male';
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              Padding(
+                                                  padding: EdgeInsets.all(8.0)),
+                                              GestureDetector(
+                                                child: Text('Female'),
+                                                onTap: () {
+                                                  _genderController.text =
+                                                      'Female';
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: SizedBox(
+                                    width: 366,
+                                    child: TextFormField(
+                                      enabled: false,
+                                      controller: _genderController,
+                                      style: TextStyle(),
+                                      decoration: InputDecoration(
+                                        hintText: 'Gender',
+                                        prefixIcon: Icon(Icons.person),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 31),
+                              //age
+                              TextFieldInput(
+                                textEditingController: _ageController,
+                                hintText: 'Type Your Age',
+                                textInputType: TextInputType.phone,
+                                prefixIcon: Icons.calendar_today,
+                                borderColor: Colors.white,
+                                borderWidth: 2.0,
+                                borderRadius: 15.0,
+                              ),
+
+                              const SizedBox(height: 10),
                               TextFieldInput(
                                 textEditingController: _bioController,
                                 hintText: 'About',
@@ -143,6 +268,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 borderWidth: 2.0,
                                 borderRadius: 15.0,
                               ),
+                              const SizedBox(height: 10),
                               TextFieldInput(
                                 textEditingController: _heightController,
                                 hintText: 'Height (cm)',
@@ -152,7 +278,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 borderWidth: 2.0,
                                 borderRadius: 15.0,
                               ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 10),
                               TextFieldInput(
                                 textEditingController: _weightController,
                                 hintText: 'Weight (kg)',
@@ -162,6 +288,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 borderWidth: 2.0,
                                 borderRadius: 15.0,
                               ),
+                              const SizedBox(height: 80),
                             ],
                           ),
                         ),
@@ -269,6 +396,9 @@ class TextFieldInput extends StatelessWidget {
     );
   }
 }
+
+
+
 
 /*
 What should be fixed here:

@@ -5,7 +5,6 @@ import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/screens/welcome_screen.dart';
 
 class PopupHelper {
-
   static void showSignOutPopup(BuildContext context, String popupType) {
     switch (popupType) {
       case 'POP_SignOut':
@@ -40,7 +39,7 @@ class PopupHelper {
             animType: AnimType.scale,
             showCloseIcon: true,
             title: 'Congratulations! ',
-            desc: 'You made an account successfully!')
+            desc: 'You customized your account successfully!')
           ..show();
         break;
       default:
