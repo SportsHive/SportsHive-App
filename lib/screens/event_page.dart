@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportshive/data/models/date_model.dart';
@@ -184,6 +186,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                                 .seats_available!,
                                             seats_registered: event_data[index]
                                                 .seats_registered!,
+                                            registered:
+                                                event_data[index].registered!,
                                           ),
                                         );
                                       }),
@@ -273,6 +277,7 @@ class PopularEventTile extends StatelessWidget {
   String imgAssetPath;
   int seats_available;
   int seats_registered;
+  List<dynamic> registered;
 
   /// later can be changed with imgUrl
   PopularEventTile({
@@ -282,6 +287,7 @@ class PopularEventTile extends StatelessWidget {
     required this.desc,
     required this.seats_available,
     required this.seats_registered,
+    required this.registered,
   });
 
   @override
@@ -357,7 +363,7 @@ class PopularEventTile extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        "${seats_registered} seats registered of ${seats_available}",
+                        "${registered.length} spots registered of ${seats_available}",
                         style:
                             const TextStyle(color: Colors.white, fontSize: 10),
                       )
@@ -403,22 +409,22 @@ _showEventDialog(BuildContext context, EventsModel event) {
                   ),
                 const SizedBox(height: 16),
                 Text(
-                  event.title!,
+                  ' ${event.title!}',
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.location_on,
                       color: orange,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       event.location != null && event.location!.isNotEmpty
-                          ? event.location!
-                          : 'No Info',
+                          ? ' ${event.location!}'
+                          : ' No Info',
                       style: const TextStyle(fontSize: 14),
                     ),
                   ],
@@ -426,14 +432,14 @@ _showEventDialog(BuildContext context, EventsModel event) {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.calendar_today,
                       color: orange,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       event.date != null && event.date!.isNotEmpty
-                          ? event.date!
+                          ? ' ${event.date!}'
                           : 'No Info',
                       style: const TextStyle(fontSize: 14),
                     ),
@@ -442,7 +448,7 @@ _showEventDialog(BuildContext context, EventsModel event) {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.event_seat,
                       color: orange,
                     ),
@@ -450,8 +456,24 @@ _showEventDialog(BuildContext context, EventsModel event) {
                     Text(
                       event.seats_available != null &&
                               event.seats_registered != null
-                          ? 'Spots remaining: ${event.seats_available! - event.seats_registered!}'
-                          : 'No Info',
+                          ? ' Spots remaining: ${event.seats_available! - event.registered.length!} out of ${event.seats_available}'
+                          : ' No Info',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                //VIEW REGISTERED PEOPLE
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.groups,
+                      color: orange,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      (event.registered.length <= 0)
+                          ? " Be the first to register!"
+                          : ' ${event.registered.join(", ")}',
                       style: const TextStyle(fontSize: 14),
                     ),
                   ],
@@ -461,8 +483,64 @@ _showEventDialog(BuildContext context, EventsModel event) {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // add your registration logic here
+                        User? user = FirebaseAuth.instance.currentUser;
+                        if (event.seats_available! <= event.registered.length) {
+                          Get.snackbar(
+                              "Couldn't register.", "No more seats left!",
+                              snackPosition: SnackPosition.TOP,
+                              backgroundColor: Colors.redAccent.withOpacity(1),
+                              colorText: Colors.black);
+                        } else if (user != null &&
+                            event.registered.contains(user.displayName)) {
+                          Get.snackbar("Couldn't register.", "You already did!",
+                              snackPosition: SnackPosition.TOP,
+                              backgroundColor: Colors.redAccent.withOpacity(1),
+                              colorText: Colors.black);
+                        } else {
+                          /**in case all checks pass, actually register
+                           * does not work yet, couldnt figure out how to get docRef
+                           */
+
+                          CollectionReference colRef =
+                              FirebaseFirestore.instance.collection('EVENT');
+
+                          Query query = colRef
+                              .where('title', isEqualTo: event.title)
+                              .where('date', isEqualTo: event.date)
+                              .where('start_time', isEqualTo: event.start_time)
+                              .where('sport_related',
+                                  isEqualTo: event.SportRelated);
+
+                          // Retrieve the document snapshot using the get() method
+                          QuerySnapshot snapshot = await query.get();
+
+                          // Get the DocumentSnapshot object representing the document
+                          DocumentSnapshot docSnapshot = snapshot.docs.first;
+
+                          // Get the DocumentReference using the reference property of the DocumentSnapshot object
+                          DocumentReference docRef = docSnapshot.reference;
+                          //i dont know how to continue
+
+                          docRef
+                              .update({'registered': event.registered})
+                              .then((value) => Get.snackbar("Registered!", "",
+                                  snackPosition: SnackPosition.TOP,
+                                  backgroundColor:
+                                      Colors.greenAccent.withOpacity(1),
+                                  colorText: Colors.black))
+                              .catchError((error) => Get.snackbar(
+                                  "Couldn't register.", "Failed: $error}",
+                                  snackPosition: SnackPosition.TOP,
+                                  backgroundColor:
+                                      Colors.redAccent.withOpacity(1),
+                                  colorText: Colors.black));
+                        }
+                        /**
+                         * need to make Events page reload to show changes
+                         */
+
                         Navigator.of(context).pop();
                       },
                       child: const Text('Register'),
@@ -485,3 +563,22 @@ _showEventDialog(BuildContext context, EventsModel event) {
     },
   );
 }
+// String em = FirebaseAuth.instance.currentUser!.email!;
+//     final CollectionReference usersCollection = FirebaseFirestore.instance.collection('USER');
+//     QuerySnapshot querySnapshot = await usersCollection.where('email', isEqualTo: em).get();
+//     if (querySnapshot.docs.length > 0) {
+//       DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
+//       String documentId = documentSnapshot.id;
+//       usersCollection.doc(documentId).update({
+//         'first_name': fn,
+//         'last_name': ln,
+//         'nationality': count,
+//         'phone': pn,
+//         'age': age,
+//         'desc': about,
+//         'height': int.parse(h),
+//         'weight': int.parse(w),
+//         });
+        
+       
+//     }

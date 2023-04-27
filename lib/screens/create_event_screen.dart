@@ -267,6 +267,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       date: "${_selectedDate.day}-${_selectedDate.month}-${_selectedDate.year}",
       start_time: "${_selectedDate.hour}:${_selectedDate.minute}",
       location: location_controller.text.trim(),
+      registered: List<String>.empty(),
     );
 
     //add the Event Model to the database
