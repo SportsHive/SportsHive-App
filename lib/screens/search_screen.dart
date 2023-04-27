@@ -1,25 +1,27 @@
-import "package:cloud_firestore/cloud_firestore.dart";
-import "package:firebase_storage/firebase_storage.dart";
-import "package:flutter/material.dart";
-import "package:get/get.dart";
-import "package:sportshive/screens/welcome_screen.dart";
-import "package:sportshive/utils/colors.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sportshive/screens/welcome_screen.dart';
+import 'package:sportshive/utils/colors.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
+  @override
   _SearchScreenState createState() => _SearchScreenState();
 }
+
 class SelectedUser {
   static String username = "";
 }
 
-
-
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController searchCont = TextEditingController();
   String name = "";
-  String selectedUsername="";
+  String selectedUsername = "";
+
+  @override
   void dispose() {
     super.dispose();
     searchCont.dispose();
@@ -61,22 +63,18 @@ class _SearchScreenState extends State<SearchScreen> {
                               .startsWith(name.toLowerCase())) {
                         return GestureDetector(
                           onTap: () {
-                             Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => WelcomeScreen()),
-    );
-                             selectedUsername = data["username"];
-                            SelectedUser.username = selectedUsername; 
+                            selectedUsername = data["username"] ?? "";
+                            SelectedUser.username ??= selectedUsername;
                             Get.snackbar(selectedUsername,
-          "Try uploading smaller image",
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.redAccent.withOpacity(1),
-          colorText: Colors.black);
-                            
+                                "Try uploading a smaller image",
+                                snackPosition: SnackPosition.TOP,
+                                backgroundColor:
+                                    Colors.redAccent.withOpacity(1),
+                                colorText: Colors.black);
                           },
                           child: ListTile(
                             title: Text(
-                              data["username"],
+                              data["username"] ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -85,7 +83,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                   fontWeight: FontWeight.bold),
                             ),
                             leading: CircleAvatar(
-                                child: Image.asset(data["avatar_url"])),
+                              child: Image.asset(
+                                data["avatar_url"] ?? "assets/images/default_avatar.png",
+                              ),
+                            ),
                           ),
                         );
                       }
@@ -97,4 +98,3 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
