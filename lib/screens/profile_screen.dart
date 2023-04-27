@@ -47,7 +47,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       case 1:
         return AwardsWidget(); 
       case 2:
-        return const StatsInfo(); 
+        return StatsInfo(); 
       default:
         return Container();
     }
