@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sportshive/components/background.dart';
+import 'package:sportshive/responsive/mobile_screen_layout.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -215,7 +216,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     }
                   });
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => CreatePost()));
+                      MaterialPageRoute(builder: (context) => MobileScreenLayout()));
                 },
                 color: mobileBackgroundColor,
               ),
