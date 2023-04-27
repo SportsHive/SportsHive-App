@@ -1,31 +1,32 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 //email, username and password are available on registration
 
 class UserModel {
-  final String? id;
-  final String username;
-  final String email;
-  final String password;
-  final String? fname;
-  final String? lname;
-  final String? address;
-  final String? nationality;
-  final String? dob;
-  final int? followers;
-  final int? following;
-  final String? avatar;
-  final String? desc;
-  final String? phone;
-  final List<String>? awards;
-  final int? height;
-  final int? weight;
+
+  //attributes
+  String? id;
+  String username;
+  String email;
+  String password;
+  int? followers;
+  int? following;
+  String? avatar;
+  String? fname;
+  String? lname;
+  String? address;
+  String? nationality;
+  String? dob;
+  String? desc;
+  String? phone;
+  List<String>? awards;
+  List<String>? sports;
+  List<String>? posts;
+  int? height;
+  int? weight;
   
 
-  const UserModel({
+   UserModel({
     this.id,
     required this.email,
     required this.username,
@@ -43,6 +44,8 @@ class UserModel {
     this.awards,
     this.height,
     this.weight,
+    this.sports,
+    this.posts
   });
 
 
@@ -64,6 +67,8 @@ class UserModel {
       "awards": awards,
       "height": height,
       "weight": weight,
+      "sports": sports,
+      "posts": posts,
     };
   }
 
@@ -86,7 +91,9 @@ class UserModel {
       phone: data["phone"],
       awards: data["awards"],
       weight: data["weight"],
-      height: data["height"]
+      height: data["height"],
+      sports: data["sports"],
+      posts: data["posts"],
       );
   }
 }
