@@ -64,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         return GestureDetector(
                           onTap: () {
                             selectedUsername = data["username"] ?? "";
-                            SelectedUser.username ??= selectedUsername;
+                            SelectedUser.username;
                             Get.snackbar(selectedUsername,
                                 "Try uploading a smaller image",
                                 snackPosition: SnackPosition.TOP,

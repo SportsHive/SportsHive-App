@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:sportshive/components/rounded_button.dart';
 import 'package:sportshive/utils/colors.dart';
+import 'package:sportshive/widgets/award_display.dart';
+
+typedef OnAwardCreated = void Function(Award award);
 
 class CreateAwardsPage extends StatefulWidget {
-  const CreateAwardsPage({Key? key}) : super(key: key);
+  final OnAwardCreated onAwardCreated;
+  final Award? initialAward;
+
+  const CreateAwardsPage({Key? key, required this.onAwardCreated, this.initialAward})
+      : super(key: key);
 
   @override
   _CreateAwardsPageState createState() => _CreateAwardsPageState();
@@ -34,82 +41,107 @@ class _CreateAwardsPageState extends State<CreateAwardsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.initialAward != null) {
+      selectedAward = widget.initialAward!.imagePath;
+      awardNameController.text = widget.initialAward!.title;
+    }
+  }
+
+  @override
   void dispose() {
     awardNameController.dispose();
     super.dispose();
   }
 
-  @override
+    @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: orange,
-        title: Text('Create Award'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: awardNameController,
-              decoration: InputDecoration(
-                labelText: 'Whats the name of your award',
+  return Scaffold(
+    appBar: AppBar(
+      backgroundColor: orange,
+      title: Text(widget.initialAward == null ? 'Create Award' : 'Edit Award'),
+    ),
+    body: SingleChildScrollView(
+      padding: const EdgeInsets.all(70.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextField(
+            controller: awardNameController,
+            decoration: InputDecoration(
+              labelText: 'What is the name of your award?',
+            ),
+          ),
+          SizedBox(height: 30.0),
+          Text('What icon best describes your award?'),
+          SizedBox(height: 20.0),
+          Wrap(
+            spacing: 30.0,
+            runSpacing: 30.0,
+            children: List.generate(awardIcons.length, (index) {
+              return GestureDetector(
+                onTap: () => selectAward(index),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  padding: EdgeInsets.all(
+                      selectedAward == awardIcons[index] ? 5.0 : 0.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                        selectedAward == awardIcons[index] ? 10.0 : 0.0),
+                    color: selectedAward == awardIcons[index]
+                        ? Colors.blue.withOpacity(0.5)
+                        : null,
+                  ),
+                  child: Image.asset(
+                    awardIcons[index],
+                    width: 60,
+                    height: 60,
+                  ),
+                ),
+              );
+            }),
+          ),
+          SizedBox(height: 16.0),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RoundedButton(
+                color: orange,
+                press: () {
+                  if (selectedAward != null &&
+                      awardNameController.text.isNotEmpty) {
+                    widget.onAwardCreated(Award(
+                      imagePath: selectedAward!,
+                      title: awardNameController.text,
+                    ));
+                  }
+                },
+                text: "Create",
               ),
             ),
-            SizedBox(height: 30.0),
-            Text('What Icon best describes your award:'),
-            SizedBox(height: 20.0),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 3,
-                mainAxisSpacing: 20.0,
-                crossAxisSpacing: 20.0,
-                childAspectRatio: 1.0,
-                children: List.generate(awardIcons.length, (index) {
-                  return GestureDetector(
-                    onTap: () => selectAward(index),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      padding: EdgeInsets.all(
-                          selectedAward == awardIcons[index] ? 5.0 : 0.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                            selectedAward == awardIcons[index] ? 10.0 : 0.0),
-                        color: selectedAward == awardIcons[index]
-                            ? Colors.blue.withOpacity(0.5)
-                            : null,
-                      ),
-                      child: Image.asset(
-                        awardIcons[index],
-                        width: 40,
-                        height: 40,
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ),
-            SizedBox(height: 16.0),
+          ),
+          if (widget.initialAward != null)
             Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: RoundedButton(
-                  color: orange,
+                  color: Colors.red,
                   press: () {
-                    if (selectedAward != null &&
-                        awardNameController.text.isNotEmpty) {
-                      // Save the award and the name
-                    }
+                    widget.onAwardCreated(Award(
+                      imagePath: '',
+                      title: '',
+                    ));
                   },
-                  text: "Create",
+                  text: "Remove",
                 ),
               ),
             ),
-          ],
-        ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 }

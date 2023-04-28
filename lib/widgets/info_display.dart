@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:sportshive/screens/preference_screen.dart';
+import 'package:sportshive/utils/global_variables.dart' as globals;
 
 import '../data/models/user_model.dart';
-
 
 class StatsInfo extends StatefulWidget {
   String name;
@@ -29,12 +30,10 @@ class StatsInfo extends StatefulWidget {
     this.bio = '',
   }) : super(key: key);
 
-  
-
-  
   Future<Map<String, dynamic>?> get_user_data() async {
     String userEmail = FirebaseAuth.instance.currentUser!.email!;
-    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+        .instance
         .collection('USER')
         .where('email', isEqualTo: userEmail)
         .get();
@@ -50,31 +49,31 @@ class StatsInfo extends StatefulWidget {
     }
     // return null if user with provided email does not exist
     return null;
-}
+  }
+
   @override
   _StatsInfoState createState() => _StatsInfoState();
-
 }
 
 Future<Map<String, dynamic>?> get_user_data() async {
-    String userEmail = FirebaseAuth.instance.currentUser!.email!;
-    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
-        .collection('USER')
-        .where('email', isEqualTo: userEmail)
-        .get();
-    if (querySnapshot.docs.isNotEmpty) {
-      Map<String, dynamic> user = querySnapshot.docs.first.data();
+  String userEmail = FirebaseAuth.instance.currentUser!.email!;
+  QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+      .instance
+      .collection('USER')
+      .where('email', isEqualTo: userEmail)
+      .get();
+  if (querySnapshot.docs.isNotEmpty) {
+    Map<String, dynamic> user = querySnapshot.docs.first.data();
 
-      return user;
-    }
-    // return null if user with provided email does not exist
-    return null;
+    return user;
+  }
+  // return null if user with provided email does not exist
+  return null;
 }
-
 
 class _StatsInfoState extends State<StatsInfo> {
   File? _image;
-  
+
   Future<void> _pickImage(BuildContext context) async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -82,21 +81,19 @@ class _StatsInfoState extends State<StatsInfo> {
     if (image != null) {
       setState(() {
         _image = File(image.path);
-
       });
     } else {
       print('No image selected');
     }
-    
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: get_user_data(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done ){
-          if (snapshot.hasData){
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
             Map<String, dynamic>? user_data = snapshot.data;
             return Padding(
               padding: const EdgeInsets.only(top: 16),
@@ -164,13 +161,13 @@ class _StatsInfoState extends State<StatsInfo> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          // Text(
-                          //   // Added interestedSports
-                          //   'Interested Sports: ${interestedSports.join(", ")}',
-                          //   style: TextStyle(
-                          //     fontSize: 18,
-                          //   ),
-                          // ),
+                          Text(
+                            'Sports: ${globals.selectedSports.join(", ")}',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                           const SizedBox(height: 10),
                           Text(
                             'Age: ${user_data["age"]}',
                             style: TextStyle(
@@ -222,12 +219,12 @@ class _StatsInfoState extends State<StatsInfo> {
                 ],
               ),
             );
+          } else {
+            return Center(
+              child: Text("Something went wrong"),
+            );
           }
-          else {
-            return Center(child: Text("Something went wrong"),);
-          }
-        }
-        else {
+        } else {
           return const Center(child: CircularProgressIndicator());
         }
       },

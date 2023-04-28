@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportshive/screens/create_post_screen.dart';
 import 'package:sportshive/screens/create_event_screen.dart';
+import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/utils/colors.dart';
 
 import 'create_awards_screen.dart';
@@ -80,7 +81,7 @@ class _CreatePostScreenState extends State<CreatePost> {
               () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CreateAwardsPage(),
+                  builder: (context) => WelcomeScreen(),
                 ),
               ),
             ),

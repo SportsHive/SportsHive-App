@@ -150,17 +150,17 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Column(
-                                  //   children: [
-                                  //     Text(
-                                  //       user_data.followers.toString(),
-                                  //     ),
-                                  //     SizedBox(
-                                  //       height: 10,
-                                  //     ),
-                                  //     Text("Posts")
-                                  //   ],
-                                  // ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        user_data.followers.toString(),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text("Posts")
+                                    ],
+                                  ),
                                   Column(
                                     children: [
                                       Text(
