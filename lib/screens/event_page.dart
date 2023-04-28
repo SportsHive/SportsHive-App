@@ -8,11 +8,10 @@ import 'package:sportshive/data/models/date_model.dart';
 import 'package:sportshive/data/models/event_model.dart';
 import 'package:sportshive/data/models/event_type_model.dart';
 import 'package:sportshive/data/database.dart';
+import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
 import "package:sportshive/data/repositories/event_repo.dart";
-
-import '../../data/repositories/user_repo.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({Key? key}) : super(key: key);
@@ -386,6 +385,8 @@ class PopularEventTile extends StatelessWidget {
   }
 }
 
+final userRepo = Get.put(UserRepository());
+
 _showEventDialog(BuildContext context, EventsModel event) async {
   showDialog(
     context: context,
@@ -492,55 +493,59 @@ _showEventDialog(BuildContext context, EventsModel event) async {
                               snackPosition: SnackPosition.TOP,
                               backgroundColor: Colors.redAccent.withOpacity(1),
                               colorText: Colors.black);
-                        } else if (user != null &&
-                            event.registered.contains(user.displayName)) {
+                        } else if (user == null) {
+                          Get.snackbar("Please sign in",
+                              "You need to sign in to do that",
+                              snackPosition: SnackPosition.TOP,
+                              backgroundColor: Colors.redAccent.withOpacity(1),
+                              colorText: Colors.black);
+                        } else if (event.registered
+                            .contains(userRepo.userData.username)) {
                           Get.snackbar("Couldn't register.", "You already did!",
                               snackPosition: SnackPosition.TOP,
                               backgroundColor: Colors.redAccent.withOpacity(1),
                               colorText: Colors.black);
                         } else {
                           /**in case all checks pass, actually register
-                           * does not work yet, couldnt figure out how to get docRef
                            */
 
-                          // CollectionReference colRef =
-                          //     FirebaseFirestore.instance.collection('EVENT');
+                          CollectionReference colRef =
+                              FirebaseFirestore.instance.collection('EVENT');
 
-                          // Query query = colRef
-                          //     .where('title', isEqualTo: event.title)
-                          //     .where('date', isEqualTo: event.date)
-                          //     .where('start_time', isEqualTo: event.start_time)
-                          //     .where('sport_related',
-                          //         isEqualTo: event.SportRelated);
+                          Query query = colRef
+                              .where('title', isEqualTo: event.title)
+                              .where('date', isEqualTo: event.date)
+                              .where('start_time', isEqualTo: event.start_time)
+                              .where('sport_related',
+                                  isEqualTo: event.SportRelated);
 
-                          // // Retrieve the document snapshot using the get() method
-                          // QuerySnapshot snapshot = await query.get();
+                          // get document snapshot
+                          QuerySnapshot snapshot = await query.get();
 
-                          // // Get the DocumentSnapshot object representing the document
-                          // DocumentSnapshot docSnapshot = snapshot.docs.first;
+                          // get DocumentSnapshot object representing document
+                          DocumentSnapshot docSnapshot = snapshot.docs.first;
 
-                          // // Get the DocumentReference using the reference property of the DocumentSnapshot object
-                          // DocumentReference docRef = docSnapshot.reference;
-                          // //i dont know how to continue
-                          // // event.registered.add(user!.displayName!);
-                          // List<dynamic> oldList = event.registered;
-                          // List<dynamic> registeredList =
-                          //     List<dynamic>.from(event.registered);
-                          // registeredList.add(user!.displayName!);
-                          // docRef
-                          //     .update({'registered': registeredList})
-                          //     .then((value) => Get.snackbar(
-                          //         "Registered!", "WOWOWOWOWOWOWOWOOOWOWOW",
-                          //         snackPosition: SnackPosition.TOP,
-                          //         backgroundColor:
-                          //             Colors.greenAccent.withOpacity(1),
-                          //         colorText: Colors.black))
-                          //     .catchError((error) => Get.snackbar(
-                          //         "Couldn't register.", "Failed: $error}",
-                          //         snackPosition: SnackPosition.TOP,
-                          //         backgroundColor:
-                          //             Colors.redAccent.withOpacity(1),
-                          //         colorText: Colors.black));
+                          // get DocumentReference using reference of the DocumentSnapshot object
+                          DocumentReference docRef = docSnapshot.reference;
+
+                          List<dynamic> registeredList =
+                              List<dynamic>.from(event.registered);
+                          registeredList.add(userRepo.userData.username);
+
+                          docRef
+                              .update({'registered': registeredList})
+                              .then((value) => Get.snackbar("Registered!",
+                                  "", //${event.registered} vs ${registeredList}
+                                  snackPosition: SnackPosition.TOP,
+                                  backgroundColor:
+                                      Colors.greenAccent.withOpacity(1),
+                                  colorText: Colors.black))
+                              .catchError((error) => Get.snackbar(
+                                  "Couldn't register.", "Failed: $error}",
+                                  snackPosition: SnackPosition.TOP,
+                                  backgroundColor:
+                                      Colors.redAccent.withOpacity(1),
+                                  colorText: Colors.black));
                         }
                         /**
                          * need to make Events page reload to show changes
@@ -568,22 +573,3 @@ _showEventDialog(BuildContext context, EventsModel event) async {
     },
   );
 }
-// String em = FirebaseAuth.instance.currentUser!.email!;
-//     final CollectionReference usersCollection = FirebaseFirestore.instance.collection('USER');
-//     QuerySnapshot querySnapshot = await usersCollection.where('email', isEqualTo: em).get();
-//     if (querySnapshot.docs.length > 0) {
-//       DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
-//       String documentId = documentSnapshot.id;
-//       usersCollection.doc(documentId).update({
-//         'first_name': fn,
-//         'last_name': ln,
-//         'nationality': count,
-//         'phone': pn,
-//         'age': age,
-//         'desc': about,
-//         'height': int.parse(h),
-//         'weight': int.parse(w),
-//         });
-        
-       
-//     }
