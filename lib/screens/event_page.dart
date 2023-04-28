@@ -1,17 +1,16 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportshive/data/models/date_model.dart';
 import 'package:sportshive/data/models/event_model.dart';
 import 'package:sportshive/data/models/event_type_model.dart';
 import 'package:sportshive/data/database.dart';
-import 'package:sportshive/data/repositories/auth_repo.dart';
 import 'package:sportshive/utils/colors.dart';
 import 'package:sportshive/data/repositories/user_repo.dart';
 import "package:sportshive/data/repositories/event_repo.dart";
+
+import '../../data/repositories/user_repo.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({Key? key}) : super(key: key);
@@ -185,8 +184,6 @@ class _EventsScreenState extends State<EventsScreen> {
                                                 .seats_available!,
                                             seats_registered: event_data[index]
                                                 .seats_registered!,
-                                            registered:
-                                                event_data[index].registered!,
                                           ),
                                         );
                                       }),
@@ -276,7 +273,6 @@ class PopularEventTile extends StatelessWidget {
   String imgAssetPath;
   int seats_available;
   int seats_registered;
-  List<dynamic> registered;
 
   /// later can be changed with imgUrl
   PopularEventTile({
@@ -286,7 +282,6 @@ class PopularEventTile extends StatelessWidget {
     required this.desc,
     required this.seats_available,
     required this.seats_registered,
-    required this.registered,
   });
 
   @override
@@ -362,7 +357,7 @@ class PopularEventTile extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        "${registered.length} spots registered of ${seats_available}",
+                        "${seats_registered} seats registered of ${seats_available}",
                         style:
                             const TextStyle(color: Colors.white, fontSize: 10),
                       )
@@ -385,9 +380,7 @@ class PopularEventTile extends StatelessWidget {
   }
 }
 
-final userRepo = Get.put(UserRepository());
-
-_showEventDialog(BuildContext context, EventsModel event) async {
+_showEventDialog(BuildContext context, EventsModel event) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -410,37 +403,21 @@ _showEventDialog(BuildContext context, EventsModel event) async {
                   ),
                 const SizedBox(height: 16),
                 Text(
-                  ' ${event.title!}',
+                  event.title!,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.location_on,
                       color: orange,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       event.location != null && event.location!.isNotEmpty
-                          ? ' ${event.location!}'
-                          : ' No Info',
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.calendar_today,
-                      color: orange,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      event.date != null && event.date!.isNotEmpty
-                          ? ' ${event.date!}'
+                          ? event.location!
                           : 'No Info',
                       style: const TextStyle(fontSize: 14),
                     ),
@@ -449,7 +426,23 @@ _showEventDialog(BuildContext context, EventsModel event) async {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
+                      Icons.calendar_today,
+                      color: orange,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      event.date != null && event.date!.isNotEmpty
+                          ? event.date!
+                          : 'No Info',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
                       Icons.event_seat,
                       color: orange,
                     ),
@@ -457,24 +450,8 @@ _showEventDialog(BuildContext context, EventsModel event) async {
                     Text(
                       event.seats_available != null &&
                               event.seats_registered != null
-                          ? ' Spots remaining: ${event.seats_available! - event.registered.length!} out of ${event.seats_available}'
-                          : ' No Info',
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-                //VIEW REGISTERED PEOPLE
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.groups,
-                      color: orange,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      (event.registered.isEmpty)
-                          ? " Be the first to register!"
-                          : ' ${event.registered.join(", ")}',
+                          ? 'Spots remaining: ${event.seats_available! - event.seats_registered!}'
+                          : 'No Info',
                       style: const TextStyle(fontSize: 14),
                     ),
                   ],
@@ -484,73 +461,8 @@ _showEventDialog(BuildContext context, EventsModel event) async {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () async {
+                      onPressed: () {
                         // add your registration logic here
-                        User? user = FirebaseAuth.instance.currentUser;
-                        if (event.seats_available! <= event.registered.length) {
-                          Get.snackbar(
-                              "Couldn't register.", "No more seats left!",
-                              snackPosition: SnackPosition.TOP,
-                              backgroundColor: Colors.redAccent.withOpacity(1),
-                              colorText: Colors.black);
-                        } else if (user == null) {
-                          Get.snackbar("Please sign in",
-                              "You need to sign in to do that",
-                              snackPosition: SnackPosition.TOP,
-                              backgroundColor: Colors.redAccent.withOpacity(1),
-                              colorText: Colors.black);
-                        } else if (event.registered
-                            .contains(userRepo.userData.username)) {
-                          Get.snackbar("Couldn't register.", "You already did!",
-                              snackPosition: SnackPosition.TOP,
-                              backgroundColor: Colors.redAccent.withOpacity(1),
-                              colorText: Colors.black);
-                        } else {
-                          /**in case all checks pass, actually register
-                           */
-
-                          CollectionReference colRef =
-                              FirebaseFirestore.instance.collection('EVENT');
-
-                          Query query = colRef
-                              .where('title', isEqualTo: event.title)
-                              .where('date', isEqualTo: event.date)
-                              .where('start_time', isEqualTo: event.start_time)
-                              .where('sport_related',
-                                  isEqualTo: event.SportRelated);
-
-                          // get document snapshot
-                          QuerySnapshot snapshot = await query.get();
-
-                          // get DocumentSnapshot object representing document
-                          DocumentSnapshot docSnapshot = snapshot.docs.first;
-
-                          // get DocumentReference using reference of the DocumentSnapshot object
-                          DocumentReference docRef = docSnapshot.reference;
-
-                          List<dynamic> registeredList =
-                              List<dynamic>.from(event.registered);
-                          registeredList.add(userRepo.userData.username);
-
-                          docRef
-                              .update({'registered': registeredList})
-                              .then((value) => Get.snackbar("Registered!",
-                                  "", //${event.registered} vs ${registeredList}
-                                  snackPosition: SnackPosition.TOP,
-                                  backgroundColor:
-                                      Colors.greenAccent.withOpacity(1),
-                                  colorText: Colors.black))
-                              .catchError((error) => Get.snackbar(
-                                  "Couldn't register.", "Failed: $error}",
-                                  snackPosition: SnackPosition.TOP,
-                                  backgroundColor:
-                                      Colors.redAccent.withOpacity(1),
-                                  colorText: Colors.black));
-                        }
-                        /**
-                         * need to make Events page reload to show changes
-                         */
-
                         Navigator.of(context).pop();
                       },
                       child: const Text('Register'),
