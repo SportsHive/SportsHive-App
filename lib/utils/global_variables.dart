@@ -1,3 +1,7 @@
+
+library sportshive.globals;
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -13,6 +17,9 @@ import 'package:sportshive/data/repositories/auth_repo.dart';
 import '../screens/profile_screen.dart';
 import '../screens/search_screen.dart';
 
+
+
+
 const webScreenSize = 600;
 
 const homeScreenItems = [
@@ -22,7 +29,7 @@ const homeScreenItems = [
   ProfileScreen(),
 ];
 
-
+List<String> selectedSports = [];
 
 
 String desiredProfileUsername = SelectedUser.username;

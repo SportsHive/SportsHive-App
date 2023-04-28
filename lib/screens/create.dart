@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportshive/screens/create_post_screen.dart';
 import 'package:sportshive/screens/create_event_screen.dart';
+import 'package:sportshive/screens/welcome_screen.dart';
 import 'package:sportshive/utils/colors.dart';
 
 import 'create_awards_screen.dart';
@@ -74,16 +75,16 @@ class _CreatePostScreenState extends State<CreatePost> {
               ),
             ),
             SizedBox(height: 40),
-            // _buildElevatedButton(
-            //   'Add an Award',
-            //   Icons.add,
-            //   () => Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => CreateAwardsPage(),
-            //     ),
-            //   ),
-            // ),
+            _buildElevatedButton(
+              'Add an Award',
+              Icons.add,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WelcomeScreen(),
+                ),
+              ),
+            ),
           ],
         ),
       ),
