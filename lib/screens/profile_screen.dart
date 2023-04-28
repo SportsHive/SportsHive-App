@@ -19,14 +19,9 @@ import 'package:sportshive/screens/popup_page.dart';
 
 import '../widgets/award_display.dart';
 import '../widgets/info_display.dart';
+import '../widgets/posts_widget.dart';
 
-class PostWidget extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text("PostWidget"));
-  }
-}
 
 class ProfileScreen extends StatefulWidget {
   
@@ -43,7 +38,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget _buildSelectedContent() {
     switch (_selectedIndex) {
       case 0:
-        return PostWidget(); // Replace with your actual PostWidget
+        return PostsWidget(); 
       case 1:
         return AwardsWidget(); 
       case 2:
