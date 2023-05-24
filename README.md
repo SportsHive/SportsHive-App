@@ -1,6 +1,15 @@
 # Sportshive
+SportsHive, is an app intended to enable a large social network on the internet where athletes and sport enthusiasts can find, connect and strengthen their passion for sports.
 
-FOR sports enthusiast WHO are trying to expand their athletic potential, SportsHive is a mobile application software, THAT enables a large social network on the internet where athletes and sport enthusiasts can find, connect and strengthen their passion for sports. OUR PRODUCT is free and accessible for anyone who is related to any field in the sports world!
+## Features
+ Users Can
+  1- Create accounts that personalize their feed based on their sports interest
+  2- Sporting events can be hosted and athletes can apply to fill in the position
+  3- Customize their profiles, including play experiecne, stats, and add awards
+  4- Users can post pictures of any sport related content they experience
+  5- Connect with users who are interested in the same sport as you!
 
-## More details later...
+## Tour
+<img src="./demo.gif" alt="Tour of SportsHive"/>
+
 
