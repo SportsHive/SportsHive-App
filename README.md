@@ -14,9 +14,9 @@ SportsHive, is an app intended to enable a large social network on the internet 
 
 ## Members
 ### Frontend Team
-Mohammad Mahdi Bdeir (mfb28@mail.aub.edu)
-Elie Estephan (eje10@mail.aub.edu)
+* Mohammad Mahdi Bdeir (mfb28@mail.aub.edu)
+* Elie Estephan (eje10@mail.aub.edu)
 
 ### Backend Team
-Mehdi Fawaz (maf63@mail.aub.edu)
-Maruice Salameh (mts19@mail.aub.edu)
+* Mehdi Fawaz (maf63@mail.aub.edu)
+* Maruice Salameh (mts19@mail.aub.edu)
